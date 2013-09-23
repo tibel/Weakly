@@ -36,12 +36,17 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\OpenAction.cs" />
+    <Compile Include="Delegates\OpenFunc.cs" />
+    <Compile Include="Delegates\WeakDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WeakCollection.cs" />
-    <Compile Include="WeakEventHandler.cs" />
-    <Compile Include="WeakEventSource.cs" />
+    <Compile Include="Delegates\WeakAction.cs" />
+    <Compile Include="Collections\WeakCollection.cs" />
+    <Compile Include="Events\WeakEventHandler.cs" />
+    <Compile Include="Events\WeakEventSource.cs" />
+    <Compile Include="Delegates\WeakFunc.cs" />
     <Compile Include="WeakReference.cs" />
-    <Compile Include="WeakValueDictionary.cs" />
+    <Compile Include="Collections\WeakValueDictionary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
