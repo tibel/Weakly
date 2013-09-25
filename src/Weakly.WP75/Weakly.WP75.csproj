@@ -50,6 +50,9 @@
     <Compile Include="..\Weakly\Collections\WeakValueDictionary.cs">
       <Link>Collections\WeakValueDictionary.cs</Link>
     </Compile>
+    <None Include="..\Weakly\Delegates\DynamicDelegate.cs">
+      <Link>Delegates\DynamicDelegate.cs</Link>
+    </None>
     <Compile Include="..\Weakly\Delegates\OpenAction.cs">
       <Link>Delegates\OpenAction.cs</Link>
     </Compile>
