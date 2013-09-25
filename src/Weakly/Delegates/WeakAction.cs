@@ -15,9 +15,8 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action action)
-            : base(action.Target, action.Method.MethodHandle)
+            : this(action.Target, action.Method)
         {
-            _openAction = OpenAction.From(action.Method);
         }
 
         /// <summary>
@@ -55,9 +54,8 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T> action)
-            : base(action.Target, action.Method.MethodHandle)
+            : this(action.Target, action.Method)
         {
-            _openAction = OpenAction.From<T>(action.Method);
         }
 
         /// <summary>
@@ -97,9 +95,8 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2> action)
-            : base(action.Target, action.Method.MethodHandle)
+            : this(action.Target, action.Method)
         {
-            _openAction = OpenAction.From<T1, T2>(action.Method);
         }
 
         /// <summary>
@@ -141,9 +138,8 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2, T3> action)
-            : base(action.Target, action.Method.MethodHandle)
+            : this(action.Target, action.Method)
         {
-            _openAction = OpenAction.From<T1, T2, T3>(action.Method);
         }
 
         /// <summary>

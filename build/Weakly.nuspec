@@ -13,11 +13,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
     <copyright>Copyright Thomas Ibel 2013</copyright>
-    <tags>WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource</tags>
+    <tags>WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource DynamicDelegate</tags>
   </metadata>
 
   <files>
-    <file src="..\bin\Release\Weakly.*" target="lib\portable-net40-sl4-win8-wp8" />
-    <file src="..\bin\Release\wp75\Weakly.*" target="lib\portable-net40-sl4-win8-wp71" />
+    <file src="..\bin\Release\Weakly.*" target="lib\portable-net40+sl4+win8+wp8" />
+    <file src="..\bin\Release\wp75\Weakly.*" target="lib\portable-net40+sl4+win8+wp71" />
   </files>
 </package>

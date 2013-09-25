@@ -1,6 +1,6 @@
 # Weakly
 
-Weakly is a collection of some useful weak-reference types available as portable class library for **net40+sl4+wp7+win8** and available through nuget.
+Weakly is a collection of some useful weak-reference types available as portable class library for **net40+sl4+win8+wp71** and available through nuget.
 
 ## Install 
 Weakly is available through NuGet:
@@ -21,3 +21,4 @@ Weakly is available through NuGet:
 ### Delegates
 * WeakAction to WeakAction&lt;T1, T2, T3&gt;
 * WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, TResult&gt;
+* DynamicDelegate (not for WP7.5)

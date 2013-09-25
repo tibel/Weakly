@@ -16,9 +16,8 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<TResult> function)
-            : base(function.Target, function.Method.MethodHandle)
+            : this(function.Target, function.Method)
         {
-            _openFunc = OpenFunc.From<TResult>(function.Method);
         }
 
         /// <summary>
@@ -59,9 +58,8 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T, TResult> function)
-            : base(function.Target, function.Method.MethodHandle)
+            : this(function.Target, function.Method)
         {
-            _openFunc = OpenFunc.From<T, TResult>(function.Method);
         }
 
         /// <summary>
@@ -104,9 +102,8 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, TResult> function)
-            : base(function.Target, function.Method.MethodHandle)
+            : this(function.Target, function.Method)
         {
-            _openFunc = OpenFunc.From<T1, T2, TResult>(function.Method);
         }
 
         /// <summary>
@@ -151,9 +148,8 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, T3, TResult> function)
-            : base(function.Target, function.Method.MethodHandle)
+            : this(function.Target, function.Method)
         {
-            _openFunc = OpenFunc.From<T1, T2, T3, TResult>(function.Method);
         }
 
         /// <summary>
