@@ -6,7 +6,7 @@ namespace Weakly
     /// <summary>
     /// Helper for all open delegates.
     /// </summary>
-    public static class OpenDelegate
+    internal static class OpenDelegate
     {
         internal static class Cache
         {
