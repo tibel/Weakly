@@ -3,9 +3,9 @@
   <metadata>
     <id>Weakly</id>
     <title>Weakly</title>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
     <authors>Thomas Ibel</authors>
-    <description>Weakly is a collection of some useful weak-reference types.</description>
+    <description>Weakly is a collection of some useful weak-reference types available as portable class library for net40+sl5+win8+wp8.</description>
     <language>en-US</language>
     <licenseUrl>https://raw.github.com/tibel/Weakly/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/tibel/Weakly</projectUrl>
@@ -17,7 +17,6 @@
   </metadata>
 
   <files>
-    <file src="..\bin\Release\Weakly.*" target="lib\portable-net40+sl4+win8+wp8" />
-    <file src="..\bin\Release\wp75\Weakly.*" target="lib\wp71" />
+    <file src="..\bin\Release\Weakly.*" target="lib\portable-net40+sl5+win8+wp8" />
   </files>
 </package>
