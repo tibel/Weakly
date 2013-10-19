@@ -14,6 +14,7 @@
                     <TextBlock Margin="0,5" Foreground="Gray" TextWrapping="Wrap">Weakly can call private static and instance methods on Silverlight, by compiling an Expression tree.</TextBlock>
                     <Button Content="WeakAction and WeakFunc" Click="OnWeakActionAndWeakFunc" />
                     <Button Content="DynamicDelegate" Click="OnDynamicDelegate" />
+                    <Button Content="WeakEventHandler" Click="OnWeakEventHandler" />
                 </StackPanel>
             </Border>
         </StackPanel>

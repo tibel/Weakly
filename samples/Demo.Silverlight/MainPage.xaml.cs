@@ -74,5 +74,10 @@ namespace Demo.Silverlight
                 MessageBox.Show(ex.Message, methodName, MessageBoxButton.OK);
             }
         }
+
+        private void OnWeakEventHandler(object sender, RoutedEventArgs e)
+        {
+            //TODO: add impementation
+        }
     }
 }

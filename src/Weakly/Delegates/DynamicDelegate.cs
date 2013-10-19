@@ -10,6 +10,8 @@ namespace Weakly
     /// </summary>
     public static class DynamicDelegate
     {
+        private static readonly GenericMethodCache<Func<object, object[], object>> Cache = new GenericMethodCache<Func<object, object[], object>>();
+
         /// <summary>
         /// Create a dynamic delegate from the specified method.
         /// </summary>
@@ -83,32 +85,5 @@ namespace Weakly
                     Expression.Constant(length, typeof (int))),
                 Expression.Throw(Expression.Constant(new TargetParameterCountException())));
         }
-
-        #region Inner Types
-
-        private static class Cache
-        {
-            private static readonly IDictionary<RuntimeMethodHandle, Func<object, object[], object>> Storage = new Dictionary<RuntimeMethodHandle, Func<object, object[], object>>();
-
-            public static Func<object, object[], object> GetValueOrNull(RuntimeMethodHandle key)
-            {
-                Func<object, object[], object> func;
-                lock (Storage)
-                {
-                    Storage.TryGetValue(key, out func);
-                }
-                return func;
-            }
-
-            public static void AddOrReplace(RuntimeMethodHandle key, Func<object, object[], object> func)
-            {
-                lock (Storage)
-                {
-                    Storage[key] = func;
-                }
-            }
-        }
-
-        #endregion
     }
 }

@@ -9,6 +9,8 @@ namespace Weakly
     /// </summary>
     public static class OpenAction
     {
+        private static readonly GenericMethodCache<Delegate> Cache = new GenericMethodCache<Delegate>();
+
         /// <summary>
         /// Create an open delegate from the specified method.
         /// </summary>
@@ -16,10 +18,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object> From(MethodInfo method)
         {
-            var action = OpenDelegate.Cache.GetValueOrNull<Action<object>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object>>(method.MethodHandle);
             if (action != null) return action;
             action = CompileAction(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method.MethodHandle, action);
             return action;
         }
 
@@ -40,10 +42,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T> From<T>(MethodInfo method)
         {
-            var action = OpenDelegate.Cache.GetValueOrNull<Action<object, T>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T>>(method.MethodHandle);
             if (action != null) return action;
             action = CompileAction<T>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method.MethodHandle, action);
             return action;
         }
 
@@ -66,10 +68,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2> From<T1, T2>(MethodInfo method)
         {
-            var action = OpenDelegate.Cache.GetValueOrNull<Action<object, T1, T2>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2>>(method.MethodHandle);
             if (action != null) return action;
             action = CompileAction<T1, T2>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method.MethodHandle, action);
             return action;
         }
 
@@ -94,10 +96,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3> From<T1, T2, T3>(MethodInfo method)
         {
-            var action = OpenDelegate.Cache.GetValueOrNull<Action<object, T1, T2, T3>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3>>(method.MethodHandle);
             if (action != null) return action;
             action = CompileAction<T1, T2, T3>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method.MethodHandle, action);
             return action;
         }
 

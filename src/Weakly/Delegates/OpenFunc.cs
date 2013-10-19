@@ -9,6 +9,8 @@ namespace Weakly
     /// </summary>
     public static class OpenFunc
     {
+        private static readonly GenericMethodCache<Delegate> Cache = new GenericMethodCache<Delegate>();
+
         /// <summary>
         /// Create an open delegate from the specified method.
         /// </summary>
@@ -17,10 +19,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, TResult> From<TResult>(MethodInfo method)
         {
-            var func = OpenDelegate.Cache.GetValueOrNull<Func<object, TResult>>(method.MethodHandle);
+            var func = Cache.GetValueOrNull<Func<object, TResult>>(method.MethodHandle);
             if (func != null) return func;
             func = CompileFunc<TResult>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, func);
+            Cache.AddOrReplace(method.MethodHandle, func);
             return func;
         }
 
@@ -42,10 +44,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, T, TResult> From<T, TResult>(MethodInfo method)
         {
-            var func = OpenDelegate.Cache.GetValueOrNull<Func<object, T, TResult>>(method.MethodHandle);
+            var func = Cache.GetValueOrNull<Func<object, T, TResult>>(method.MethodHandle);
             if (func != null) return func;
             func = CompileFunc<T, TResult>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, func);
+            Cache.AddOrReplace(method.MethodHandle, func);
             return func;
         }
 
@@ -69,10 +71,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, T1, T2, TResult> From<T1, T2, TResult>(MethodInfo method)
         {
-            var func = OpenDelegate.Cache.GetValueOrNull<Func<object, T1, T2, TResult>>(method.MethodHandle);
+            var func = Cache.GetValueOrNull<Func<object, T1, T2, TResult>>(method.MethodHandle);
             if (func != null) return func;
             func = CompileFunc<T1, T2, TResult>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, func);
+            Cache.AddOrReplace(method.MethodHandle, func);
             return func;
         }
 
@@ -98,10 +100,10 @@ namespace Weakly
         /// <returns>The open delegate</returns>
         public static Func<object, T1, T2, T3, TResult> From<T1, T2, T3, TResult>(MethodInfo method)
         {
-            var func = OpenDelegate.Cache.GetValueOrNull<Func<object, T1, T2, T3, TResult>>(method.MethodHandle);
+            var func = Cache.GetValueOrNull<Func<object, T1, T2, T3, TResult>>(method.MethodHandle);
             if (func != null) return func;
             func = CompileFunc<T1, T2, T3, TResult>(method);
-            OpenDelegate.Cache.AddOrReplace(method.MethodHandle, func);
+            Cache.AddOrReplace(method.MethodHandle, func);
             return func;
         }
 
