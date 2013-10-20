@@ -23,6 +23,6 @@ Weakly is available through NuGet:
 * WeakEventSource&lt;TEventArgs&gt;
 
 ### Delegates
-* WeakAction to WeakAction&lt;T1, T2, T3, T4, T5&gt;
-* WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;
+* WeakAction to WeakAction&lt;T1, T2, T3&gt;
+* WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, TResult&gt;
 * DynamicDelegate (compiled version of MethodInfo.Invoke)
