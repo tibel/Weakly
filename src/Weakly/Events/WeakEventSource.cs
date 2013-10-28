@@ -98,7 +98,7 @@ namespace Weakly
                     var entry = _eventHandlerEntries[i];
                     var target = entry.Target;
 
-                    if (target == d.Target && entry.MethodHandle == d.Method.MethodHandle)
+                    if (target == d.Target && entry.Method.MethodHandle == d.Method.MethodHandle)
                     {
                         _eventHandlerEntries.RemoveAt(i);
                         break;

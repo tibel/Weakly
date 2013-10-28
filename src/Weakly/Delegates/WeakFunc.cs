@@ -26,7 +26,7 @@ namespace Weakly
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
         /// <param name="method">The method represented by the delegate.</param>
         public WeakFunc(object target, MethodInfo method)
-            : base(target, method.MethodHandle)
+            : base(target, method)
         {
             _openFunc = OpenFunc.From<TResult>(method);
         }
@@ -68,7 +68,7 @@ namespace Weakly
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
         /// <param name="method">The method represented by the delegate.</param>
         public WeakFunc(object target, MethodInfo method)
-            : base(target, method.MethodHandle)
+            : base(target, method)
         {
             _openFunc = OpenFunc.From<T, TResult>(method);
         }
@@ -112,7 +112,7 @@ namespace Weakly
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
         /// <param name="method">The method represented by the delegate.</param>
         public WeakFunc(object target, MethodInfo method)
-            : base(target, method.MethodHandle)
+            : base(target, method)
         {
             _openFunc = OpenFunc.From<T1, T2, TResult>(method);
         }
@@ -158,7 +158,7 @@ namespace Weakly
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
         /// <param name="method">The method represented by the delegate.</param>
         public WeakFunc(object target, MethodInfo method)
-            : base(target, method.MethodHandle)
+            : base(target, method)
         {
             _openFunc = OpenFunc.From<T1, T2, T3, TResult>(method);
         }

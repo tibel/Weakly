@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Weakly
 {
@@ -8,17 +9,17 @@ namespace Weakly
     public abstract class WeakDelegate
     {
         private readonly WeakReference _instance;
-        private readonly RuntimeMethodHandle _methodHandle;
+        private readonly MethodInfo _method;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakDelegate"/> class.
         /// </summary>
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
-        /// <param name="methodHandle">The method handle represented by the delegate.</param>
-        protected WeakDelegate(object target, RuntimeMethodHandle methodHandle)
+        /// <param name="method">The method represented by the delegate.</param>
+        protected WeakDelegate(object target, MethodInfo method)
         {
             _instance = new WeakReference(target);
-            _methodHandle = methodHandle;
+            _method = method;
         }
 
         /// <summary>
@@ -38,11 +39,11 @@ namespace Weakly
         }
 
         /// <summary>
-        /// Gets the method handle represented by this delegate.
+        /// Gets the method represented by this delegate.
         /// </summary>
-        public RuntimeMethodHandle MethodHandle
+        public MethodInfo Method
         {
-            get { return _methodHandle; }
+            get { return _method; }
         }
     }
 }
