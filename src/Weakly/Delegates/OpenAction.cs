@@ -18,10 +18,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object> From(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object>>(method);
             if (action != null) return action;
             action = CompileAction(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
@@ -42,10 +42,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T> From<T>(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object, T>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T>>(method);
             if (action != null) return action;
             action = CompileAction<T>(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
@@ -68,10 +68,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2> From<T1, T2>(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object, T1, T2>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2>>(method);
             if (action != null) return action;
             action = CompileAction<T1, T2>(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
@@ -96,10 +96,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3> From<T1, T2, T3>(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3>>(method);
             if (action != null) return action;
             action = CompileAction<T1, T2, T3>(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
@@ -126,10 +126,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3, T4> From<T1, T2, T3, T4>(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3, T4>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3, T4>>(method);
             if (action != null) return action;
             action = CompileAction<T1, T2, T3, T4>(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
@@ -158,10 +158,10 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3, T4, T5> From<T1, T2, T3, T4, T5>(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3, T4, T5>>(method.MethodHandle);
+            var action = Cache.GetValueOrNull<Action<object, T1, T2, T3, T4, T5>>(method);
             if (action != null) return action;
             action = CompileAction<T1, T2, T3, T4, T5>(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 

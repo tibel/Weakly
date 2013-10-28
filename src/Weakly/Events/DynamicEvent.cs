@@ -33,10 +33,10 @@ namespace Weakly
 
         private static Action<object, Delegate> GetEventMethod(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull(method.MethodHandle);
+            var action = Cache.GetValueOrNull(method);
             if (action != null) return action;
             action = CompileEventMethod(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 

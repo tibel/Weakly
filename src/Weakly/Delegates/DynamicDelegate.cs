@@ -19,10 +19,10 @@ namespace Weakly
         /// <returns>The dynamic delegate.</returns>
         public static Func<object, object[], object> From(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull(method.MethodHandle);
+            var action = Cache.GetValueOrNull(method);
             if (action != null) return action;
             action = CompileFunction(method);
-            Cache.AddOrReplace(method.MethodHandle, action);
+            Cache.AddOrReplace(method, action);
             return action;
         }
 
