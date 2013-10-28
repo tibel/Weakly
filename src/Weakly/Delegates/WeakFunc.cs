@@ -9,8 +9,6 @@ namespace Weakly
     /// <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakFunc<TResult> : WeakDelegate
     {
-        private readonly Func<object, TResult> _openFunc;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakFunc&lt;TResult&gt;"/> class.
         /// </summary>
@@ -28,7 +26,6 @@ namespace Weakly
         public WeakFunc(object target, MethodInfo method)
             : base(target, method)
         {
-            _openFunc = OpenFunc.From<TResult>(method);
         }
 
         /// <summary>
@@ -39,7 +36,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return _openFunc(target);
+                return OpenFunc.From<TResult>(Method)(target);
             return default(TResult);
         }
     }
@@ -51,8 +48,6 @@ namespace Weakly
     /// <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakFunc<T, TResult> : WeakDelegate
     {
-        private readonly Func<object, T, TResult> _openFunc;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakFunc&lt;T, TResult&gt;"/> class.
         /// </summary>
@@ -70,7 +65,6 @@ namespace Weakly
         public WeakFunc(object target, MethodInfo method)
             : base(target, method)
         {
-            _openFunc = OpenFunc.From<T, TResult>(method);
         }
 
         /// <summary>
@@ -82,7 +76,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return _openFunc(target, obj);
+                return OpenFunc.From<T, TResult>(Method)(target, obj);
             return default(TResult);
         }
     }
@@ -95,8 +89,6 @@ namespace Weakly
     /// <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakFunc<T1, T2, TResult> : WeakDelegate
     {
-        private readonly Func<object, T1, T2, TResult> _openFunc;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakFunc&lt;T1, T2, TResult&gt;"/> class.
         /// </summary>
@@ -114,7 +106,6 @@ namespace Weakly
         public WeakFunc(object target, MethodInfo method)
             : base(target, method)
         {
-            _openFunc = OpenFunc.From<T1, T2, TResult>(method);
         }
 
         /// <summary>
@@ -127,7 +118,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return _openFunc(target, arg1, arg2);
+                return OpenFunc.From<T1, T2, TResult>(Method)(target, arg1, arg2);
             return default(TResult);
         }
     }
@@ -141,8 +132,6 @@ namespace Weakly
     /// <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakFunc<T1, T2, T3, TResult> : WeakDelegate
     {
-        private readonly Func<object, T1, T2, T3, TResult> _openFunc;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakFunc&lt;T1, T2, T3, TResult&gt;"/> class.
         /// </summary>
@@ -160,7 +149,6 @@ namespace Weakly
         public WeakFunc(object target, MethodInfo method)
             : base(target, method)
         {
-            _openFunc = OpenFunc.From<T1, T2, T3, TResult>(method);
         }
 
         /// <summary>
@@ -174,7 +162,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return _openFunc(target, arg1, arg2, arg3);
+                return OpenFunc.From<T1, T2, T3, TResult>(Method)(target, arg1, arg2, arg3);
             return default(TResult);
         }
     }

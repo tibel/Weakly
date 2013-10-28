@@ -8,8 +8,6 @@ namespace Weakly
     /// </summary>
     public sealed class WeakAction : WeakDelegate
     {
-        private readonly Action<object> _openAction;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakAction"/> class.
         /// </summary>
@@ -27,7 +25,6 @@ namespace Weakly
         public WeakAction(object target, MethodInfo method)
             : base(target, method)
         {
-            _openAction = OpenAction.From(method);
         }
 
         /// <summary>
@@ -37,7 +34,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                _openAction(target);
+                OpenAction.From(Method)(target);
         }
     }
 
@@ -47,8 +44,6 @@ namespace Weakly
     /// <typeparam name="T">The parameter of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakAction<T> : WeakDelegate
     {
-        private readonly Action<object, T> _openAction;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakAction&lt;T&gt;"/> class.
         /// </summary>
@@ -66,7 +61,6 @@ namespace Weakly
         public WeakAction(object target, MethodInfo method)
             : base(target, method)
         {
-            _openAction = OpenAction.From<T>(method);
         }
 
         /// <summary>
@@ -77,7 +71,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                _openAction(target, obj);
+                OpenAction.From<T>(Method)(target, obj);
         }
     }
 
@@ -88,8 +82,6 @@ namespace Weakly
     /// <typeparam name="T2">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakAction<T1, T2> : WeakDelegate
     {
-        private readonly Action<object, T1, T2> _openAction;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakAction&lt;T1, T2&gt;"/> class.
         /// </summary>
@@ -107,7 +99,6 @@ namespace Weakly
         public WeakAction(object target, MethodInfo method)
             : base(target, method)
         {
-            _openAction = OpenAction.From<T1, T2>(method);
         }
 
         /// <summary>
@@ -119,7 +110,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                _openAction(target, arg1, arg2);
+                OpenAction.From<T1, T2>(Method)(target, arg1, arg2);
         }
     }
 
@@ -131,8 +122,6 @@ namespace Weakly
     /// <typeparam name="T3">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
     public sealed class WeakAction<T1, T2, T3> : WeakDelegate
     {
-        private readonly Action<object, T1, T2, T3> _openAction;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WeakAction&lt;T1, T2, T3&gt;"/> class.
         /// </summary>
@@ -150,7 +139,6 @@ namespace Weakly
         public WeakAction(object target, MethodInfo method)
             : base(target, method)
         {
-            _openAction = OpenAction.From<T1, T2, T3>(method);
         }
 
         /// <summary>
@@ -163,7 +151,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                _openAction(target, arg1, arg2, arg3);
+                OpenAction.From<T1, T2, T3>(Method)(target, arg1, arg2, arg3);
         }
     }
 }
