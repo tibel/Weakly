@@ -75,9 +75,23 @@ namespace Demo.Silverlight
             }
         }
 
+        private bool _weakEventRegistered;
+
         private void OnWeakEventHandler(object sender, RoutedEventArgs e)
         {
-            //TODO: add impementation
+            if (!_weakEventRegistered)
+            {
+                _weakEventRegistered = true;
+                var eventInfo = sender.GetType().GetEvent("Click");
+                DynamicWeakEventHandler.Register<RoutedEventArgs>(sender, eventInfo, OnWeak);
+
+                MessageBox.Show("Weak handler registered. Click again to test it.", "Weak Handler", MessageBoxButton.OK);
+            }
+        }
+
+        private void OnWeak(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Hello from weak handler", "Weak Handler", MessageBoxButton.OK);
         }
     }
 }
