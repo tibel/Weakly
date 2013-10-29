@@ -82,8 +82,7 @@ namespace Demo.Silverlight
             if (!_weakEventRegistered)
             {
                 _weakEventRegistered = true;
-                var eventInfo = sender.GetType().GetEvent("Click");
-                DynamicWeakEventHandler.Register<RoutedEventArgs>(sender, eventInfo, OnWeak);
+                WeakEventHandler.Register<RoutedEventArgs>(sender, "Click", OnWeak);
 
                 MessageBox.Show("Weak handler registered. Click again to test it.", "Weak Handler", MessageBoxButton.OK);
             }
