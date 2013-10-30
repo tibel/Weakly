@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Weakly
 {
     /// <summary>
-    /// Helper methods to register or unregister an eveht handler using reflection.
+    /// Helper methods to register or unregister an event handler using reflection.
     /// </summary>
     public static class DynamicEvent
     {
