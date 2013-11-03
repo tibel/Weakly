@@ -152,17 +152,33 @@ namespace Weakly
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Contains(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotSupportedException();
+            TValue value;
+            if (!TryGetValue(item.Key, out value))
+                return false;
+
+            return value == item.Value;
         }
 
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            throw new NotSupportedException();
+            if (array == null)
+                throw new ArgumentNullException("array");
+            if (arrayIndex < 0 || arrayIndex >= array.Length)
+                throw new ArgumentOutOfRangeException("arrayIndex");
+            if ((arrayIndex + Count) > array.Length)
+                throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
+
+            this.ToArray().CopyTo(array, arrayIndex);
         }
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
         {
-            throw new NotSupportedException();
+            TValue value;
+            if (!TryGetValue(item.Key, out value))
+                return false;
+            if (value != item.Value)
+                return false;
+            return _inner.Remove(item.Key);
         }
 
         /// <summary>
@@ -325,12 +341,19 @@ namespace Weakly
 
             bool ICollection<TValue>.Contains(TValue item)
             {
-                throw new NotSupportedException();
+                return _inner.Any(pair => pair.Value == item);
             }
 
             public void CopyTo(TValue[] array, int arrayIndex)
             {
-                throw new NotSupportedException();
+                if (array == null)
+                    throw new ArgumentNullException("array");
+                if (arrayIndex < 0 || arrayIndex >= array.Length)
+                    throw new ArgumentOutOfRangeException("arrayIndex");
+                if ((arrayIndex + Count) > array.Length)
+                    throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
+
+                this.ToArray().CopyTo(array, arrayIndex);
             }
 
             bool ICollection<TValue>.Remove(TValue item)

@@ -125,7 +125,8 @@ namespace Weakly
         /// <returns>true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.</returns>
         public bool Contains(T item)
         {
-            throw new NotSupportedException();
+            CleanIfNeeded();
+            return _inner.Any(w => w.Target == item);
         }
 
         /// <summary>
@@ -135,7 +136,14 @@ namespace Weakly
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotSupportedException();
+            if (array == null)
+                throw new ArgumentNullException("array");
+            if (arrayIndex < 0 || arrayIndex >= array.Length)
+                throw new ArgumentOutOfRangeException("arrayIndex");
+            if ((arrayIndex + Count) > array.Length)
+                throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
+
+            this.ToArray().CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -145,7 +153,18 @@ namespace Weakly
         /// <returns>true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.</returns>
         public bool Remove(T item)
         {
-            throw new NotSupportedException();
+            CleanIfNeeded();
+
+            for (var i = 0; i < _inner.Count; i++)
+            {
+                if (_inner[i].Target == item)
+                {
+                    _inner.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
