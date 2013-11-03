@@ -3,7 +3,7 @@
   <metadata>
     <id>Weakly</id>
     <title>Weakly</title>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <authors>Thomas Ibel</authors>
     <description>Weakly is a collection of some useful weak-reference types available as portable class library for net40+sl5+win8+wp8.</description>
     <language>en-US</language>
