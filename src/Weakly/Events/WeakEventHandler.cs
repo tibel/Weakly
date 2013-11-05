@@ -17,7 +17,6 @@ namespace Weakly
         /// <param name="handler">The handler to register.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable Register<TEventArgs>(object eventSource, string eventName, Action<object, TEventArgs> handler)
-            where TEventArgs : EventArgs
         {
             if (eventSource == null)
                 throw new ArgumentNullException("eventSource");
@@ -37,7 +36,6 @@ namespace Weakly
         /// <param name="handler">The handler to register.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable Register<TEventArgs>(Type sourceType, string eventName, Action<object, TEventArgs> handler)
-            where TEventArgs : EventArgs
         {
             if (sourceType == null)
                 throw new ArgumentNullException("sourceType");
@@ -57,7 +55,6 @@ namespace Weakly
         /// <param name="handler">The handler to register.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable Register<TEventArgs>(object eventSource, EventInfo eventInfo, Action<object, TEventArgs> handler)
-            where TEventArgs : EventArgs
         {
             if (eventInfo == null)
                 throw new ArgumentNullException("eventInfo");
@@ -78,7 +75,6 @@ namespace Weakly
         #region Inner Types
 
         private sealed class WeakEventHandlerImpl<TEventArgs> : IDisposable
-            where TEventArgs : EventArgs
         {
             private readonly WeakReference _source;
             private readonly WeakReference _target;
