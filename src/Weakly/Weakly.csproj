@@ -47,6 +47,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coroutines\ContinueCoTaskDecorator.cs" />
+    <Compile Include="Coroutines\Coroutine.cs" />
+    <Compile Include="Coroutines\CoroutineExecutionContext.cs" />
+    <Compile Include="Coroutines\CoTask.cs" />
+    <Compile Include="Coroutines\CoTaskCompletedEventArgs.cs" />
+    <Compile Include="Coroutines\CoTaskDecorator.cs" />
+    <Compile Include="Coroutines\DelegateCoTask.cs" />
+    <Compile Include="Coroutines\ICoTask.cs" />
+    <Compile Include="Coroutines\OverrideCancelCoTaskDecorator.cs" />
+    <Compile Include="Coroutines\RescueCoTaskDecorator.cs" />
+    <Compile Include="Coroutines\SequentialCoTask.cs" />
+    <Compile Include="Coroutines\SimpleCoTask.cs" />
+    <Compile Include="Coroutines\TaskDecoratorCoTask.cs" />
     <Compile Include="Delegates\DynamicDelegate.cs" />
     <Compile Include="Delegates\GenericMethodCache.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
