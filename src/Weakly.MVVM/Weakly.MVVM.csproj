@@ -64,8 +64,11 @@
     <Compile Include="Coroutines\SequentialCoTask.cs" />
     <Compile Include="Coroutines\SimpleCoTask.cs" />
     <Compile Include="Coroutines\TaskDecoratorCoTask.cs" />
+    <Compile Include="EventAggregator\EventAggregator.cs" />
+    <Compile Include="EventAggregator\IEventAggregator.cs" />
     <Compile Include="EventAggregator\ThreadOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\TaskHelper.cs" />
     <Compile Include="UIContext.cs" />
   </ItemGroup>
   <ItemGroup>
