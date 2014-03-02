@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\GlobalAssemblyInfo.cs = src\GlobalAssemblyInfo.cs
 		LICENSE = LICENSE
 		README.md = README.md
+		build\Weakly.MVVM.nuspec = build\Weakly.MVVM.nuspec
 		build\Weakly.nuspec = build\Weakly.nuspec
 	EndProjectSection
 EndProject

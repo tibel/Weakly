@@ -1,23 +1,29 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Weakly</id>
-    <title>Weakly</title>
+    <id>Weakly.MVVM</id>
+    <title>Weakly.MVVM</title>
     <version>1.5.0</version>
     <authors>Thomas Ibel</authors>
-    <description>Weakly is a collection of some useful weak-reference types available as portable class library for net40+sl5+win8+wp8.</description>
+    <description>Weakly.MVVM adds some basic MVVM features on top of Weakly.</description>
     <language>en-US</language>
     <licenseUrl>https://raw.github.com/tibel/Weakly/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/tibel/Weakly</projectUrl>
     <iconUrl>https://raw.github.com/tibel/Weakly/master/build/weakly_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright Thomas Ibel 2013</copyright>
-    <tags>WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource DynamicDelegate</tags>
+    <copyright>Copyright Thomas Ibel 2014</copyright>
+    <tags>Weakly MVVM Coroutines</tags>
+
+    <dependencies>
+      <group>
+        <dependency id="Weakly" version="[1.5.0]" />
+      </group>
+    </dependencies>
   </metadata>
 
   <files>
-    <file src="..\bin\Release\Weakly.dll" target="lib\portable-net40+sl5+win8+wp8" />
-    <file src="..\bin\Release\Weakly.xml" target="lib\portable-net40+sl5+win8+wp8" />
+    <file src="..\bin\Release\Weakly.MVVM.dll" target="lib\portable-net45+sl5+win8+wp8" />
+    <file src="..\bin\Release\Weakly.MVVM.xml" target="lib\portable-net45+sl5+win8+wp8" />
   </files>
 </package>
