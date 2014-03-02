@@ -11,29 +11,38 @@ namespace Weakly.MVVM
     {
         private static Thread _thread;
         private static TaskScheduler _taskScheduler;
-
-        static UIContext()
-        {
-            _thread = Thread.CurrentThread;
-            _taskScheduler = TaskScheduler.Default;
-        }
+        private static bool _isInDesignTool;
 
         /// <summary>
         /// Initializes the <see cref="UIContext"/>.
         /// </summary>
-        public static void Initialize()
+        /// <param name="isInDesignTool">Whether or not the framework is running in the context of a designer.</param>
+        public static void Initialize(bool isInDesignTool)
         {
             if (_thread != null)
                 throw new InvalidOperationException("UIContext is already initialized.");
 
             _thread = Thread.CurrentThread;
             _taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            _isInDesignTool = isInDesignTool;
         }
 
-        private static void CheckInitialized()
+        private static void VerifyInitialized()
         {
             if (_thread == null)
                 throw new InvalidOperationException("UIContext is not initialized.");
+        }
+
+        /// <summary>
+        /// Indicates whether or not the framework is running in the context of a designer.
+        /// </summary>
+        public static bool IsInDesignTool
+        {
+            get
+            {
+                VerifyInitialized();
+                return _isInDesignTool;
+            }
         }
 
         /// <summary>
@@ -42,7 +51,7 @@ namespace Weakly.MVVM
         /// <returns></returns>
         public static bool CheckAccess()
         {
-            CheckInitialized();
+            VerifyInitialized();
             return _thread == Thread.CurrentThread;
         }
 
@@ -53,7 +62,7 @@ namespace Weakly.MVVM
         {
             get
             {
-                CheckInitialized();
+                VerifyInitialized();
                 return _taskScheduler;
             }
         }
