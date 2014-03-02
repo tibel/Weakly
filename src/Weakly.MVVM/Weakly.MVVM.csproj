@@ -63,7 +63,9 @@
     <Compile Include="Coroutines\SequentialCoTask.cs" />
     <Compile Include="Coroutines\SimpleCoTask.cs" />
     <Compile Include="Coroutines\TaskDecoratorCoTask.cs" />
+    <Compile Include="EventAggregator\ThreadOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Weakly\Weakly.csproj">
@@ -71,6 +73,9 @@
       <Name>Weakly</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

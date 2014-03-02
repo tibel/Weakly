@@ -32,9 +32,7 @@ namespace Weakly.MVVM
                 OnCompleted(_innerTask);
             else
                 _innerTask.ContinueWith(OnCompleted,
-                    System.Threading.SynchronizationContext.Current != null
-                        ? TaskScheduler.FromCurrentSynchronizationContext()
-                        : TaskScheduler.Current);
+                    UIContext.CheckAccess() ? UIContext.TaskScheduler : TaskScheduler.Current);
         }
 
         /// <summary>
