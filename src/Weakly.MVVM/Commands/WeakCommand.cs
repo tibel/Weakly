@@ -11,7 +11,7 @@ namespace Weakly.MVVM
     /// <summary>
     /// Wraps a ViewModel method (with guard) in an <see cref="ICommand"/>.
     /// </summary>
-    public class WeakCommand : ICommand
+    public sealed class WeakCommand : ICommand
     {
         private readonly WeakReference _targetReference;
         private readonly MethodInfo _method;

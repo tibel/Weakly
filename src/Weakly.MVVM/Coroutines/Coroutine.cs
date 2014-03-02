@@ -108,13 +108,13 @@ namespace Weakly.MVVM
                 ((ICoTask)s).Completed -= completed;
 
                 if (e.Error != null)
-                    taskSource.SetException(e.Error);
+                    taskSource.TrySetException(e.Error);
                 else if (e.WasCancelled)
-                    taskSource.SetCanceled();
+                    taskSource.TrySetCanceled();
                 else
                 {
                     var rr = s as ICoTask<TResult>;
-                    taskSource.SetResult(rr != null ? rr.Result : default(TResult));
+                    taskSource.TrySetResult(rr != null ? rr.Result : default(TResult));
                 }
             };
 
@@ -127,7 +127,7 @@ namespace Weakly.MVVM
             catch (Exception ex)
             {
                 coTask.Completed -= completed;
-                taskSource.SetException(ex);
+                taskSource.TrySetException(ex);
             }
 
             return taskSource.Task;
