@@ -47,8 +47,11 @@ namespace Weakly.MVVM
         {
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == _guardName)
             {
-                Task.Factory.StartNew(() => _canExecuteChangedSource.Raise(this, EventArgs.Empty), CancellationToken.None,
-                    TaskCreationOptions.None, UIContext.TaskScheduler);
+                if (UIContext.CheckAccess())
+                    _canExecuteChangedSource.Raise(this, EventArgs.Empty);
+                else
+                    Task.Factory.StartNew(() => _canExecuteChangedSource.Raise(this, EventArgs.Empty),
+                        CancellationToken.None, TaskCreationOptions.None, UIContext.TaskScheduler);
             }
         }
 

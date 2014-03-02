@@ -155,12 +155,12 @@ namespace Weakly.MVVM
                 {
                     target = _reference.Target;
                     if (target == null)
-                        return TaskHelper.Completed;
+                        return TaskHelper.Canceled;
                 }
 
                 if (_threadOption == ThreadOption.BackgroundThread)
                 {
-                    return Task.Factory.StartNew(() => DynamicDelegate.From(_method).Invoke(target, new[] { message }));
+                    return InvokeWithTaskScheduler(target, _method, message, TaskScheduler.Default);
                 }
                 
                 if (_threadOption == ThreadOption.PublisherThread ||
@@ -169,8 +169,14 @@ namespace Weakly.MVVM
                     return InvokeOnCurrentThread(target, _method, message);
                 }
 
-                return Task.Factory.StartNew(() => DynamicDelegate.From(_method).Invoke(target, new[] {message}),
-                    CancellationToken.None, TaskCreationOptions.None, UIContext.TaskScheduler);
+                return InvokeWithTaskScheduler(target, _method, message, UIContext.TaskScheduler);
+            }
+
+            private static Task InvokeWithTaskScheduler(object target, MethodInfo method, object message,
+                TaskScheduler taskScheduler)
+            {
+                return Task.Factory.StartNew(() => DynamicDelegate.From(method).Invoke(target, new[] {message}),
+                    CancellationToken.None, TaskCreationOptions.None, taskScheduler);
             }
 
             private static Task InvokeOnCurrentThread(object target, MethodInfo method, object message)
