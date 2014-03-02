@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// A CoTask that executes an <see cref="System.Action"/>.

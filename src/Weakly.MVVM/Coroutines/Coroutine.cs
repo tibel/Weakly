@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// Manages coroutine execution.

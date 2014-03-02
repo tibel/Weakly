@@ -1,10 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly", "src\Weakly\Weakly.csproj", "{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{366666F0-906D-48CE-AF3B-299B75AA10AB}"
 	ProjectSection(SolutionItems) = preProject
+		src\GlobalAssemblyInfo.cs = src\GlobalAssemblyInfo.cs
 		LICENSE = LICENSE
 		README.md = README.md
 		build\Weakly.nuspec = build\Weakly.nuspec
@@ -15,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9631FAAF-E57A-4C3B-8C4F-3FAAE0BE097B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Win8", "samples\Demo.Win8\Demo.Win8.csproj", "{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly.MVVM", "src\Weakly.MVVM\Weakly.MVVM.csproj", "{B3AB45F5-4EFF-4263-9B2B-918B41C48935}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +77,16 @@ Global
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.ActiveCfg = Release|x86
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.Build.0 = Release|x86
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.Deploy.0 = Release|x86
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Release|x64.ActiveCfg = Release|Any CPU
+		{B3AB45F5-4EFF-4263-9B2B-918B41C48935}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

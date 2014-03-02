@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// The context used during the execution of a coroutine.

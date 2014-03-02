@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// A decorator which executes a coroutine when the wrapped <see cref="ICoTask"/> was cancelled.

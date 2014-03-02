@@ -1,5 +1,5 @@
 ﻿
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// A decorator that overrides <see cref="CoTaskCompletedEventArgs.WasCancelled"/> of the decorated <see cref="ICoTask"/> instance.

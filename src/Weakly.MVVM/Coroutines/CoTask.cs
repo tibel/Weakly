@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// Base class for all <see cref="ICoTask"/>.

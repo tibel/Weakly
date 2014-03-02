@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// The event args for the <see cref="ICoTask.Completed"/> event.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// Allows custom code to execute after the return of an action.

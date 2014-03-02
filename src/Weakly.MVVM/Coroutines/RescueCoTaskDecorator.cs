@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// A decorator which rescues errors from the decorated <see cref="ICoTask"/> by executing a rescue coroutine.

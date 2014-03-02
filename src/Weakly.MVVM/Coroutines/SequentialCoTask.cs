@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Weakly.Coroutines
+namespace Weakly.MVVM
 {
     /// <summary>
     /// An implementation of <see cref = "ICoTask" /> that enables sequential execution of multiple CoTasks.
