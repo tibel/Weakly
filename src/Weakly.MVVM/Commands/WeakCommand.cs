@@ -89,12 +89,7 @@ namespace Weakly.MVVM
 
             var execute = DynamicDelegate.From(_method);
             var returnValue = execute(target, new object[0]);
-
-            var task = returnValue as Task;
-            if (task != null)
-            {
-                returnValue = task.AsCoTask();
-            }
+            if (returnValue == null) return;
 
             var coTask = returnValue as ICoTask;
             if (coTask != null)
