@@ -20,19 +20,42 @@ namespace Weakly.MVVM
         private readonly string _guardName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WeakCommand"/> class.
+        /// Creates a new <see cref="WeakCommand"/> from the specified <paramref name="action"/>.
         /// </summary>
-        /// <param name="target">The target.</param>
-        /// <param name="methodName">Name of the method.</param>
-        public WeakCommand(object target, string methodName)
+        /// <param name="action">The action.</param>
+        /// <returns>The new <see cref="WeakCommand"/>.</returns>
+        public static WeakCommand Create(Action action)
         {
-            if (target == null)
-                throw new ArgumentNullException("target");
+            return CreateInternal(action);
+        }
 
+        /// <summary>
+        /// Creates a new <see cref="WeakCommand"/> from the specified <paramref name="action"/>.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="action">The action.</param>
+        /// <returns>The new <see cref="WeakCommand"/>.</returns>
+        public static WeakCommand Create<TResult>(Func<TResult> action)
+        {
+            return CreateInternal(action);
+        }
+
+        private static WeakCommand CreateInternal(Delegate action)
+        {
+            if (action == null)
+                throw new ArgumentNullException("action");
+            if (action.Target == null)
+                throw new ArgumentException("Method cannot be static.", "action");
+            if (action.IsClosure())
+                throw new ArgumentException("A closure cannot be used.", "action");
+
+            return new WeakCommand(action.Target, action.Method);
+        }
+
+        private WeakCommand(object target, MethodInfo method)
+        {
             _targetReference = new WeakReference(target);
-            _method = target.GetType().GetMethod(methodName);
-            if (_method == null)
-                throw new ArgumentException(@"Specified method cannot be found.", "methodName");
+            _method = method;
 
             _guardName = "Can" + _method.Name;
             var guard = target.GetType().GetMethod("get_" + _guardName);
@@ -43,7 +66,7 @@ namespace Weakly.MVVM
             _canExecute = new WeakFunc<bool>(inpc, guard);
         }
 
-        void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == _guardName)
             {
