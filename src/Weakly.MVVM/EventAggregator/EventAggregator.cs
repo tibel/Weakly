@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,9 +41,7 @@ namespace Weakly.MVVM
         {
             if (handler == null)
                 throw new ArgumentNullException("handler");
-
-            var declaringType = handler.Method.DeclaringType;
-            if (handler.Target != null && declaringType != null && declaringType.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Length != 0)
+            if (handler.IsClosure())
                 throw new ArgumentException("A closure cannot be used to subscribe.", "handler");
 
             lock (_handlers)
@@ -155,7 +152,7 @@ namespace Weakly.MVVM
                 {
                     target = _reference.Target;
                     if (target == null)
-                        return TaskHelper.Canceled;
+                        return TaskHelper.Completed;
                 }
 
                 if (_threadOption == ThreadOption.BackgroundThread)
@@ -172,8 +169,7 @@ namespace Weakly.MVVM
                 return InvokeWithTaskScheduler(target, _method, message, UIContext.TaskScheduler);
             }
 
-            private static Task InvokeWithTaskScheduler(object target, MethodInfo method, object message,
-                TaskScheduler taskScheduler)
+            private static Task InvokeWithTaskScheduler(object target, MethodInfo method, object message, TaskScheduler taskScheduler)
             {
                 return Task.Factory.StartNew(() => DynamicDelegate.From(method).Invoke(target, new[] {message}),
                     CancellationToken.None, TaskCreationOptions.None, taskScheduler);

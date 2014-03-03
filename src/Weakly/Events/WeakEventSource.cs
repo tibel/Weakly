@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Weakly
 {
@@ -55,9 +54,7 @@ namespace Weakly
             if (eventHandler == null) return;
             if (eventHandler.Target == null)
                 throw new ArgumentException("Cannot create weak event to static method.");
-
-            var declaringType = eventHandler.Method.DeclaringType;
-            if (declaringType != null && declaringType.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Length != 0)
+            if (eventHandler.IsClosure())
                 throw new ArgumentException("Cannot create weak event to anonymous method with closure.");
 
             lock (_eventHandlerEntries)
