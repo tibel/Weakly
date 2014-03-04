@@ -158,15 +158,16 @@ namespace Weakly.MVVM
                     Task.Factory.StartNew(() => InvokeInternal(target, message),
                         CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
                 }
-                
-                if (_threadOption == ThreadOption.PublisherThread ||
+                else if (_threadOption == ThreadOption.PublisherThread ||
                     _threadOption == ThreadOption.UIThread && UIContext.CheckAccess())
                 {
                     InvokeInternal(target, message);
                 }
-
-                Task.Factory.StartNew(() => InvokeInternal(target, message),
-                    CancellationToken.None, TaskCreationOptions.None, UIContext.TaskScheduler);
+                else if (_threadOption == ThreadOption.UIThread)
+                {
+                    Task.Factory.StartNew(() => InvokeInternal(target, message),
+                        CancellationToken.None, TaskCreationOptions.None, UIContext.TaskScheduler);
+                }
             }
 
             private void InvokeInternal(object target, object message)
