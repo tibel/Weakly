@@ -102,8 +102,7 @@ namespace Weakly.MVVM
                 selectedHandlers = _handlers.Where(h => h.MessageType.IsAssignableFrom(messageType)).ToList();
             }
 
-            var tasks = selectedHandlers.Select(h => h.Invoke(message)).ToArray();
-            Task.WaitAll(tasks);
+            selectedHandlers.ForEach(h => h.Invoke(message));
         }
 
         private sealed class Handler
@@ -145,46 +144,58 @@ namespace Weakly.MVVM
                 get { return _reference != null && _reference.Target == null; }
             }
 
-            public Task Invoke(object message)
+            public void Invoke(object message)
             {
                 object target = null;
                 if (_reference != null)
                 {
                     target = _reference.Target;
-                    if (target == null)
-                        return TaskHelper.Completed;
+                    if (target == null) return;
                 }
 
                 if (_threadOption == ThreadOption.BackgroundThread)
                 {
-                    return InvokeWithTaskScheduler(target, _method, message, TaskScheduler.Default);
+                    Task.Factory.StartNew(() => InvokeInternal(target, message),
+                        CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default);
                 }
                 
                 if (_threadOption == ThreadOption.PublisherThread ||
                     _threadOption == ThreadOption.UIThread && UIContext.CheckAccess())
                 {
-                    return InvokeOnCurrentThread(target, _method, message);
+                    InvokeInternal(target, message);
                 }
 
-                return InvokeWithTaskScheduler(target, _method, message, UIContext.TaskScheduler);
+                Task.Factory.StartNew(() => InvokeInternal(target, message),
+                    CancellationToken.None, TaskCreationOptions.None, UIContext.TaskScheduler);
             }
 
-            private static Task InvokeWithTaskScheduler(object target, MethodInfo method, object message, TaskScheduler taskScheduler)
+            private void InvokeInternal(object target, object message)
             {
-                return Task.Factory.StartNew(() => DynamicDelegate.From(method).Invoke(target, new[] {message}),
-                    CancellationToken.None, TaskCreationOptions.None, taskScheduler);
-            }
+                var returnValue = DynamicDelegate.From(_method).Invoke(target, new[] { message });
+                if (returnValue == null) return;
 
-            private static Task InvokeOnCurrentThread(object target, MethodInfo method, object message)
-            {
-                try
+                var coTask = returnValue as ICoTask;
+                if (coTask != null)
                 {
-                    var result = DynamicDelegate.From(method).Invoke(target, new[] {message});
-                    return TaskHelper.FromResult(result);
+                    returnValue = new[] { coTask };
                 }
-                catch (Exception ex)
+
+                var enumerable = returnValue as IEnumerable<ICoTask>;
+                if (enumerable != null)
                 {
-                    return TaskHelper.Faulted(ex);
+                    returnValue = enumerable.GetEnumerator();
+                }
+
+                var enumerator = returnValue as IEnumerator<ICoTask>;
+                if (enumerator != null)
+                {
+                    var context = new CoroutineExecutionContext
+                    {
+                        Source = this,
+                        Target = target,
+                    };
+
+                    Coroutine.ExecuteAsync(enumerator, context);
                 }
             }
         }
