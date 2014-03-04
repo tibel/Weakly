@@ -58,6 +58,7 @@
     <Compile Include="Delegates\OpenAction.cs" />
     <Compile Include="Delegates\OpenFunc.cs" />
     <Compile Include="Delegates\WeakDelegate.cs" />
+    <Compile Include="DynamicProperty.cs" />
     <Compile Include="Events\DynamicEvent.cs" />
     <Compile Include="Events\WeakEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
