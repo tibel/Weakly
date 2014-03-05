@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -10,10 +8,20 @@ namespace Weakly.MVVM
     /// <summary>
     /// A container for all <see cref="IValidator"/> instances used by an object.
     /// </summary>
-    public class ValidationAdapter : INotifyDataErrorInfo
+    public sealed class ValidationAdapter
     {
         private readonly IList<IValidator> _validators = new List<IValidator>();
         private readonly IDictionary<string, IList<string>> _validationErrors = new Dictionary<string, IList<string>>();
+        private readonly Action<string> _onErrorsChanged;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidationAdapter"/> class.
+        /// </summary>
+        /// <param name="onErrorsChanged">Called when a property was validated.</param>
+        public ValidationAdapter(Action<string> onErrorsChanged = null)
+        {
+            _onErrorsChanged = onErrorsChanged;
+        }
 
         /// <summary>
         /// Gets the validators.
@@ -140,23 +148,6 @@ namespace Weakly.MVVM
             return HasPropertyError(propertyName);
         }
 
-        #region INotifyDataErrorInfo
-
-        /// <summary>
-        /// Occurs when the validation errors have changed for a property or for the entire entity.
-        /// </summary>
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        /// <summary>
-        /// Gets all validation errors of the spezified property.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns>List of validation errors.</returns>
-        public IEnumerable GetErrors(string propertyName)
-        {
-            return GetPropertyError(propertyName);
-        }
-
         /// <summary>
         /// Gets a value indicating whether any property has validation errors.
         /// </summary>
@@ -165,19 +156,10 @@ namespace Weakly.MVVM
             get { return _validationErrors.Count > 0; }
         }
 
-        /// <summary>
-        /// Called when a property was validated.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        protected void OnErrorsChanged(string propertyName)
+        private void OnErrorsChanged(string propertyName)
         {
-            var handler = ErrorsChanged;
-            if (handler != null)
-            {
-                handler(this, new DataErrorsChangedEventArgs(propertyName));
-            }
+            if (_onErrorsChanged != null)
+                _onErrorsChanged(propertyName);
         }
-
-        #endregion
     }
 }
