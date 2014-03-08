@@ -68,6 +68,7 @@
     <Compile Include="Delegates\WeakAction.cs" />
     <Compile Include="Events\WeakEventSource.cs" />
     <Compile Include="Delegates\WeakFunc.cs" />
+    <Compile Include="Tasks\TaskHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,43 +1,53 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Weakly.MVVM
+namespace Weakly
 {
     /// <summary>
     /// Helper to create completed, canceled and faulted tasks.
     /// </summary>
     public static class TaskHelper
     {
+        private readonly static Task CompletedTask = Task.FromResult<object>(null);
+
         /// <summary>
-        /// Creates a <see cref="Task&lt;TResult&gt;"/> that's completed successfully with the specified result.
+        /// Gets an already completed task.
         /// </summary>
-        /// <typeparam name="TResult">The type of the result returned by the task.</typeparam>
-        /// <param name="result">The result to store into the completed task.</param>
-        /// <returns>The successfully completed task.</returns>
-        [Obsolete]
-        public static Task<TResult> FromResult<TResult>(TResult result)
+        /// <returns>The completed task.</returns>
+        public static Task Completed()
         {
-            var tcs = new TaskCompletionSource<TResult>();
-            tcs.TrySetResult(result);
-            return tcs.Task;
+            return CompletedTask;
+        }
+
+        private static class CanceledTask<TResult>
+        {
+            public static readonly Task<TResult> Task = CreateCanceled();
+
+            private static Task<TResult> CreateCanceled()
+            {
+                var tcs = new TaskCompletionSource<TResult>();
+                tcs.TrySetCanceled();
+                return tcs.Task;
+            }
         }
 
         /// <summary>
-        /// An already completed task.
+        /// Gets an already canceled task.
         /// </summary>
-        public readonly static Task Completed = Task.FromResult<object>(null);
-
-        private static Task<TResult> CreateCanceled<TResult>()
+        /// <returns>The canceled task.</returns>
+        public static Task Canceled()
         {
-            var tcs = new TaskCompletionSource<TResult>();
-            tcs.TrySetCanceled();
-            return tcs.Task;
+            return CanceledTask<object>.Task;
         }
 
         /// <summary>
-        /// An already canceled task.
+        /// Gets an already canceled task.
         /// </summary>
-        public static readonly Task Canceled = CreateCanceled<object>();
+        /// <returns>The canceled task.</returns>
+        public static Task<TResult> Canceled<TResult>()
+        {
+            return CanceledTask<TResult>.Task;
+        }
 
         /// <summary>
         /// Creates a task that is fauled with the specified exception.
