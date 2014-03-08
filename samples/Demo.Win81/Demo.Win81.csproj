@@ -7,8 +7,8 @@
     <ProjectGuid>{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Demo.Win8</RootNamespace>
-    <AssemblyName>Demo.Win8</AssemblyName>
+    <RootNamespace>Demo.Win81</RootNamespace>
+    <AssemblyName>Demo.Win81</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

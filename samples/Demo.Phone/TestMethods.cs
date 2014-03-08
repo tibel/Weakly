@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Demo.Silverlight
+namespace Demo.Phone
 {
     internal class TestMethods
     {
