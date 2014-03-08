@@ -14,7 +14,7 @@ namespace Weakly
         where TValue : class
     {
         private readonly Dictionary<TKey, WeakReference<TValue>> _inner;
-        private WeakReference _gcSentinel = new WeakReference(new object());
+        private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
         #region Cleanup handling
 
@@ -22,7 +22,7 @@ namespace Weakly
         {
             if (_gcSentinel.Target == null)
             {
-                _gcSentinel = new WeakReference(new object());
+                _gcSentinel.Target = new object();
                 return true;
             }
 
@@ -31,7 +31,11 @@ namespace Weakly
 
         private void CleanAbandonedItems()
         {
-            var keysToRemove = _inner.Where(pair => !pair.Value.IsAlive)
+            var keysToRemove = _inner.Where(pair =>
+                {
+                    TValue unused;
+                    return !pair.Value.TryGetTarget(out unused);
+                })
                 .Select(pair => pair.Key)
                 .ToList();
 
@@ -127,7 +131,12 @@ namespace Weakly
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             CleanIfNeeded();
-            var enumerable = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, pair.Value.Target))
+            var enumerable = _inner.Select(pair =>
+                {
+                    TValue value;
+                    pair.Value.TryGetTarget(out value);
+                    return new KeyValuePair<TKey, TValue>(pair.Key, value);
+                })
                 .Where(pair => pair.Value != null);
             return enumerable.GetEnumerator();
         }
@@ -256,8 +265,8 @@ namespace Weakly
                 return false;
             }
 
-            var result = wr.Target;
-            if (result == null)
+            TValue result;
+            if (wr.TryGetTarget(out result))
             {
                 _inner.Remove(key);
                 value = null;

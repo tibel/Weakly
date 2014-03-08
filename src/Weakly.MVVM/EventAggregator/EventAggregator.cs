@@ -19,7 +19,7 @@ namespace Weakly.MVVM
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="handler">The message handler to register.</param>
-        /// <param name="threadOption">Specifies on which <see cref="System.Threading.Thread" /> the <paramref name="handler" /> is executed.</param>
+        /// <param name="threadOption">Specifies on which Thread the <paramref name="handler" /> is executed.</param>
         public void Subscribe<TMessage>(Action<TMessage> handler, ThreadOption threadOption = ThreadOption.PublisherThread)
         {
             SubscribeInternal<TMessage>(handler, threadOption);
@@ -31,7 +31,7 @@ namespace Weakly.MVVM
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="handler">The message handler to register.</param>
-        /// <param name="threadOption">Specifies on which <see cref="System.Threading.Thread" /> the <paramref name="handler" /> is executed.</param>
+        /// <param name="threadOption">Specifies on which Thread the <paramref name="handler" /> is executed.</param>
         public void Subscribe<TMessage, TResult>(Func<TMessage, TResult> handler, ThreadOption threadOption = ThreadOption.PublisherThread)
         {
             SubscribeInternal<TMessage>(handler, threadOption);
@@ -47,7 +47,7 @@ namespace Weakly.MVVM
             lock (_handlers)
             {
                 _handlers.RemoveAll(h => h.IsDead);
-                _handlers.Add(new Handler(typeof(TMessage), handler.Target, handler.Method, threadOption));
+                _handlers.Add(new Handler(typeof(TMessage), handler.Target, handler.GetMethodInfo(), threadOption));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Weakly.MVVM
             lock (_handlers)
             {
                 _handlers.RemoveAll(
-                    h => h.IsDead || (h.MessageType == typeof(TMessage) && h.Target == handler.Target && h.Method == handler.Method));
+                    h => h.IsDead || (h.MessageType == typeof(TMessage) && h.Target == handler.Target && h.Method == handler.GetMethodInfo()));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Weakly.MVVM
             {
                 _handlers.RemoveAll(h => h.IsDead);
                 var messageType = message.GetType();
-                selectedHandlers = _handlers.Where(h => h.MessageType.IsAssignableFrom(messageType)).ToList();
+                selectedHandlers = _handlers.Where(h => h.MessageType.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo())).ToList();
             }
 
             selectedHandlers.ForEach(h => h.Invoke(message));

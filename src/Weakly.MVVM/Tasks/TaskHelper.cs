@@ -14,6 +14,7 @@ namespace Weakly.MVVM
         /// <typeparam name="TResult">The type of the result returned by the task.</typeparam>
         /// <param name="result">The result to store into the completed task.</param>
         /// <returns>The successfully completed task.</returns>
+        [Obsolete]
         public static Task<TResult> FromResult<TResult>(TResult result)
         {
             var tcs = new TaskCompletionSource<TResult>();
@@ -24,7 +25,7 @@ namespace Weakly.MVVM
         /// <summary>
         /// An already completed task.
         /// </summary>
-        public readonly static Task Completed = FromResult<object>(null);
+        public readonly static Task Completed = Task.FromResult<object>(null);
 
         private static Task<TResult> CreateCanceled<TResult>()
         {

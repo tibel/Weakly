@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Weakly.MVVM
 {
@@ -82,7 +83,7 @@ namespace Weakly.MVVM
         {
             _validationErrors.Clear();
 
-            var properties = instance.GetType().GetProperties();
+            var properties = instance.GetType().GetRuntimeProperties();
             foreach (var property in properties)
             {
                 if (!_validators.Any(validator => validator.CanValidateProperty(property.Name)))

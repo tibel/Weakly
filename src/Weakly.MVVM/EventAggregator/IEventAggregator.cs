@@ -12,7 +12,7 @@ namespace Weakly.MVVM
         /// </summary>
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <param name="handler">The message handler to register.</param>
-        /// <param name="threadOption">Specifies on which <see cref="System.Threading.Thread"/> the <paramref name="handler"/> is executed.</param>
+        /// <param name="threadOption">Specifies on which Thread the <paramref name="handler"/> is executed.</param>
         void Subscribe<TMessage>(Action<TMessage> handler, ThreadOption threadOption = ThreadOption.PublisherThread);
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Weakly.MVVM
         /// <typeparam name="TMessage">The type of the message.</typeparam>
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="handler">The message handler to register.</param>
-        /// <param name="threadOption">Specifies on which <see cref="System.Threading.Thread"/> the <paramref name="handler"/> is executed.</param>
+        /// <param name="threadOption">Specifies on which Thread the <paramref name="handler"/> is executed.</param>
         void Subscribe<TMessage, TResult>(Func<TMessage, TResult> handler, ThreadOption threadOption = ThreadOption.PublisherThread);
 
         /// <summary>

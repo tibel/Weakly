@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Weakly.MVVM
@@ -9,7 +8,7 @@ namespace Weakly.MVVM
     /// </summary>
     public static class UIContext
     {
-        private static Thread _thread;
+        private static int? _managedThreadId;
         private static TaskScheduler _taskScheduler;
         private static bool _isInDesignTool;
 
@@ -19,17 +18,17 @@ namespace Weakly.MVVM
         /// <param name="isInDesignTool">Whether or not the framework is running in the context of a designer.</param>
         public static void Initialize(bool isInDesignTool)
         {
-            if (_thread != null)
+            if (_managedThreadId.HasValue)
                 throw new InvalidOperationException("UIContext is already initialized.");
 
-            _thread = Thread.CurrentThread;
+            _managedThreadId = Environment.CurrentManagedThreadId;
             _taskScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             _isInDesignTool = isInDesignTool;
         }
 
         private static void VerifyInitialized()
         {
-            if (_thread == null)
+            if (!_managedThreadId.HasValue)
                 throw new InvalidOperationException("UIContext is not initialized.");
         }
 
@@ -52,7 +51,7 @@ namespace Weakly.MVVM
         public static bool CheckAccess()
         {
             VerifyInitialized();
-            return _thread == Thread.CurrentThread;
+            return _managedThreadId == Environment.CurrentManagedThreadId;
         }
 
         /// <summary>

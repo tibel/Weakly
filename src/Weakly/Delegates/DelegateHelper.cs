@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Weakly
@@ -15,9 +16,9 @@ namespace Weakly
         /// <returns>Wether the <paramref name="handler"/> is a closure.</returns>
         public static bool IsClosure(this Delegate handler)
         {
-            var declaringType = handler.Method.DeclaringType;
+            var declaringType = handler.GetMethodInfo().DeclaringType;
             return (handler.Target != null && declaringType != null &&
-                    declaringType.GetCustomAttributes(typeof (CompilerGeneratedAttribute), false).Length != 0);
+                    declaringType.GetTypeInfo().GetCustomAttribute<CompilerGeneratedAttribute>(false) != null);
         }
     }
 }

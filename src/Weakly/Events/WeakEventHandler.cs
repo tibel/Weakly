@@ -23,7 +23,7 @@ namespace Weakly
             if (string.IsNullOrEmpty(eventName))
                 throw new ArgumentNullException("eventName");
 
-            var eventInfo = eventSource.GetType().GetEvent(eventName);
+            var eventInfo = eventSource.GetType().GetRuntimeEvent(eventName);
             return Register(eventSource, eventInfo, handler);
         }
 
@@ -42,7 +42,7 @@ namespace Weakly
             if (string.IsNullOrEmpty(eventName))
                 throw new ArgumentNullException("eventName");
 
-            var eventInfo = sourceType.GetEvent(eventName);
+            var eventInfo = sourceType.GetRuntimeEvent(eventName);
             return Register(null, eventInfo, handler);
         }
 
@@ -63,7 +63,7 @@ namespace Weakly
             if (handler.Target == null)
                 throw new ArgumentException("Handler delegate must point to instance method.", "handler");
 
-            var isStatic = eventInfo.GetAddMethod(true).IsStatic;
+            var isStatic = eventInfo.AddMethod.IsStatic;
             if (!isStatic && eventSource == null)
                 throw new ArgumentNullException("eventSource");
             if (isStatic && eventSource != null)
@@ -90,13 +90,12 @@ namespace Weakly
 
                 _eventInfo = eventInfo;
                 _target = new WeakReference(handler.Target);
-                _handler = handler.Method;
-
+                _handler = handler.GetMethodInfo();
+                
                 // create correct delegate type
-                _eventHandler = Delegate.CreateDelegate(
-                    eventInfo.EventHandlerType,
-                    this,
-                    new Action<object, TEventArgs>(Invoke).Method);
+                _eventHandler = new Action<object, TEventArgs>(Invoke)
+                    .GetMethodInfo()
+                    .CreateDelegate(eventInfo.EventHandlerType, this);
 
                 // register weak handler
                 var addMethod = DynamicEvent.GetAddMethod(eventInfo);

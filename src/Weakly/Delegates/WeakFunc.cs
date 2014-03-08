@@ -14,7 +14,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 
@@ -53,7 +53,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T, TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 
@@ -94,7 +94,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 
@@ -137,7 +137,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, T3, TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 
@@ -182,7 +182,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, T3, T4, TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 
@@ -229,7 +229,7 @@ namespace Weakly
         /// </summary>
         /// <param name="function">The function delegate to encapsulate.</param>
         public WeakFunc(Func<T1, T2, T3, T4, T5, TResult> function)
-            : this(function.Target, function.Method)
+            : this(function.Target, function.GetMethodInfo())
         {
         }
 

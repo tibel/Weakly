@@ -7,24 +7,14 @@ namespace Weakly
     internal sealed class GenericMethodCache<TDelegate>
         where TDelegate : class
     {
-        private readonly IDictionary<Tuple<RuntimeMethodHandle, RuntimeTypeHandle>, TDelegate> _storage;
+        private readonly IDictionary<MethodInfo, TDelegate> _storage;
 
         public GenericMethodCache()
         {
-            _storage = new Dictionary<Tuple<RuntimeMethodHandle, RuntimeTypeHandle>, TDelegate>();
-        }
-
-        private static Tuple<RuntimeMethodHandle, RuntimeTypeHandle> ToHandle(MethodBase methodInfo)
-        {
-            return new Tuple<RuntimeMethodHandle, RuntimeTypeHandle>(methodInfo.MethodHandle, methodInfo.DeclaringType.TypeHandle);
+            _storage = new Dictionary<MethodInfo, TDelegate>();
         }
 
         public TDelegate GetValueOrNull(MethodInfo key)
-        {
-            return GetValueOrNull(ToHandle(key));
-        }
-
-        public TDelegate GetValueOrNull(Tuple<RuntimeMethodHandle, RuntimeTypeHandle> key)
         {
             TDelegate value;
             lock (_storage)
@@ -36,11 +26,6 @@ namespace Weakly
 
         public void AddOrReplace(MethodInfo key, TDelegate value)
         {
-            AddOrReplace(ToHandle(key), value);
-        }
-
-        public void AddOrReplace(Tuple<RuntimeMethodHandle, RuntimeTypeHandle> key, TDelegate value)
-        {
             lock (_storage)
             {
                 _storage[key] = value;
@@ -48,11 +33,6 @@ namespace Weakly
         }
 
         public bool Remove(MethodInfo key)
-        {
-            return Remove(ToHandle(key));
-        }
-
-        public bool Remove(Tuple<RuntimeMethodHandle, RuntimeTypeHandle> key)
         {
             lock (_storage)
             {

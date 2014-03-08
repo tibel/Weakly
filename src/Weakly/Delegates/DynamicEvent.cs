@@ -16,7 +16,7 @@ namespace Weakly
         /// <returns>The method used to add an event handler delegate to the event source.</returns>
         public static Action<object, Delegate> GetAddMethod(EventInfo eventInfo)
         {
-            return GetEventMethod(eventInfo.GetAddMethod(true));
+            return GetEventMethod(eventInfo.AddMethod);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Weakly
         /// <returns>The method used to remove an event handler delegate from the event source.</returns>
         public static Action<object, Delegate> GetRemoveMethod(EventInfo eventInfo)
         {
-            return GetEventMethod(eventInfo.GetRemoveMethod(true));
+            return GetEventMethod(eventInfo.RemoveMethod);
         }
 
         private static readonly GenericMethodCache<Action<object, Delegate>> Cache = new GenericMethodCache<Action<object, Delegate>>();

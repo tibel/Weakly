@@ -13,7 +13,7 @@ namespace Weakly
         where T : class
     {
         private readonly List<WeakReference<T>> _inner;
-        private WeakReference _gcSentinel = new WeakReference(new object());
+        private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
         #region Cleanup handling
 
@@ -21,7 +21,7 @@ namespace Weakly
         {
             if (_gcSentinel.Target == null)
             {
-                _gcSentinel = new WeakReference(new object());
+                _gcSentinel.Target = new object();
                 return true;
             }
 
@@ -32,8 +32,8 @@ namespace Weakly
         {
             for (var i = _inner.Count - 1; i >= 0; i--)
             {
-                var entry = _inner[i];
-                if (!entry.IsAlive)
+                T unused;
+                if (!_inner[i].TryGetTarget(out unused))
                     _inner.RemoveAt(i);
             }
         }
@@ -90,7 +90,12 @@ namespace Weakly
         public IEnumerator<T> GetEnumerator()
         {
             CleanIfNeeded();
-            var enumerable = _inner.Select(value => value.Target)
+            var enumerable = _inner.Select(item =>
+                {
+                    T value;
+                    item.TryGetTarget(out value);
+                    return value;
+                })
                 .Where(value => value != null);
             return enumerable.GetEnumerator();
         }
@@ -126,7 +131,12 @@ namespace Weakly
         public bool Contains(T item)
         {
             CleanIfNeeded();
-            return _inner.Any(w => w.Target == item);
+            return _inner.Any(w =>
+                {
+                    T target;
+                    w.TryGetTarget(out target);
+                    return target == item;
+                });
         }
 
         /// <summary>
@@ -157,7 +167,9 @@ namespace Weakly
 
             for (var i = 0; i < _inner.Count; i++)
             {
-                if (_inner[i].Target == item)
+                T target;
+                _inner[i].TryGetTarget(out target);
+                if (target == item)
                 {
                     _inner.RemoveAt(i);
                     return true;

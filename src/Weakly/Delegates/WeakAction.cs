@@ -13,7 +13,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 
@@ -49,7 +49,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T> action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 
@@ -87,7 +87,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2> action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 
@@ -127,7 +127,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2, T3> action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 
@@ -169,7 +169,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2, T3, T4> action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 
@@ -213,7 +213,7 @@ namespace Weakly
         /// </summary>
         /// <param name="action">The action delegate to encapsulate.</param>
         public WeakAction(Action<T1, T2, T3, T4, T5> action)
-            : this(action.Target, action.Method)
+            : this(action.Target, action.GetMethodInfo())
         {
         }
 

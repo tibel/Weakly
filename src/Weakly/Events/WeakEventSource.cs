@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Weakly
 {
@@ -10,7 +11,7 @@ namespace Weakly
     public abstract class WeakEventSourceBase<TEventArgs>
     {
         private readonly List<WeakAction<object, TEventArgs>> _eventHandlerEntries = new List<WeakAction<object, TEventArgs>>();
-        private WeakReference _gcSentinel = new WeakReference(new object());
+        private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
         #region Cleanup handling
 
@@ -18,7 +19,7 @@ namespace Weakly
         {
             if (_gcSentinel.Target == null)
             {
-                _gcSentinel = new WeakReference(new object());
+                _gcSentinel.Target = new object();
                 return true;
             }
 
@@ -60,7 +61,7 @@ namespace Weakly
             lock (_eventHandlerEntries)
             {
                 CleanIfNeeded();
-                _eventHandlerEntries.Add(new WeakAction<object, TEventArgs>(eventHandler.Target, eventHandler.Method));
+                _eventHandlerEntries.Add(new WeakAction<object, TEventArgs>(eventHandler.Target, eventHandler.GetMethodInfo()));
             }
         }
 
@@ -81,7 +82,7 @@ namespace Weakly
                     var entry = _eventHandlerEntries[i];
                     var target = entry.Target;
 
-                    if (target == eventHandler.Target && entry.Method.MethodHandle == eventHandler.Method.MethodHandle)
+                    if (target == eventHandler.Target && entry.Method == eventHandler.GetMethodInfo())
                     {
                         _eventHandlerEntries.RemoveAt(i);
                         break;
