@@ -51,11 +51,11 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Collections\EnumerableHelper.cs" />
+    <Compile Include="Collections\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
     <Compile Include="Delegates\DelegateHelper.cs" />
     <Compile Include="Delegates\DynamicDelegate.cs" />
-    <Compile Include="Delegates\GenericMethodCache.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
     <Compile Include="Delegates\OpenFunc.cs" />
     <Compile Include="Delegates\WeakDelegate.cs" />

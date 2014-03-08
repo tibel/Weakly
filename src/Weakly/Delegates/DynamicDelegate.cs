@@ -10,7 +10,7 @@ namespace Weakly
     /// </summary>
     public static class DynamicDelegate
     {
-        private static readonly GenericMethodCache<Func<object, object[], object>> Cache = new GenericMethodCache<Func<object, object[], object>>();
+        private static readonly SimpleCache<MethodInfo, Func<object, object[], object>> Cache = new SimpleCache<MethodInfo, Func<object, object[], object>>();
 
         /// <summary>
         /// Create a dynamic delegate from the specified method.
@@ -19,10 +19,10 @@ namespace Weakly
         /// <returns>The dynamic delegate.</returns>
         public static Func<object, object[], object> From(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull(method);
+            var action = Cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = CompileFunction(method);
-            Cache.AddOrReplace(method, action);
+            Cache.AddOrUpdate(method, action);
             return action;
         }
 

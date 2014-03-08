@@ -29,14 +29,14 @@ namespace Weakly
             return GetEventMethod(eventInfo.RemoveMethod);
         }
 
-        private static readonly GenericMethodCache<Action<object, Delegate>> Cache = new GenericMethodCache<Action<object, Delegate>>();
+        private static readonly SimpleCache<MethodInfo, Action<object, Delegate>> Cache = new SimpleCache<MethodInfo, Action<object, Delegate>>();
 
         private static Action<object, Delegate> GetEventMethod(MethodInfo method)
         {
-            var action = Cache.GetValueOrNull(method);
+            var action = Cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = CompileEventMethod(method);
-            Cache.AddOrReplace(method, action);
+            Cache.AddOrUpdate(method, action);
             return action;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -17,10 +16,10 @@ namespace Weakly
         /// <returns>The function to get the property value.</returns>
         public static Func<object, object> GetterFrom(PropertyInfo property)
         {
-            var action = Cache.GetValueOrNull(property);
+            var action = Cache.GetValueOrDefault(property);
             if (action != null) return action;
             action = CompileGetter(property);
-            Cache.AddOrReplace(property, action);
+            Cache.AddOrUpdate(property, action);
             return action;
         }
 
@@ -33,32 +32,6 @@ namespace Weakly
             return Expression.Lambda<Func<object, object>>(body, instance).Compile();
         }
 
-        #region Inner Types
-
-        private static class Cache
-        {
-            private static readonly IDictionary<PropertyInfo, Func<object, object>> Storage =
-                new Dictionary<PropertyInfo, Func<object, object>>();
-
-            public static Func<object, object> GetValueOrNull(PropertyInfo key)
-            {
-                Func<object, object> func;
-                lock (Storage)
-                {
-                    Storage.TryGetValue(key, out func);
-                }
-                return func;
-            }
-
-            public static void AddOrReplace(PropertyInfo key, Func<object, object> func)
-            {
-                lock (Storage)
-                {
-                    Storage[key] = func;
-                }
-            }
-        }
-
-        #endregion
+        private static readonly SimpleCache<PropertyInfo, Func<object, object>> Cache = new SimpleCache<PropertyInfo, Func<object, object>>();
     }
 }
