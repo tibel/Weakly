@@ -58,7 +58,7 @@ namespace Weakly.MVVM
             _method = method;
 
             _guardName = "Can" + _method.Name;
-            var guard = target.GetType().GetRuntimeMethod("get_" + _guardName, new Type[0]);
+            var guard = target.GetType().GetRuntimeProperty(_guardName).GetMethod;
             var inpc = target as INotifyPropertyChanged;
             if (inpc == null || guard == null) return;
 
