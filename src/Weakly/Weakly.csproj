@@ -54,7 +54,7 @@
     <Compile Include="Collections\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
-    <Compile Include="Reflection\DelegateHelper.cs" />
+    <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Reflection\DynamicDelegate.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
     <Compile Include="Delegates\OpenFunc.cs" />

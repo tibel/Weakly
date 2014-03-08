@@ -7,7 +7,7 @@ namespace Weakly
     /// <summary>
     /// Some useful helpers for <see cref="System.Reflection"/>.
     /// </summary>
-    public static class DelegateHelper
+    public static class ReflectionHelper
     {
         /// <summary>
         /// Determines whether the specified method is a lambda.
