@@ -1,8 +1,8 @@
 # Weakly
 
-Weakly is a collection of some useful weak-reference types available as portable class library for **net40+sl5+win8+wp8** and available through nuget.
+Weakly is a collection of some useful weak-reference types available as portable class library for **net45+win8+wp8** and available through nuget.
 
-Normally it is not possible to call private methods using reflection in Silverlight and Windows Store Apps. You will get a MethodAccessException.
+Normally it is not possible to call private methods using reflection in Windows Phone and Windows Store Apps. You will get a MethodAccessException.
 Weakly solves this problem by using compiled Expressions. So it is not only possible to call private methods but also faster as dynamic invocation.
 
 
@@ -12,7 +12,6 @@ Weakly is available through NuGet:
 **Install-Package** [Weakly](https://www.nuget.org/packages/Weakly/)
 
 ## Content
-* WeakReference&lt;T&gt;
 
 ### Collections
 * WeakCollection&lt;T&gt;
