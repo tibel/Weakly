@@ -54,15 +54,15 @@
     <Compile Include="Collections\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
-    <Compile Include="Delegates\DelegateHelper.cs" />
-    <Compile Include="Delegates\DynamicDelegate.cs" />
+    <Compile Include="Reflection\DelegateHelper.cs" />
+    <Compile Include="Reflection\DynamicDelegate.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
     <Compile Include="Delegates\OpenFunc.cs" />
     <Compile Include="Delegates\WeakDelegate.cs" />
-    <Compile Include="Delegates\DynamicProperty.cs" />
-    <Compile Include="Delegates\DynamicEvent.cs" />
+    <Compile Include="Reflection\DynamicProperty.cs" />
+    <Compile Include="Reflection\DynamicEvent.cs" />
     <Compile Include="Events\WeakEventHandler.cs" />
-    <Compile Include="Expression\ExpressionHelper.cs" />
+    <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="IO\MemoryTributary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Delegates\WeakAction.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Delegates\WeakFunc.cs" />
     <Compile Include="Tasks\TaskHelper.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
