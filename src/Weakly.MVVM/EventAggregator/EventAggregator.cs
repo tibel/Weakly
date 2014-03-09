@@ -41,7 +41,7 @@ namespace Weakly.MVVM
         {
             if (handler == null)
                 throw new ArgumentNullException("handler");
-            if (handler.IsClosure())
+            if (handler.Target != null && handler.GetMethodInfo().IsClosure())
                 throw new ArgumentException("A closure cannot be used to subscribe.", "handler");
 
             lock (_handlers)

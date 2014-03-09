@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Weakly
@@ -38,16 +37,6 @@ namespace Weakly
         public static bool IsAsync(this MethodInfo methodInfo)
         {
             return methodInfo.GetCustomAttribute<AsyncStateMachineAttribute>() != null;
-        }
-
-        /// <summary>
-        /// Determines whether the specified handler is closure.
-        /// </summary>
-        /// <param name="handler">The delegate to examine.</param>
-        /// <returns>True, if the <paramref name="handler"/> is a closure; otherwise false.</returns>
-        public static bool IsClosure(this Delegate handler)
-        {
-            return handler.Target != null && handler.GetMethodInfo().IsClosure();
         }
     }
 }

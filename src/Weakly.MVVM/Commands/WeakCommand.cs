@@ -46,7 +46,7 @@ namespace Weakly.MVVM
                 throw new ArgumentNullException("action");
             if (action.Target == null)
                 throw new ArgumentException("Method cannot be static.", "action");
-            if (action.IsClosure())
+            if (action.GetMethodInfo().IsClosure())
                 throw new ArgumentException("A closure cannot be used.", "action");
 
             return new WeakCommand(action.Target, action.GetMethodInfo());

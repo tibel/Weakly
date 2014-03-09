@@ -55,7 +55,7 @@ namespace Weakly
             if (eventHandler == null) return;
             if (eventHandler.Target == null)
                 throw new ArgumentException("Cannot create weak event to static method.");
-            if (eventHandler.IsClosure())
+            if (eventHandler.GetMethodInfo().IsClosure())
                 throw new ArgumentException("Cannot create weak event to anonymous method with closure.");
 
             lock (_eventHandlerEntries)
