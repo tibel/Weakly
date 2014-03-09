@@ -30,4 +30,9 @@ Weakly is available through NuGet:
 
 Weakly.MVVM adds some basic MVVM features on top of Weakly.
 
-TODO: add content
+* WeakCommand
+* Coroutines
+* EventAggregator
+* Validation
+
+NOTE: Before using Weakly.MVVM you have to initialize UIContext.
