@@ -50,6 +50,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collections\ActionDisposable.cs" />
+    <Compile Include="Collections\BindableCollection.cs" />
     <Compile Include="Commands\WeakCommand.cs" />
     <Compile Include="Coroutines\ContinueCoTaskDecorator.cs" />
     <Compile Include="Coroutines\Coroutine.cs" />
