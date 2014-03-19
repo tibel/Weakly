@@ -36,7 +36,7 @@ namespace Weakly.MVVM
         public IDisposable SuspendNotifications()
         {
             _suspensionCount++;
-            return new ActionDisposable(ResumeNotifications);
+            return new DisposableAction(ResumeNotifications);
         }
 
         private void ResumeNotifications()

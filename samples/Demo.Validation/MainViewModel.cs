@@ -8,13 +8,15 @@ using Weakly.MVVM;
 
 namespace Demo.Validation
 {
-    public class MainViewModel : INotifyPropertyChanged, IDataErrorInfo
+    public class MainViewModel : BindableObject, IDataErrorInfo
     {
         private readonly Company _company;
 
         public MainViewModel(Company company)
         {
+            _validation = new ValidationAdapter(OnErrorsChanged);
             _validation.Validators.Add(new DataAnnotationsValidator(GetType()));
+
             _company = company;
             SaveCommand = WeakCommand.Create(Save);
         }
@@ -79,13 +81,12 @@ namespace Demo.Validation
         protected void OnPropertyChanged(object value, [CallerMemberName] string propertyName = "")
         {
             _validation.ValidateProperty(propertyName, value);
-            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
-            OnPropertyChanged(new PropertyChangedEventArgs("CanSave"));
+            RaisePropertyChanged(propertyName);
         }
 
         #region Validation
 
-        private readonly ValidationAdapter _validation = new ValidationAdapter();
+        private readonly ValidationAdapter _validation;
 
         public string Error
         {
@@ -97,17 +98,9 @@ namespace Demo.Validation
             get { return string.Join(Environment.NewLine, _validation.GetPropertyError(columnName)); }
         }
 
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
+        private void OnErrorsChanged(string propertyName)
         {
-            var handler = PropertyChanged;
-            if (handler != null)
-                handler(this, args);
+            RaisePropertyChanged("CanSave");
         }
 
         #endregion
