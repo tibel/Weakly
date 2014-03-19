@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Weakly.MVVM
+namespace Weakly
 {
     /// <summary>
     /// Executes an action when disposed.
