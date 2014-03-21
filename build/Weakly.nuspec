@@ -13,7 +13,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <releaseNotes></releaseNotes>
     <copyright>Copyright Thomas Ibel 2013-2014</copyright>
-    <tags>WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource DynamicDelegate</tags>
+    <tags>
+      WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource DynamicDelegate
+      Weakly MVVM Coroutines EventAggregator Validation WeakCommand
+    </tags>
   </metadata>
 
   <files>

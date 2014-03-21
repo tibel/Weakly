@@ -99,10 +99,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Weakly.MVVM\Weakly.MVVM.csproj">
-      <Project>{b3ab45f5-4eff-4263-9b2b-918b41c48935}</Project>
-      <Name>Weakly.MVVM</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Weakly\Weakly.csproj">
       <Project>{aa37f0c0-aa8c-46de-ac8a-db844c9ac556}</Project>
       <Name>Weakly</Name>
