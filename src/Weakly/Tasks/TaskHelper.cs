@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Weakly
@@ -70,6 +71,31 @@ namespace Weakly
         public static Task Faulted(Exception ex)
         {
             return Faulted<object>(ex);
+        }
+
+        /// <summary>
+        /// Suppresses default exception handling of a Task that would otherwise reraise the exception on the finalizer thread.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task IgnoreExceptions(this Task task)
+        {
+            // ReSharper disable once UnusedVariable
+            task.ContinueWith(t => { var ignored = t.Exception; },
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
+                TaskScheduler.Default);
+            return task;
+        }
+
+        /// <summary>
+        /// Suppresses default exception handling of a Task that would otherwise reraise the exception on the finalizer thread.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task<T> IgnoreExceptions<T>(this Task<T> task)
+        {
+            return (Task<T>)((Task)task).IgnoreExceptions();
         }
     }
 }
