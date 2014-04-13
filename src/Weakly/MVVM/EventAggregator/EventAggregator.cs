@@ -175,12 +175,6 @@ namespace Weakly.MVVM
                 var returnValue = DynamicDelegate.From(_method).Invoke(target, new[] { message });
                 if (returnValue == null) return;
 
-                var coTask = returnValue as ICoTask;
-                if (coTask != null)
-                {
-                    returnValue = new[] { coTask };
-                }
-
                 var enumerable = returnValue as IEnumerable<ICoTask>;
                 if (enumerable != null)
                 {
@@ -190,13 +184,19 @@ namespace Weakly.MVVM
                 var enumerator = returnValue as IEnumerator<ICoTask>;
                 if (enumerator != null)
                 {
+                    returnValue = enumerator.AsCoTask();
+                }
+
+                var coTask = returnValue as ICoTask;
+                if (coTask != null)
+                {
                     var context = new CoroutineExecutionContext
                     {
                         Source = this,
                         Target = target,
                     };
 
-                    Coroutine.ExecuteAsync(enumerator, context);
+                    coTask.ExecuteAsync(context);
                 }
             }
         }

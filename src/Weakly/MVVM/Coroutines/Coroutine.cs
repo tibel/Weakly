@@ -10,69 +10,9 @@ namespace Weakly.MVVM
     public static class Coroutine
     {
         /// <summary>
-        /// Creates the parent <see cref="ICoTask"/> enumerator.
-        /// </summary>
-        public static Func<IEnumerator<ICoTask>, ICoTask> CreateParentEnumerator = inner => new SequentialCoTask(inner);
-
-        /// <summary>
         /// Pushes dependencies into an <see cref="ICoTask"/> instance.
         /// </summary>
         public static Action<object> BuildUp = instance => { };
-
-        /// <summary>
-        /// Executes a coroutine.
-        /// </summary>
-        /// <param name="coroutine">The coroutine to execute.</param>
-        /// <param name="context">The context to execute the coroutine within.</param>
-        /// /// <param name="callback">The completion callback for the coroutine.</param>
-        public static void BeginExecute(IEnumerator<ICoTask> coroutine, Action<CoTaskCompletedEventArgs> callback,
-            CoroutineExecutionContext context = null)
-        {
-            BeginExecute(CreateParentEnumerator(coroutine), callback, context);
-        }
-
-        /// <summary>
-        /// Executes a coroutine asynchronous.
-        /// </summary>
-        /// <param name="coroutine">The coroutine to execute.</param>
-        /// <param name="context">The context to execute the coroutine within.</param>
-        /// <returns>A task that represents the asynchronous coroutine.</returns>
-        public static Task ExecuteAsync(IEnumerator<ICoTask> coroutine, CoroutineExecutionContext context = null)
-        {
-            return ExecuteAsync(CreateParentEnumerator(coroutine), context);
-        }
-
-        /// <summary>
-        /// Executes a coroutine.
-        /// </summary>
-        /// <param name="coTask">The coroutine to execute.</param>
-        /// <param name="context">The context to execute the coroutine within.</param>
-        /// <param name="callback">The completion callback for the coroutine.</param>
-        public static void BeginExecute(this ICoTask coTask, Action<CoTaskCompletedEventArgs> callback,
-            CoroutineExecutionContext context = null)
-        {
-            if (callback == null)
-                throw new ArgumentNullException("callback");
-
-            EventHandler<CoTaskCompletedEventArgs> completed = null;
-            completed = (s, e) =>
-            {
-                ((ICoTask)s).Completed -= completed;
-                callback(e);
-            };
-
-            try
-            {
-                BuildUp(coTask);
-                coTask.Completed += completed;
-                coTask.Execute(context ?? new CoroutineExecutionContext());
-            }
-            catch (Exception ex)
-            {
-                coTask.Completed -= completed;
-                callback(new CoTaskCompletedEventArgs(ex, false));
-            }
-        }
 
         /// <summary>
         /// Executes an <see cref="ICoTask"/> asynchronous.
@@ -133,6 +73,18 @@ namespace Weakly.MVVM
             return taskSource.Task;
         }
 
+        #region AsCoTask
+
+        /// <summary>
+        /// Encapsulates a sequence of <see cref="ICoTask"/> inside a coroutine.
+        /// </summary>
+        /// <param name="enumerator">The enumerator.</param>
+        /// <returns>The coroutine that encapsulates the sequence.</returns>
+        public static ICoTask AsCoTask(this IEnumerator<ICoTask> enumerator)
+        {
+            return new SequentialCoTask(enumerator);
+        }
+
         /// <summary>
         /// Encapsulates a <see cref="Action"/> inside a coroutine.
         /// </summary>
@@ -174,6 +126,10 @@ namespace Weakly.MVVM
         {
             return new TaskDecoratorCoTask<TResult>(task);
         }
+
+        #endregion
+
+        #region Decorators
 
         /// <summary>
         /// Adds behavior to the CoTask which is executed when the <paramref name ="coTask"/> was cancelled.
@@ -223,5 +179,7 @@ namespace Weakly.MVVM
         {
             return Rescue<Exception>(coTask, rescue, cancelCoTask);
         }
+
+        #endregion
     }
 }

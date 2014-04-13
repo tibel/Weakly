@@ -6,7 +6,7 @@ namespace Weakly.MVVM
     /// <summary>
     /// An implementation of <see cref = "ICoTask" /> that enables sequential execution of multiple CoTasks.
     /// </summary>
-    public sealed class SequentialCoTask : CoTask
+    internal sealed class SequentialCoTask : CoTask
     {
         private readonly IEnumerator<ICoTask> _enumerator;
         private CoroutineExecutionContext _context;
