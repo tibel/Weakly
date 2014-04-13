@@ -62,7 +62,7 @@ namespace Weakly.MVVM
             {
                 BuildUp(coTask);
                 coTask.Completed += completed;
-                coTask.Execute(context ?? new CoroutineExecutionContext());
+                coTask.BeginExecute(context ?? new CoroutineExecutionContext());
             }
             catch (Exception ex)
             {

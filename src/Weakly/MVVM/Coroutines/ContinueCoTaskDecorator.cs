@@ -59,7 +59,7 @@ namespace Weakly.MVVM
             try
             {
                 continueCoTask.Completed += ContinueCompleted;
-                continueCoTask.Execute(context);
+                continueCoTask.BeginExecute(context);
             }
             catch (Exception ex)
             {

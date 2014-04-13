@@ -64,7 +64,7 @@ namespace Weakly.MVVM
             try
             {
                 rescueCoTask.Completed += RescueCompleted;
-                rescueCoTask.Execute(context);
+                rescueCoTask.BeginExecute(context);
             }
             catch (Exception ex)
             {

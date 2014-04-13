@@ -11,7 +11,7 @@ namespace Weakly.MVVM
         /// Executes the CoTask using the specified context.
         /// </summary>
         /// <param name="context">The context.</param>
-        void Execute(CoroutineExecutionContext context);
+        void BeginExecute(CoroutineExecutionContext context);
 
         /// <summary>
         /// Occurs when execution has completed.
