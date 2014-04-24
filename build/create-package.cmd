@@ -1,2 +1,4 @@
 @ECHO OFF
-..\packages\NuGet.CommandLine.2.8.1\tools\NuGet.exe pack Weakly.nuspec
+del Weakly.*.nupkg
+..\packages\NuGet.CommandLine.2.8.1\tools\NuGet.exe pack Weakly.nuspec -Symbols
+pause

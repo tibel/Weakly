@@ -18,8 +18,8 @@
     </tags>
   </metadata>
 
-  <files>
-    <file src="..\bin\Release\Weakly.dll" target="lib\portable-net45+win8+wp8+wpa81" />
-    <file src="..\bin\Release\Weakly.xml" target="lib\portable-net45+win8+wp8+wpa81" />
+  <files>	
+    <file src="..\bin\Release\Weakly.*" target="lib\portable-net45+win8+wp8+wpa81" />
+    <file src="..\src\**\*.cs" exclude="**\obj\**\*.*" target="src" />
   </files>
 </package>
