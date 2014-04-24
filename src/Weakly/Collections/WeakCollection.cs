@@ -12,7 +12,7 @@ namespace Weakly
     public class WeakCollection<T> : ICollection<T>
         where T : class
     {
-        private readonly List<WeakReference<T>> _inner;
+        private readonly List<WeakReference> _inner;
         private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
         #region Cleanup handling
@@ -32,8 +32,7 @@ namespace Weakly
         {
             for (var i = _inner.Count - 1; i >= 0; i--)
             {
-                T unused;
-                if (!_inner[i].TryGetTarget(out unused))
+                if (!_inner[i].IsAlive)
                     _inner.RemoveAt(i);
             }
         }
@@ -55,7 +54,7 @@ namespace Weakly
         /// </summary>
         public WeakCollection()
         {
-            _inner = new List<WeakReference<T>>();
+            _inner = new List<WeakReference>();
         }
 
         /// <summary>
@@ -64,12 +63,7 @@ namespace Weakly
         /// <param name="collection">The collection whose elements are copied to the new collection.</param>
         public WeakCollection(IEnumerable<T> collection)
         {
-            _inner = new List<WeakReference<T>>();
-
-            foreach (var item in collection)
-            {
-                _inner.Add(new WeakReference<T>(item));
-            }
+            _inner = new List<WeakReference>(collection.Select(item => new WeakReference(item)));
         }
 
         /// <summary>
@@ -78,7 +72,7 @@ namespace Weakly
         /// <param name="capacity">The number of elements that the new list can initially store.</param>
         public WeakCollection(int capacity)
         {
-            _inner = new List<WeakReference<T>>(capacity);
+            _inner = new List<WeakReference>(capacity);
         }
 
         #endregion
@@ -90,12 +84,7 @@ namespace Weakly
         public IEnumerator<T> GetEnumerator()
         {
             CleanIfNeeded();
-            var enumerable = _inner.Select(item =>
-                {
-                    T value;
-                    item.TryGetTarget(out value);
-                    return value;
-                })
+            var enumerable = _inner.Select(item => (T) item.Target)
                 .Where(value => value != null);
             return enumerable.GetEnumerator();
         }
@@ -112,7 +101,7 @@ namespace Weakly
         public void Add(T item)
         {
             CleanIfNeeded();
-            _inner.Add(new WeakReference<T>(item));
+            _inner.Add(new WeakReference(item));
         }
 
         /// <summary>
@@ -131,12 +120,7 @@ namespace Weakly
         public bool Contains(T item)
         {
             CleanIfNeeded();
-            return _inner.Any(w =>
-                {
-                    T target;
-                    w.TryGetTarget(out target);
-                    return target == item;
-                });
+            return _inner.Any(w => ((T)w.Target) == item);
         }
 
         /// <summary>
@@ -167,8 +151,7 @@ namespace Weakly
 
             for (var i = 0; i < _inner.Count; i++)
             {
-                T target;
-                _inner[i].TryGetTarget(out target);
+                var target = (T) _inner[i].Target;
                 if (target == item)
                 {
                     _inner.RemoveAt(i);

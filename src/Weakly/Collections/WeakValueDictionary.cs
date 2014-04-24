@@ -13,7 +13,7 @@ namespace Weakly
     public class WeakValueDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         where TValue : class
     {
-        private readonly Dictionary<TKey, WeakReference<TValue>> _inner;
+        private readonly Dictionary<TKey, WeakReference> _inner;
         private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
         #region Cleanup handling
@@ -31,18 +31,11 @@ namespace Weakly
 
         private void CleanAbandonedItems()
         {
-            var keysToRemove = _inner.Where(pair =>
-                {
-                    TValue unused;
-                    return !pair.Value.TryGetTarget(out unused);
-                })
+            var keysToRemove = _inner.Where(pair => !pair.Value.IsAlive)
                 .Select(pair => pair.Key)
                 .ToList();
 
-            foreach (var key in keysToRemove)
-            {
-                _inner.Remove(key);
-            }
+            keysToRemove.ForEach(key => _inner.Remove(key));
         }
 
         private void CleanIfNeeded()
@@ -62,7 +55,7 @@ namespace Weakly
         /// </summary>
         public WeakValueDictionary()
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>();
+            _inner = new Dictionary<TKey, WeakReference>();
         }
 
         /// <summary>
@@ -71,12 +64,8 @@ namespace Weakly
         /// <param name="dictionary">The <see cref="IDictionary&lt;TKey, TValue&gt;"/> whose elements are copied to the new <see cref="WeakValueDictionary&lt;TKey, TValue&gt;"/>.</param>
         public WeakValueDictionary(IDictionary<TKey, TValue> dictionary)
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>();
-
-            foreach (var item in dictionary)
-            {
-                _inner.Add(item.Key, new WeakReference<TValue>(item.Value));
-            }
+            _inner = new Dictionary<TKey, WeakReference>();
+            dictionary.ForEach(item => _inner.Add(item.Key, new WeakReference(item.Value)));
         }
 
         /// <summary>
@@ -86,12 +75,8 @@ namespace Weakly
         /// <param name="comparer">The <see cref="IEqualityComparer&lt;T&gt;"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer&lt;T&gt;"/> for the type of the key.</param>
         public WeakValueDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>(comparer);
-
-            foreach (var item in dictionary)
-            {
-                _inner.Add(item.Key, new WeakReference<TValue>(item.Value));
-            }
+            _inner = new Dictionary<TKey, WeakReference>(comparer);
+            dictionary.ForEach(item => _inner.Add(item.Key, new WeakReference(item.Value)));
         }
 
         /// <summary>
@@ -100,7 +85,7 @@ namespace Weakly
         /// <param name="comparer">The <see cref="IEqualityComparer&lt;T&gt;"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer&lt;T&gt;"/> for the type of the key.</param>
         public WeakValueDictionary(IEqualityComparer<TKey> comparer)
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>(comparer);
+            _inner = new Dictionary<TKey, WeakReference>(comparer);
         }
 
         /// <summary>
@@ -109,7 +94,7 @@ namespace Weakly
         /// <param name="capacity">The initial number of elements that the <see cref="WeakValueDictionary&lt;TKey, TValue&gt;"/> can contain.</param>
         public WeakValueDictionary(int capacity)
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>(capacity);
+            _inner = new Dictionary<TKey, WeakReference>(capacity);
         }
 
         /// <summary>
@@ -119,7 +104,7 @@ namespace Weakly
         /// <param name="comparer">The <see cref="IEqualityComparer&lt;T&gt;"/> implementation to use when comparing keys, or null to use the default <see cref="EqualityComparer&lt;T&gt;"/> for the type of the key.</param>
         public WeakValueDictionary(int capacity, IEqualityComparer<TKey> comparer)
         {
-            _inner = new Dictionary<TKey, WeakReference<TValue>>(capacity, comparer);
+            _inner = new Dictionary<TKey, WeakReference>(capacity, comparer);
         }
 
         #endregion
@@ -131,12 +116,7 @@ namespace Weakly
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             CleanIfNeeded();
-            var enumerable = _inner.Select(pair =>
-                {
-                    TValue value;
-                    pair.Value.TryGetTarget(out value);
-                    return new KeyValuePair<TKey, TValue>(pair.Key, value);
-                })
+            var enumerable = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, (TValue) pair.Value.Target))
                 .Where(pair => pair.Value != null);
             return enumerable.GetEnumerator();
         }
@@ -220,7 +200,7 @@ namespace Weakly
         public void Add(TKey key, TValue value)
         {
             CleanIfNeeded();
-            _inner.Add(key, new WeakReference<TValue>(value));
+            _inner.Add(key, new WeakReference(value));
         }
 
         /// <summary>
@@ -258,15 +238,15 @@ namespace Weakly
         {
             CleanIfNeeded();
 
-            WeakReference<TValue> wr;
+            WeakReference wr;
             if (!_inner.TryGetValue(key, out wr))
             {
                 value = null;
                 return false;
             }
 
-            TValue result;
-            if (wr.TryGetTarget(out result))
+            var result = (TValue) wr.Target;
+            if (result == null)
             {
                 _inner.Remove(key);
                 value = null;
@@ -297,7 +277,7 @@ namespace Weakly
             set
             {
                 CleanIfNeeded();
-                _inner[key] = new WeakReference<TValue>(value);
+                _inner[key] = new WeakReference(value);
             }
         }
 
