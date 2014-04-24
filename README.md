@@ -1,4 +1,4 @@
-![Logo](https://github.com/tibel/Weakly/raw/master/build/weakly_icon.png)
+![Logo](./build/weakly_icon.png?raw=true)
 # Weakly
 
 Weakly is a collection of some useful weak-reference types available as portable class library for **net45+win8+wp8+wpa81** and available through nuget.
