@@ -1,2 +1,2 @@
 @ECHO OFF
-NuGet.exe pack Weakly.nuspec
+..\packages\NuGet.CommandLine.2.8.1\tools\NuGet.exe pack Weakly.nuspec
