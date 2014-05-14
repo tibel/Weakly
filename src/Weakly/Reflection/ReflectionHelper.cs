@@ -47,8 +47,7 @@ namespace Weakly
         /// <returns>True, if the type is a Windows Runtime Type; otherwise false.</returns>
         public static bool IsWindowsRuntimeType(this Type type)
         {
-            return type != null &&
-                   type.AssemblyQualifiedName.EndsWith("ContentType=WindowsRuntime", StringComparison.Ordinal);
+            return type.AssemblyQualifiedName.EndsWith("ContentType=WindowsRuntime", StringComparison.Ordinal);
         }
     }
 }

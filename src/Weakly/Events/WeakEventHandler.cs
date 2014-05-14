@@ -63,6 +63,9 @@ namespace Weakly
             if (handler.Target == null)
                 throw new ArgumentException("Handler delegate must point to instance method.", "handler");
 
+            if (eventInfo.EventHandlerType.IsWindowsRuntimeType())
+                throw new ArgumentException("Windows Runtime events are not supported.", "eventInfo");
+
             var isStatic = eventInfo.AddMethod.IsStatic;
             if (!isStatic && eventSource == null)
                 throw new ArgumentNullException("eventSource");
