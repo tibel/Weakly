@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Weakly
@@ -37,6 +38,17 @@ namespace Weakly
         public static bool IsAsync(this MethodInfo methodInfo)
         {
             return methodInfo.GetCustomAttribute<AsyncStateMachineAttribute>() != null;
+        }
+
+        /// <summary>
+        /// Determines wether the specified type is a Windows Runtime Type.
+        /// </summary>
+        /// <param name="type">The type to examine.</param>
+        /// <returns>True, if the type is a Windows Runtime Type; otherwise false.</returns>
+        public static bool IsWindowsRuntimeType(this Type type)
+        {
+            return type != null &&
+                   type.AssemblyQualifiedName.EndsWith("ContentType=WindowsRuntime", StringComparison.Ordinal);
         }
     }
 }
