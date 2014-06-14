@@ -101,11 +101,10 @@ namespace Weakly
                     .CreateDelegate(eventInfo.EventHandlerType, this);
 
                 // register weak handler
-                var addMethod = DynamicEvent.GetAddMethod(eventInfo);
-                addMethod(eventSource, _eventHandler);
+                _eventInfo.AddEventHandler(eventSource, _eventHandler);
             }
 
-            public void Invoke(object sender, TEventArgs args)
+            private void Invoke(object sender, TEventArgs args)
             {
                 var target = _target.Target;
                 if (target != null)
@@ -124,8 +123,7 @@ namespace Weakly
                 if (!isStatic && eventSource == null)
                     return;
 
-                var removeMethod = DynamicEvent.GetRemoveMethod(_eventInfo);
-                removeMethod(eventSource, _eventHandler);
+                _eventInfo.RemoveEventHandler(eventSource, _eventHandler);
                 _disposed = true;
             }
         }
