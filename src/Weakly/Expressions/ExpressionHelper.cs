@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Weakly
 {
     /// <summary>
-    /// Extension for <see cref="Expression"/>.
+    /// Common extensions for <see cref="Expression"/>.
     /// </summary>
     public static class ExpressionHelper
     {
@@ -13,7 +13,7 @@ namespace Weakly
         /// </summary>
         /// <param name="expression">The expression to convert.</param>
         /// <returns>The member info.</returns>
-        public static MemberInfo GetMemberInfo(this Expression expression)
+        public static MemberInfo GetMemberInfo(Expression expression)
         {
             var lambda = (LambdaExpression)expression;
 

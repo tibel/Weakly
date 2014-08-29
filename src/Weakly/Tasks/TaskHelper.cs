@@ -9,6 +9,8 @@ namespace Weakly
     /// </summary>
     public static class TaskHelper
     {
+        #region Common Tasks
+
         private readonly static Task CompletedTask = Task.FromResult<object>(null);
 
         /// <summary>
@@ -73,6 +75,10 @@ namespace Weakly
             return Faulted<object>(ex);
         }
 
+        #endregion
+
+        #region Exception handling
+
         /// <summary>
         /// Suppresses default exception handling of a Task that would otherwise reraise the exception on the finalizer thread.
         /// </summary>
@@ -97,5 +103,67 @@ namespace Weakly
         {
             return (Task<T>)((Task)task).IgnoreExceptions();
         }
+
+        /// <summary>
+        /// Fails immediately when an exception is encountered.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task FailFastOnException(this Task task)
+        {
+            task.ContinueWith(t => Environment.FailFast("A task faulted.", t.Exception),
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
+                TaskScheduler.Default);
+            return task;
+        }
+
+        /// <summary
+        /// >Fails immediately when an exception is encountered.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task<T> FailFastOnException<T>(this Task<T> task)
+        {
+            return (Task<T>)((Task)task).FailFastOnException();
+        }
+
+        /// <summary>
+        /// Occurs when a faulted <see cref="Task"/> is observed.
+        /// </summary>
+        public static event EventHandler<FaultedTaskEventArgs> TaskFaulted;
+
+        private static void OnTaskFaulted(Task task)
+        {
+            var handler = TaskFaulted;
+            if (handler != null)
+                handler(null, new FaultedTaskEventArgs(task));
+        }
+
+        /// <summary>
+        /// Triggers the <see cref="TaskFaulted"/> event immediately when an exception is encountered.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task ObserveException(this Task task)
+        {
+            task.ContinueWith(OnTaskFaulted,
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
+                TaskScheduler.Default);
+            return task;
+        }
+
+        /// <summary>
+        /// Triggers the <see cref="TaskFaulted"/> event immediately when an exception is encountered.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        /// <returns>The original Task.</returns>
+        public static Task<T> ObserveException<T>(this Task<T> task)
+        {
+            return (Task<T>)((Task)task).ObserveException();
+        }
+
+        #endregion
     }
 }

@@ -17,16 +17,29 @@ Weakly is available through NuGet:
 ### Collections
 * WeakCollection&lt;T&gt;
 * WeakValueDictionary&lt;TKey, TValue&gt;
+* Extensions for IEnumerable&lt;T&gt; and IDictionary&lt;TKey,TValue&gt;
+
+### Delegates
+* WeakAction to WeakAction&lt;T1, T2, T3, T4, T5&gt;
+* WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;
+* DisposableAction
 
 ### Events
 * WeakEventHandler&lt;TEventArgs&gt;
 * WeakEventSource&lt;TEventArgs&gt;
 
-### Delegates
-* WeakAction to WeakAction&lt;T1, T2, T3, T4, T5&gt;
-* WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;
+### Expressions
+* Extensions for Expression
+
+### IO
+* MemoryTributary
 
 ### Reflection
 * DynamicDelegate (compiled version of MethodInfo.Invoke)
-* DynamicProperty (compiled version of PropertyInfo.SetValue and GetValue)
 * DynamicEvent (compiled version of EventInfo.AddEventHandler and RemoveEventHandler)
+* DynamicProperty (compiled version of PropertyInfo.SetValue and GetValue)
+* some Helpers
+
+### Tasks
+* Common Tasks
+* Exception handling
