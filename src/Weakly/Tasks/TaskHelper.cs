@@ -165,5 +165,11 @@ namespace Weakly
         }
 
         #endregion
+
+        /// <summary>
+        /// Don't await the supplied task. Use this inside async methods to avoid compiler warnings.
+        /// </summary>
+        /// <param name="task">The Task to be monitored.</param>
+        public static void DontAwait(this Task task) { }
     }
 }
