@@ -70,6 +70,7 @@
     <Compile Include="Delegates\WeakAction.cs" />
     <Compile Include="Events\WeakEventSource.cs" />
     <Compile Include="Delegates\WeakFunc.cs" />
+    <Compile Include="Reflection\ReflectionPath.cs" />
     <Compile Include="Tasks\FaultedTaskEventArgs.cs" />
     <Compile Include="Tasks\TaskHelper.cs" />
   </ItemGroup>
