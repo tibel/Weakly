@@ -8,8 +8,7 @@ namespace Weakly
     /// </summary>
     public static class OpenFunc
     {
-        private static readonly IOpenFuncBuilder Builder = new ExpressionOpenFuncBuilder();
-        private static readonly SimpleCache<MethodInfo, Delegate> Cache = new SimpleCache<MethodInfo, Delegate>();
+        private static readonly IOpenFuncBuilder Builder = new CachingOpenFuncBuilderDecorator(new ExpressionOpenFuncBuilder());
 
         /// <summary>
         /// Create an open delegate from the specified method.
@@ -19,11 +18,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, TResult> From<TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<TResult>(method);
         }
 
         /// <summary>
@@ -35,11 +30,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, T, TResult> From<T, TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, T, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<T, TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<T, TResult>(method);
         }
 
         /// <summary>
@@ -52,11 +43,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Func<object, T1, T2, TResult> From<T1, T2, TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, T1, T2, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<T1, T2, TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<T1, T2, TResult>(method);
         }
 
         /// <summary>
@@ -70,11 +57,7 @@ namespace Weakly
         /// <returns>The open delegate</returns>
         public static Func<object, T1, T2, T3, TResult> From<T1, T2, T3, TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, T1, T2, T3, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<T1, T2, T3, TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<T1, T2, T3, TResult>(method);
         }
 
         /// <summary>
@@ -89,11 +72,7 @@ namespace Weakly
         /// <returns>The open delegate</returns>
         public static Func<object, T1, T2, T3, T4, TResult> From<T1, T2, T3, T4, TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, T1, T2, T3, T4, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<T1, T2, T3, T4, TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<T1, T2, T3, T4, TResult>(method);
         }
 
         /// <summary>
@@ -109,11 +88,7 @@ namespace Weakly
         /// <returns>The open delegate</returns>
         public static Func<object, T1, T2, T3, T4, T5, TResult> From<T1, T2, T3, T4, T5, TResult>(MethodInfo method)
         {
-            var func = Cache.GetValueOrDefault<Func<object, T1, T2, T3, T4, T5, TResult>>(method);
-            if (func != null) return func;
-            func = Builder.BuildFunc<T1, T2, T3, T4, T5, TResult>(method);
-            Cache.AddOrUpdate(method, func);
-            return func;
+            return Builder.BuildFunc<T1, T2, T3, T4, T5, TResult>(method);
         }
     }
 }

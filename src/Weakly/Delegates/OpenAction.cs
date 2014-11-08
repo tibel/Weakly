@@ -8,8 +8,7 @@ namespace Weakly
     /// </summary>
     public static class OpenAction
     {
-        private static readonly IOpenActionBuilder Builder = new ExpressionOpenActionBuilder();
-        private static readonly SimpleCache<MethodInfo, Delegate> Cache = new SimpleCache<MethodInfo, Delegate>();
+        private static readonly IOpenActionBuilder Builder = new CachingOpenActionBuilderDecorator(new ExpressionOpenActionBuilder());
 
         /// <summary>
         /// Create an open delegate from the specified method.
@@ -18,11 +17,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object> From(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction(method);
         }
 
         /// <summary>
@@ -33,11 +28,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T> From<T>(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object, T>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction<T>(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction<T>(method);
         }
 
         /// <summary>
@@ -49,11 +40,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2> From<T1, T2>(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object, T1, T2>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction<T1, T2>(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction<T1, T2>(method);
         }
 
         /// <summary>
@@ -66,11 +53,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3> From<T1, T2, T3>(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object, T1, T2, T3>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction<T1, T2, T3>(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction<T1, T2, T3>(method);
         }
 
         /// <summary>
@@ -84,11 +67,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3, T4> From<T1, T2, T3, T4>(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object, T1, T2, T3, T4>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction<T1, T2, T3, T4>(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction<T1, T2, T3, T4>(method);
         }
 
         /// <summary>
@@ -103,11 +82,7 @@ namespace Weakly
         /// <returns>The open delegate.</returns>
         public static Action<object, T1, T2, T3, T4, T5> From<T1, T2, T3, T4, T5>(MethodInfo method)
         {
-            var action = Cache.GetValueOrDefault<Action<object, T1, T2, T3, T4, T5>>(method);
-            if (action != null) return action;
-            action = Builder.BuildAction<T1, T2, T3, T4, T5>(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
+            return Builder.BuildAction<T1, T2, T3, T4, T5>(method);
         }
     }
 }

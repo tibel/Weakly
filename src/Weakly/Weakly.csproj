@@ -55,11 +55,13 @@
     <Compile Include="Collections\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
+    <Compile Include="Builder\CachingOpenActionBuilderDecorator.cs" />
+    <Compile Include="Builder\CachingOpenFuncBuilderDecorator.cs" />
     <Compile Include="Delegates\DisposableAction.cs" />
-    <Compile Include="Delegates\ExpressionOpenActionBuilder.cs" />
-    <Compile Include="Delegates\ExpressionOpenFuncBuilder.cs" />
-    <Compile Include="Delegates\IOpenActionBuilder.cs" />
-    <Compile Include="Delegates\IOpenFuncBuilder.cs" />
+    <Compile Include="Builder\ExpressionOpenActionBuilder.cs" />
+    <Compile Include="Builder\ExpressionOpenFuncBuilder.cs" />
+    <Compile Include="Builder\IOpenActionBuilder.cs" />
+    <Compile Include="Builder\IOpenFuncBuilder.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Reflection\DynamicDelegate.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
