@@ -65,7 +65,7 @@ namespace Weakly
                             );
 
                     _reflectedTypes[i] = currentType;
-                    getValue = _getters[i] = DynamicProperty.GetterFrom(pi);
+                    getValue = _getters[i] = pi.GetValue;
                 }
 
                 current = getValue(current);
