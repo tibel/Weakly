@@ -36,7 +36,6 @@ Weakly is available through NuGet:
 
 ### Reflection
 * DynamicDelegate (compiled version of MethodInfo.Invoke)
-* DynamicEvent (compiled version of EventInfo.AddEventHandler and RemoveEventHandler)
 * DynamicProperty (compiled version of PropertyInfo.SetValue and GetValue)
 * ReflectionPath
 * some Helpers

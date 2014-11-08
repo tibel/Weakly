@@ -71,7 +71,6 @@
     <Compile Include="Delegates\OpenFunc.cs" />
     <Compile Include="Delegates\WeakDelegate.cs" />
     <Compile Include="Reflection\DynamicProperty.cs" />
-    <Compile Include="Reflection\DynamicEvent.cs" />
     <Compile Include="Events\WeakEventHandler.cs" />
     <Compile Include="Expressions\ExpressionHelper.cs" />
     <Compile Include="IO\MemoryTributary.cs" />
