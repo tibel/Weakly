@@ -68,6 +68,7 @@
     <Compile Include="Builder\ExpressionOpenFuncBuilder.cs" />
     <Compile Include="Builder\IOpenActionBuilder.cs" />
     <Compile Include="Builder\IOpenFuncBuilder.cs" />
+    <Compile Include="Delegates\DynamicEvent.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Delegates\DynamicDelegate.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
