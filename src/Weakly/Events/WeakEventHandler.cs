@@ -80,9 +80,8 @@ namespace Weakly
         private sealed class WeakEventHandlerImpl<TEventArgs> : IDisposable
         {
             private readonly WeakReference _source;
-            private readonly WeakReference _target;
-            private readonly MethodInfo _handler;
             private readonly EventInfo _eventInfo;
+            private readonly WeakAction<object, TEventArgs> _handler;
             private readonly Delegate _eventHandler;
             private bool _disposed;
 
@@ -92,8 +91,7 @@ namespace Weakly
                     _source = new WeakReference(eventSource);
 
                 _eventInfo = eventInfo;
-                _target = new WeakReference(handler.Target);
-                _handler = handler.GetMethodInfo();
+                _handler = new WeakAction<object, TEventArgs>(handler);
                 
                 // create correct delegate type
                 _eventHandler = new Action<object, TEventArgs>(Invoke)
@@ -106,9 +104,8 @@ namespace Weakly
 
             private void Invoke(object sender, TEventArgs args)
             {
-                var target = _target.Target;
-                if (target != null)
-                    OpenAction.From<object, TEventArgs>(_handler)(target, sender, args);
+                if (_handler.IsAlive)
+                    _handler.Invoke(sender, args);
                 else
                     Dispose();
             }
