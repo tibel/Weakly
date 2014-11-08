@@ -15,37 +15,19 @@ namespace Weakly
         private readonly List<WeakReference> _inner;
         private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
-        #region Cleanup handling
-
-        private bool IsCleanupNeeded()
+        private void CleanIfNeeded()
         {
-            if (_gcSentinel.Target == null)
-            {
-                _gcSentinel.Target = new object();
-                return true;
-            }
+            if (_gcSentinel.IsAlive)
+                return;
 
-            return false;
-        }
+            _gcSentinel.Target = new object();
 
-        private void CleanAbandonedItems()
-        {
             for (var i = _inner.Count - 1; i >= 0; i--)
             {
                 if (!_inner[i].IsAlive)
                     _inner.RemoveAt(i);
             }
         }
-
-        private void CleanIfNeeded()
-        {
-            if (IsCleanupNeeded())
-            {
-                CleanAbandonedItems();
-            }
-        }
-
-        #endregion
 
         #region Constructors
 

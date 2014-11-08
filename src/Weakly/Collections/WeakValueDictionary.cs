@@ -16,37 +16,22 @@ namespace Weakly
         private readonly Dictionary<TKey, WeakReference> _inner;
         private readonly WeakReference _gcSentinel = new WeakReference(new object());
 
-        #region Cleanup handling
-
-        private bool IsCleanupNeeded()
+        private void CleanIfNeeded()
         {
-            if (_gcSentinel.Target == null)
-            {
-                _gcSentinel.Target = new object();
-                return true;
-            }
+            if (_gcSentinel.IsAlive)
+                return;
 
-            return false;
-        }
+            _gcSentinel.Target = new object();
 
-        private void CleanAbandonedItems()
-        {
             var keysToRemove = _inner.Where(pair => !pair.Value.IsAlive)
                 .Select(pair => pair.Key)
                 .ToList();
 
-            keysToRemove.ForEach(key => _inner.Remove(key));
-        }
-
-        private void CleanIfNeeded()
-        {
-            if (IsCleanupNeeded())
+            foreach (var key in keysToRemove)
             {
-                CleanAbandonedItems();
+                _inner.Remove(key);
             }
         }
-
-        #endregion
 
         #region Constructors
 
@@ -65,7 +50,11 @@ namespace Weakly
         public WeakValueDictionary(IDictionary<TKey, TValue> dictionary)
         {
             _inner = new Dictionary<TKey, WeakReference>();
-            dictionary.ForEach(item => _inner.Add(item.Key, new WeakReference(item.Value)));
+
+            foreach (var item in dictionary)
+            {
+                _inner.Add(item.Key, new WeakReference(item.Value));
+            }
         }
 
         /// <summary>
@@ -76,7 +65,11 @@ namespace Weakly
         public WeakValueDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
         {
             _inner = new Dictionary<TKey, WeakReference>(comparer);
-            dictionary.ForEach(item => _inner.Add(item.Key, new WeakReference(item.Value)));
+
+            foreach (var item in dictionary)
+            {
+                _inner.Add(item.Key, new WeakReference(item.Value));
+            }
         }
 
         /// <summary>
