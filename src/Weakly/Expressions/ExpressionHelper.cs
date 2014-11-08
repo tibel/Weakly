@@ -15,20 +15,14 @@ namespace Weakly
         /// <returns>The member info.</returns>
         public static MemberInfo GetMemberInfo(Expression expression)
         {
-            var lambda = (LambdaExpression)expression;
+            expression = ((LambdaExpression)expression).Body;
 
-            MemberExpression memberExpression;
-
-            var unaryExpression = lambda.Body as UnaryExpression;
-            if (unaryExpression != null)
+            if (expression.NodeType == ExpressionType.Convert)
             {
-                memberExpression = (MemberExpression)unaryExpression.Operand;
-            }
-            else
-            {
-                memberExpression = (MemberExpression)lambda.Body;
+                expression = ((UnaryExpression)expression).Operand;
             }
 
+            var memberExpression = (MemberExpression) expression;
             return memberExpression.Member;
         }
     }
