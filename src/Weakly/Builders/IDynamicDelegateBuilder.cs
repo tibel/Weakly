@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Weakly
+namespace Weakly.Builders
 {
     /// <summary>
     /// Creates dynamic delegate functions.
     /// </summary>
-    internal interface IDynamicDelegateBuilder
+    public interface IDynamicDelegateBuilder
     {
         /// <summary>
         /// Create a dynamic delegate from the specified method.

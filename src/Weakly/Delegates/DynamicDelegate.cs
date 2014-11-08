@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Weakly.Builders;
 
 namespace Weakly
 {
@@ -8,8 +9,6 @@ namespace Weakly
     /// </summary>
     public static class DynamicDelegate
     {
-        private static readonly IDynamicDelegateBuilder Builder = new CachingDynamicDelegateBuilderDecorator(new ExpressionDynamicDelegateBuilder());
-
         /// <summary>
         /// Create a dynamic delegate from the specified method.
         /// </summary>
@@ -17,7 +16,7 @@ namespace Weakly
         /// <returns>The dynamic delegate.</returns>
         public static Func<object, object[], object> From(MethodInfo method)
         {
-            return Builder.BuildDynamic(method);
+            return Builder.DynamicDelegate.BuildDynamic(method);
         }
     }
 }

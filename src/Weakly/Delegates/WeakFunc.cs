@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Weakly.Builders;
 
 namespace Weakly
 {
@@ -36,7 +37,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<TResult>(Method)(target);
+                return Builder.OpenFunc.BuildFunc<TResult>(Method)(target);
             return default(TResult);
         }
     }
@@ -76,7 +77,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<T, TResult>(Method)(target, obj);
+                return Builder.OpenFunc.BuildFunc<T, TResult>(Method)(target, obj);
             return default(TResult);
         }
     }
@@ -118,7 +119,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<T1, T2, TResult>(Method)(target, arg1, arg2);
+                return Builder.OpenFunc.BuildFunc<T1, T2, TResult>(Method)(target, arg1, arg2);
             return default(TResult);
         }
     }
@@ -162,7 +163,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<T1, T2, T3, TResult>(Method)(target, arg1, arg2, arg3);
+                return Builder.OpenFunc.BuildFunc<T1, T2, T3, TResult>(Method)(target, arg1, arg2, arg3);
             return default(TResult);
         }
     }
@@ -208,7 +209,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<T1, T2, T3, T4, TResult>(Method)(target, arg1, arg2, arg3, arg4);
+                return Builder.OpenFunc.BuildFunc<T1, T2, T3, T4, TResult>(Method)(target, arg1, arg2, arg3, arg4);
             return default(TResult);
         }
     }
@@ -256,7 +257,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                return OpenFunc.From<T1, T2, T3, T4, T5, TResult>(Method)(target, arg1, arg2, arg3, arg4, arg5);
+                return Builder.OpenFunc.BuildFunc<T1, T2, T3, T4, T5, TResult>(Method)(target, arg1, arg2, arg3, arg4, arg5);
             return default(TResult);
         }
     }

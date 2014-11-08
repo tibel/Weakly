@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Weakly
+namespace Weakly.Builders
 {
-    internal class ExpressionDynamicDelegateBuilder : IDynamicDelegateBuilder
+    /// <summary>
+    /// <see cref="Expression"/> based <see cref="IDynamicDelegateBuilder"/>.
+    /// </summary>
+    public class ExpressionDynamicDelegateBuilder : IDynamicDelegateBuilder
     {
+        /// <summary>
+        /// Create a dynamic delegate from the specified method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>
+        /// The dynamic delegate.
+        /// </returns>
         public Func<object, object[], object> BuildDynamic(MethodInfo method)
         {
             var parameterInfos = method.GetParameters();

@@ -50,24 +50,25 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Builder\CachingDynamicDelegateBuilderDecorator.cs" />
-    <Compile Include="Builder\CachingPropertyAccessorBuilderDecorator.cs" />
-    <Compile Include="Builder\ExpressionDynamicDelegateBuilder.cs" />
-    <Compile Include="Builder\ExpressionPropertyAccessorBuilder.cs" />
-    <Compile Include="Builder\IDynamicDelegateBuilder.cs" />
-    <Compile Include="Builder\IPropertyAccessorBuilder.cs" />
+    <Compile Include="Builders\Builder.cs" />
+    <Compile Include="Builders\CachingDynamicDelegateBuilderDecorator.cs" />
+    <Compile Include="Builders\CachingPropertyAccessorBuilderDecorator.cs" />
+    <Compile Include="Builders\ExpressionDynamicDelegateBuilder.cs" />
+    <Compile Include="Builders\ExpressionPropertyAccessorBuilder.cs" />
+    <Compile Include="Builders\IDynamicDelegateBuilder.cs" />
+    <Compile Include="Builders\IPropertyAccessorBuilder.cs" />
     <Compile Include="Collections\DictionaryHelper.cs" />
     <Compile Include="Collections\EnumerableHelper.cs" />
     <Compile Include="Collections\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
-    <Compile Include="Builder\CachingOpenActionBuilderDecorator.cs" />
-    <Compile Include="Builder\CachingOpenFuncBuilderDecorator.cs" />
+    <Compile Include="Builders\CachingOpenActionBuilderDecorator.cs" />
+    <Compile Include="Builders\CachingOpenFuncBuilderDecorator.cs" />
     <Compile Include="Delegates\DisposableAction.cs" />
-    <Compile Include="Builder\ExpressionOpenActionBuilder.cs" />
-    <Compile Include="Builder\ExpressionOpenFuncBuilder.cs" />
-    <Compile Include="Builder\IOpenActionBuilder.cs" />
-    <Compile Include="Builder\IOpenFuncBuilder.cs" />
+    <Compile Include="Builders\ExpressionOpenActionBuilder.cs" />
+    <Compile Include="Builders\ExpressionOpenFuncBuilder.cs" />
+    <Compile Include="Builders\IOpenActionBuilder.cs" />
+    <Compile Include="Builders\IOpenFuncBuilder.cs" />
     <Compile Include="Delegates\DynamicEvent.cs" />
     <Compile Include="Reflection\ManagedRuntime.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />

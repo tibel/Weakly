@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Weakly.Builders;
 
 namespace Weakly
 {
@@ -34,7 +35,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From(Method)(target);
+                Builder.OpenAction.BuildAction(Method)(target);
         }
     }
 
@@ -71,7 +72,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From<T>(Method)(target, obj);
+                Builder.OpenAction.BuildAction<T>(Method)(target, obj);
         }
     }
 
@@ -110,7 +111,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From<T1, T2>(Method)(target, arg1, arg2);
+                Builder.OpenAction.BuildAction<T1, T2>(Method)(target, arg1, arg2);
         }
     }
 
@@ -151,7 +152,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From<T1, T2, T3>(Method)(target, arg1, arg2, arg3);
+                Builder.OpenAction.BuildAction<T1, T2, T3>(Method)(target, arg1, arg2, arg3);
         }
     }
 
@@ -194,7 +195,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From<T1, T2, T3, T4>(Method)(target, arg1, arg2, arg3, arg4);
+                Builder.OpenAction.BuildAction<T1, T2, T3, T4>(Method)(target, arg1, arg2, arg3, arg4);
         }
     }
 
@@ -239,7 +240,7 @@ namespace Weakly
         {
             var target = Target;
             if (target != null)
-                OpenAction.From<T1, T2, T3, T4, T5>(Method)(target, arg1, arg2, arg3, arg4, arg5);
+                Builder.OpenAction.BuildAction<T1, T2, T3, T4, T5>(Method)(target, arg1, arg2, arg3, arg4, arg5);
         }
     }
 }

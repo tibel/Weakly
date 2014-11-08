@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Weakly
+namespace Weakly.Builders
 {
     /// <summary>
     /// Creates property accessors.
     /// </summary>
-    internal interface IPropertyAccessorBuilder
+    public interface IPropertyAccessorBuilder
     {
         /// <summary>
         /// Get compiled Getter function from a given <paramref name="property"/>.

@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Weakly
+namespace Weakly.Builders
 {
-    internal class ExpressionPropertyAccessorBuilder : IPropertyAccessorBuilder
+    /// <summary>
+    /// <see cref="Expression"/> based <see cref="IPropertyAccessorBuilder"/>.
+    /// </summary>
+    public class ExpressionPropertyAccessorBuilder : IPropertyAccessorBuilder
     {
+        /// <summary>
+        /// Get compiled Getter function from a given <paramref name="property" />.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns>
+        /// The function to get the property value.
+        /// </returns>
         public Func<object, object> BuildGetter(System.Reflection.PropertyInfo property)
         {
             var instance = Expression.Parameter(typeof(object), "instance");
@@ -14,6 +24,13 @@ namespace Weakly
             return Expression.Lambda<Func<object, object>>(body, instance).Compile();
         }
 
+        /// <summary>
+        /// Get compiled Setter function from a given <paramref name="property" />.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns>
+        /// The function to set the property value.
+        /// </returns>
         public Action<object, object> BuildSetter(System.Reflection.PropertyInfo property)
         {
             var instance = Expression.Parameter(typeof(object), "instance");
