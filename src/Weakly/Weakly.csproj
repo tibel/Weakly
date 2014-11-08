@@ -50,6 +50,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Builder\CachingDynamicDelegateBuilderDecorator.cs" />
+    <Compile Include="Builder\ExpressionDynamicDelegateBuilder.cs" />
+    <Compile Include="Builder\IDynamicDelegateBuilder.cs" />
     <Compile Include="Collections\DictionaryHelper.cs" />
     <Compile Include="Collections\EnumerableHelper.cs" />
     <Compile Include="Collections\SimpleCache.cs" />
@@ -63,7 +66,7 @@
     <Compile Include="Builder\IOpenActionBuilder.cs" />
     <Compile Include="Builder\IOpenFuncBuilder.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
-    <Compile Include="Reflection\DynamicDelegate.cs" />
+    <Compile Include="Delegates\DynamicDelegate.cs" />
     <Compile Include="Delegates\OpenAction.cs" />
     <Compile Include="Delegates\OpenFunc.cs" />
     <Compile Include="Delegates\WeakDelegate.cs" />

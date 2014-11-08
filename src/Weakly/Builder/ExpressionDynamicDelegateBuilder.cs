@@ -5,28 +5,9 @@ using System.Reflection;
 
 namespace Weakly
 {
-    /// <summary>
-    /// Helper to create dynamic delegate functions.
-    /// </summary>
-    public static class DynamicDelegate
+    internal class ExpressionDynamicDelegateBuilder : IDynamicDelegateBuilder
     {
-        private static readonly SimpleCache<MethodInfo, Func<object, object[], object>> Cache = new SimpleCache<MethodInfo, Func<object, object[], object>>();
-
-        /// <summary>
-        /// Create a dynamic delegate from the specified method.
-        /// </summary>
-        /// <param name="method">The method.</param>
-        /// <returns>The dynamic delegate.</returns>
-        public static Func<object, object[], object> From(MethodInfo method)
-        {
-            var action = Cache.GetValueOrDefault(method);
-            if (action != null) return action;
-            action = CompileFunction(method);
-            Cache.AddOrUpdate(method, action);
-            return action;
-        }
-
-        private static Func<object, object[], object> CompileFunction(MethodInfo method)
+        public Func<object, object[], object> BuildDynamic(MethodInfo method)
         {
             var parameterInfos = method.GetParameters();
 
@@ -71,7 +52,7 @@ namespace Weakly
             var parameterArray = new Expression[parameterInfos.Length];
             for (var i = 0; i < parameterInfos.Length; i++)
             {
-                var p = Expression.ArrayIndex(parameters, Expression.Constant(i, typeof (int)));
+                var p = Expression.ArrayIndex(parameters, Expression.Constant(i, typeof(int)));
                 parameterArray[i] = Expression.Convert(p, parameterInfos[i].ParameterType);
             }
             return parameterArray;
@@ -82,7 +63,7 @@ namespace Weakly
             return Expression.IfThen(
                 Expression.NotEqual(
                     Expression.ArrayLength(parameters),
-                    Expression.Constant(length, typeof (int))),
+                    Expression.Constant(length, typeof(int))),
                 Expression.Throw(Expression.Constant(new TargetParameterCountException())));
         }
     }
