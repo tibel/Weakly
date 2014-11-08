@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly", "src\Weakly\Weakly.csproj", "{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}"
 EndProject
@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CD637C
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Wpf", "samples\Demo.Wpf\Demo.Wpf.csproj", "{D29C99D6-1657-41F7-B41D-2BC0ACB48973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +92,16 @@ Global
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.ActiveCfg = Release|x86
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.Build.0 = Release|x86
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9}.Release|x86.Deploy.0 = Release|x86
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Release|x64.ActiveCfg = Release|Any CPU
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +109,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9D75E61E-CF24-4412-9A0B-1DCD6467FFF8} = {9631FAAF-E57A-4C3B-8C4F-3FAAE0BE097B}
 		{EF1121FE-83A7-4BFC-9754-4C928AAA01B9} = {9631FAAF-E57A-4C3B-8C4F-3FAAE0BE097B}
+		{D29C99D6-1657-41F7-B41D-2BC0ACB48973} = {9631FAAF-E57A-4C3B-8C4F-3FAAE0BE097B}
 	EndGlobalSection
 EndGlobal
