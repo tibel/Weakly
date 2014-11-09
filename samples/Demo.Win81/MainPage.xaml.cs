@@ -6,6 +6,7 @@ using Weakly;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Weakly.Builders;
 
 namespace Demo.Win8
 {
@@ -81,7 +82,7 @@ namespace Demo.Win8
             try
             {
                 var method = TestRunner.GetTestMethod(methodName);
-                var function = DynamicDelegate.From(method);
+                var function = Builder.DynamicDelegate.BuildDynamic(method);
                 resultObject = function(instance, parameters);
             }
             catch (Exception ex)

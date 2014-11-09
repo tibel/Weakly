@@ -7,6 +7,7 @@ namespace Weakly
     /// <summary>
     /// Helper to create dynamic delegate functions.
     /// </summary>
+    [Obsolete("Use Builder.DynamicDelegate")]
     public static class DynamicDelegate
     {
         /// <summary>

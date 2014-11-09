@@ -7,6 +7,7 @@ namespace Weakly
     /// <summary>
     /// Helper to create dynamic (complied) property accessors.
     /// </summary>
+    [Obsolete("Use Builder.PropertyAccessor")]
     public static class DynamicProperty
     {
         /// <summary>

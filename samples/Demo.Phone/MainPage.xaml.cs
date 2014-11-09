@@ -3,6 +3,7 @@ using Microsoft.Phone.Controls;
 using System;
 using System.Windows;
 using Weakly;
+using Weakly.Builders;
 
 namespace Demo.Phone
 {
@@ -83,7 +84,7 @@ namespace Demo.Phone
             try
             {
                 var method = TestRunner.GetTestMethod(methodName);
-                var function = DynamicDelegate.From(method);
+                var function = Builder.DynamicDelegate.BuildDynamic(method);
                 var result = function(instance, parameters);
 
                 var resultText = (result != null) ? result.ToString() : "null";
