@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Demo.Library;
 using Weakly;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,12 +30,12 @@ namespace Demo.Win8
 
         private async void OnWeakActionAndWeakFunc(object sender, RoutedEventArgs e)
         {
-            var instance = new TestMethods();
+            var instance = Activator.CreateInstance(TestRunner.TestMethodsType);
 
             object resultObject = null;
             try
             {
-                var method = GetTestMethod("VoidNoParams");
+                var method = TestRunner.GetTestMethod("VoidNoParams");
                 var action = new WeakAction(instance, method);
                 action.Invoke();
             }
@@ -49,7 +48,7 @@ namespace Demo.Win8
 
             try
             {
-                var method = GetTestMethod("IntOneParam");
+                var method = TestRunner.GetTestMethod("IntOneParam");
                 var function = new WeakFunc<int, int>(instance, method);
                 resultObject = function.Invoke(10);
             }
@@ -68,7 +67,7 @@ namespace Demo.Win8
             await InvokeDynamicDelegate(null, "StaticVoidOneParam", 1);
             await InvokeDynamicDelegate(null, "StaticIntOneParam", 2);
 
-            var instance = new TestMethods();
+            var instance = Activator.CreateInstance(TestRunner.TestMethodsType);
             await InvokeDynamicDelegate(instance, "VoidNoParams");
             await InvokeDynamicDelegate(instance, "IntNoParams");
             await InvokeDynamicDelegate(instance, "VoidOneParam", 1);
@@ -81,7 +80,7 @@ namespace Demo.Win8
 
             try
             {
-                var method = GetTestMethod(methodName);
+                var method = TestRunner.GetTestMethod(methodName);
                 var function = DynamicDelegate.From(method);
                 resultObject = function(instance, parameters);
             }
@@ -91,11 +90,6 @@ namespace Demo.Win8
             }
 
             await ShowMessageBox(resultObject, methodName);
-        }
-
-        private static MethodInfo GetTestMethod(string methodName)
-        {
-            return typeof (TestMethods).GetRuntimeMethods().FirstOrDefault(m => m.Name == methodName);
         }
 
         private static async Task ShowMessageBox(object result, string caption)

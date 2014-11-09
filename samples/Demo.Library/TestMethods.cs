@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 
-namespace Demo.Win8
+namespace Demo.Library
 {
     internal class TestMethods
     {
-        #region static
+        #region private static
 
         private static void StaticVoidNoParams()
         {
@@ -28,7 +28,7 @@ namespace Demo.Win8
 
         #endregion
 
-        #region instance
+        #region private instance
 
         private void VoidNoParams()
         {

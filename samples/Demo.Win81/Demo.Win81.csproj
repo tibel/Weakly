@@ -109,6 +109,10 @@
       <Project>{aa37f0c0-aa8c-46de-ac8a-db844c9ac556}</Project>
       <Name>Weakly</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Demo.Library\Demo.Library.csproj">
+      <Project>{ece781c9-3808-46ca-a947-97b1fed9da51}</Project>
+      <Name>Demo.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -118,7 +122,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

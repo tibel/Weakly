@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using Demo.Library;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Demo.Phone.Resources;
+using System;
+using System.Windows;
 using Weakly;
 
 namespace Demo.Phone
@@ -42,11 +35,11 @@ namespace Demo.Phone
 
         private void OnWeakActionAndWeakFunc(object sender, RoutedEventArgs e)
         {
-            var instance = new TestMethods();
+            var instance = Activator.CreateInstance(TestRunner.TestMethodsType);
 
             try
             {
-                var method = typeof(TestMethods).GetMethod("VoidNoParams", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                var method = TestRunner.GetTestMethod("VoidNoParams");
                 var action = new WeakAction(instance, method);
                 action.Invoke();
 
@@ -59,7 +52,7 @@ namespace Demo.Phone
 
             try
             {
-                var method = typeof(TestMethods).GetMethod("IntOneParam", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                var method = TestRunner.GetTestMethod("IntOneParam");
                 var function = new WeakFunc<int, int>(instance, method);
                 var result = function.Invoke(10);
 
@@ -78,7 +71,7 @@ namespace Demo.Phone
             InvokeDynamicDelegate(null, "StaticVoidOneParam", 1);
             InvokeDynamicDelegate(null, "StaticIntOneParam", 2);
 
-            var instance = new TestMethods();
+            var instance = Activator.CreateInstance(TestRunner.TestMethodsType);
             InvokeDynamicDelegate(instance, "VoidNoParams");
             InvokeDynamicDelegate(instance, "IntNoParams");
             InvokeDynamicDelegate(instance, "VoidOneParam", 1);
@@ -89,7 +82,7 @@ namespace Demo.Phone
         {
             try
             {
-                var method = typeof(TestMethods).GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance);
+                var method = TestRunner.GetTestMethod(methodName);
                 var function = DynamicDelegate.From(method);
                 var result = function(instance, parameters);
 

@@ -103,7 +103,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -152,6 +151,10 @@
     <ProjectReference Include="..\..\src\Weakly\Weakly.csproj">
       <Project>{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}</Project>
       <Name>Weakly</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Demo.Library\Demo.Library.csproj">
+      <Project>{ece781c9-3808-46ca-a947-97b1fed9da51}</Project>
+      <Name>Demo.Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
