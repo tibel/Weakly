@@ -29,7 +29,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object> BuildAction(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object>>(method);
+            var action = (Action<object>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction(method);
             _cache.AddOrUpdate(method, action);
@@ -46,7 +46,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T> BuildAction<T>(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object, T>>(method);
+            var action = (Action<object, T>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction<T>(method);
             _cache.AddOrUpdate(method, action);
@@ -64,7 +64,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2> BuildAction<T1, T2>(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object, T1, T2>>(method);
+            var action = (Action<object, T1, T2>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction<T1, T2>(method);
             _cache.AddOrUpdate(method, action);
@@ -83,7 +83,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3> BuildAction<T1, T2, T3>(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object, T1, T2, T3>>(method);
+            var action = (Action<object, T1, T2, T3>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction<T1, T2, T3>(method);
             _cache.AddOrUpdate(method, action);
@@ -103,7 +103,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3, T4> BuildAction<T1, T2, T3, T4>(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object, T1, T2, T3, T4>>(method);
+            var action = (Action<object, T1, T2, T3, T4>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction<T1, T2, T3, T4>(method);
             _cache.AddOrUpdate(method, action);
@@ -124,7 +124,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3, T4, T5> BuildAction<T1, T2, T3, T4, T5>(MethodInfo method)
         {
-            var action = _cache.GetValueOrDefault<Action<object, T1, T2, T3, T4, T5>>(method);
+            var action = (Action<object, T1, T2, T3, T4, T5>) _cache.GetValueOrDefault(method);
             if (action != null) return action;
             action = _builder.BuildAction<T1, T2, T3, T4, T5>(method);
             _cache.AddOrUpdate(method, action);

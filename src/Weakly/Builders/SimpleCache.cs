@@ -21,12 +21,6 @@ namespace Weakly.Builders
             return value;
         }
 
-        public TValueAs GetValueOrDefault<TValueAs>(TKey key)
-            where TValueAs : class
-        {
-            return GetValueOrDefault(key) as TValueAs;
-        }
-
         public void AddOrUpdate(TKey key, TValue value)
         {
             lock (_storage)

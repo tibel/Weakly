@@ -30,7 +30,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, TResult> BuildFunc<TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, TResult>>(method);
+            var func = (Func<object, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<TResult>(method);
             _cache.AddOrUpdate(method, func);
@@ -48,7 +48,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, T, TResult> BuildFunc<T, TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, T, TResult>>(method);
+            var func = (Func<object, T, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<T, TResult>(method);
             _cache.AddOrUpdate(method, func);
@@ -67,7 +67,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, T1, T2, TResult> BuildFunc<T1, T2, TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, T1, T2, TResult>>(method);
+            var func = (Func<object, T1, T2, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<T1, T2, TResult>(method);
             _cache.AddOrUpdate(method, func);
@@ -87,7 +87,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, T1, T2, T3, TResult> BuildFunc<T1, T2, T3, TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, T1, T2, T3, TResult>>(method);
+            var func = (Func<object, T1, T2, T3, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<T1, T2, T3, TResult>(method);
             _cache.AddOrUpdate(method, func);
@@ -108,7 +108,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, T1, T2, T3, T4, TResult> BuildFunc<T1, T2, T3, T4, TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, T1, T2, T3, T4, TResult>>(method);
+            var func = (Func<object, T1, T2, T3, T4, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<T1, T2, T3, T4, TResult>(method);
             _cache.AddOrUpdate(method, func);
@@ -130,7 +130,7 @@ namespace Weakly.Builders
         /// </returns>
         public Func<object, T1, T2, T3, T4, T5, TResult> BuildFunc<T1, T2, T3, T4, T5, TResult>(MethodInfo method)
         {
-            var func = _cache.GetValueOrDefault<Func<object, T1, T2, T3, T4, T5, TResult>>(method);
+            var func = (Func<object, T1, T2, T3, T4, T5, TResult>) _cache.GetValueOrDefault(method);
             if (func != null) return func;
             func = _builder.BuildFunc<T1, T2, T3, T4, T5, TResult>(method);
             _cache.AddOrUpdate(method, func);
