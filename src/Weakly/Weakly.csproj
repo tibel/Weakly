@@ -59,7 +59,7 @@
     <Compile Include="Builders\IPropertyAccessorBuilder.cs" />
     <Compile Include="Collections\DictionaryHelper.cs" />
     <Compile Include="Collections\EnumerableHelper.cs" />
-    <Compile Include="Collections\SimpleCache.cs" />
+    <Compile Include="Builders\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
     <Compile Include="Builders\CachingOpenActionBuilderDecorator.cs" />

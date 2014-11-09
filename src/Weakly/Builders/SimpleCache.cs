@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Weakly
+namespace Weakly.Builders
 {
     internal sealed class SimpleCache<TKey, TValue>
     {
