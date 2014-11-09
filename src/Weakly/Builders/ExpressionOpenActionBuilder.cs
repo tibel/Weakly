@@ -7,7 +7,7 @@ namespace Weakly.Builders
     /// <summary>
     /// <see cref="Expression"/> based <see cref="IOpenActionBuilder"/>.
     /// </summary>
-    public class ExpressionOpenActionBuilder : IOpenActionBuilder
+    public sealed class ExpressionOpenActionBuilder : IOpenActionBuilder
     {
         /// <summary>
         /// Create an open delegate from the specified method.

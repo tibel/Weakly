@@ -6,7 +6,7 @@ namespace Weakly.Builders
     /// <summary>
     /// Caching decorator for <see cref="IPropertyAccessorBuilder"/>.
     /// </summary>
-    public class CachingPropertyAccessorBuilderDecorator : IPropertyAccessorBuilder
+    public sealed class CachingPropertyAccessorBuilderDecorator : IPropertyAccessorBuilder
     {
         private readonly IPropertyAccessorBuilder _builder;
         private readonly SimpleCache<PropertyInfo, Func<object, object>> _getterCache = new SimpleCache<PropertyInfo, Func<object, object>>();

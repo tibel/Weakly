@@ -6,7 +6,7 @@ namespace Weakly.Builders
     /// <summary>
     /// <see cref="Expression"/> based <see cref="IPropertyAccessorBuilder"/>.
     /// </summary>
-    public class ExpressionPropertyAccessorBuilder : IPropertyAccessorBuilder
+    public sealed class ExpressionPropertyAccessorBuilder : IPropertyAccessorBuilder
     {
         /// <summary>
         /// Get compiled Getter function from a given <paramref name="property" />.

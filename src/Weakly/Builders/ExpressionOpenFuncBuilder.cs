@@ -7,7 +7,7 @@ namespace Weakly.Builders
     /// <summary>
     /// <see cref="Expression"/> based <see cref="IOpenFuncBuilder"/>.
     /// </summary>
-    public class ExpressionOpenFuncBuilder : IOpenFuncBuilder
+    public sealed class ExpressionOpenFuncBuilder : IOpenFuncBuilder
     {
         /// <summary>
         /// Create an open delegate from the specified method.

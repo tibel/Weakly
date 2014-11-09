@@ -8,7 +8,7 @@ namespace Weakly.Builders
     /// <summary>
     /// <see cref="Expression"/> based <see cref="IDynamicDelegateBuilder"/>.
     /// </summary>
-    public class ExpressionDynamicDelegateBuilder : IDynamicDelegateBuilder
+    public sealed class ExpressionDynamicDelegateBuilder : IDynamicDelegateBuilder
     {
         /// <summary>
         /// Create a dynamic delegate from the specified method.

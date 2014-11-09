@@ -6,7 +6,7 @@ namespace Weakly.Builders
     /// <summary>
     /// Caching decorator for <see cref="IDynamicDelegateBuilder"/>.
     /// </summary>
-    public class CachingDynamicDelegateBuilderDecorator : IDynamicDelegateBuilder
+    public sealed class CachingDynamicDelegateBuilderDecorator : IDynamicDelegateBuilder
     {
         private readonly IDynamicDelegateBuilder _builder;
         private readonly SimpleCache<MethodInfo, Func<object, object[], object>> _cache = new SimpleCache<MethodInfo, Func<object, object[], object>>();

@@ -6,7 +6,7 @@ namespace Weakly.Builders
     /// <summary>
     /// Caching decorator for <see cref="IOpenActionBuilder"/>.
     /// </summary>
-    public class CachingOpenActionBuilderDecorator : IOpenActionBuilder
+    public sealed class CachingOpenActionBuilderDecorator : IOpenActionBuilder
     {
         private readonly SimpleCache<MethodInfo, Delegate> _cache = new SimpleCache<MethodInfo, Delegate>();
         private readonly IOpenActionBuilder _builder;
