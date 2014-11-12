@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/tibel/Weakly</projectUrl>
     <iconUrl>https://raw.github.com/tibel/Weakly/master/build/weakly_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes>add ReflectionPath</releaseNotes>
+    <releaseNotes>added ManagedRuntime helper and some refactoring</releaseNotes>
     <copyright>Copyright Thomas Ibel 2013-2014</copyright>
     <tags>
       Weakly WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource DynamicDelegate Async Task
