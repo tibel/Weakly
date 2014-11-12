@@ -14,6 +14,12 @@ Weakly is available through NuGet:
 
 ## Content
 
+### Builders
+* `Builder.DynamicDelegate` creates compiled version of MethodInfo.Invoke
+* `Builder.OpenAction` creates open delegates
+* `Builder.OpenFunc` creates open delegates
+* `Builder.PropertyAccessor` creates compiled version of PropertyInfo.SetValue and GetValue
+
 ### Collections
 * WeakCollection&lt;T&gt;
 * WeakValueDictionary&lt;TKey, TValue&gt;
@@ -35,8 +41,7 @@ Weakly is available through NuGet:
 * MemoryTributary
 
 ### Reflection
-* DynamicDelegate (compiled version of MethodInfo.Invoke)
-* DynamicProperty (compiled version of PropertyInfo.SetValue and GetValue)
+* ManagedRuntime
 * ReflectionPath
 * some Helpers
 
