@@ -21,28 +21,28 @@ Weakly is available through NuGet:
 * `Builder.PropertyAccessor` creates compiled version of PropertyInfo.SetValue and GetValue
 
 ### Collections
-* WeakCollection&lt;T&gt;
-* WeakValueDictionary&lt;TKey, TValue&gt;
-* Extensions for IEnumerable&lt;T&gt; and IDictionary&lt;TKey,TValue&gt;
+* `WeakCollection&lt;T&gt;`
+* `WeakValueDictionary&lt;TKey, TValue&gt;`
+* some Helpers
 
 ### Delegates
-* WeakAction to WeakAction&lt;T1, T2, T3, T4, T5&gt;
-* WeakFunc&lt;TResult&gt; to WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;
-* DisposableAction
+* `WeakAction` to `WeakAction&lt;T1, T2, T3, T4, T5&gt;`
+* `WeakFunc&lt;TResult&gt;` to `WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;`
+* `DisposableAction` executes an action when disposed
 
 ### Events
 * WeakEventHandler&lt;TEventArgs&gt;
 * WeakEventSource&lt;TEventArgs&gt;
 
 ### Expressions
-* Extensions for Expression
+* some Helpers
 
 ### IO
-* MemoryTributary
+* `MemoryTributary` is a MemoryStream replacement using multiple memory segments
 
 ### Reflection
-* ManagedRuntime
-* ReflectionPath
+* `ManagedRuntime` to determine the managed runtime
+* `ReflectionPath` to reflect a path of properties
 * some Helpers
 
 ### Tasks
