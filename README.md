@@ -21,18 +21,18 @@ Weakly is available through NuGet:
 * `Builder.PropertyAccessor` creates compiled version of PropertyInfo.SetValue and GetValue
 
 ### Collections
-* `WeakCollection&lt;T&gt;`
-* `WeakValueDictionary&lt;TKey, TValue&gt;`
+* `WeakCollection<T>`
+* `WeakValueDictionary<TKey, TValue>`
 * some Helpers
 
 ### Delegates
-* `WeakAction` to `WeakAction&lt;T1, T2, T3, T4, T5&gt;`
-* `WeakFunc&lt;TResult&gt;` to `WeakFunc&lt;T1, T2, T3, T4, T5, TResult&gt;`
+* `WeakAction` to `WeakAction<T1, T2, T3, T4, T5>`
+* `WeakFunc<TResult>` to `WeakFunc<T1, T2, T3, T4, T5, TResult>`
 * `DisposableAction` executes an action when disposed
 
 ### Events
-* WeakEventHandler&lt;TEventArgs&gt;
-* WeakEventSource&lt;TEventArgs&gt;
+* `WeakEventHandler<TEventArgs>`
+* `WeakEventSource<TEventArgs>`
 
 ### Expressions
 * some Helpers
