@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Weakly.Builders
 {
     /// <summary>
-    /// <see cref="Expression"/> based <see cref="IOpenActionBuilder"/>.
+    /// Reflection based <see cref="IOpenActionBuilder"/>.
     /// </summary>
-    public sealed class ExpressionOpenActionBuilder : IOpenActionBuilder
+    public sealed class ReflectionOpenActionBuilder : IOpenActionBuilder
     {
         /// <summary>
         /// Create an open delegate from the specified method.
@@ -18,11 +17,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object> BuildAction(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method);
-            return Expression.Lambda<Action<object>>(body, instance).Compile();
+            return instance => method.Invoke(instance, null);
         }
 
         /// <summary>
@@ -35,12 +30,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T> BuildAction<T>(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-            var arg0 = Expression.Parameter(typeof(T), "arg0");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method, arg0);
-            return Expression.Lambda<Action<object, T>>(body, instance, arg0).Compile();
+            return (instance, arg0) => method.Invoke(instance, new object[] {arg0});
         }
 
         /// <summary>
@@ -54,13 +44,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2> BuildAction<T1, T2>(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-            var arg0 = Expression.Parameter(typeof(T1), "arg0");
-            var arg1 = Expression.Parameter(typeof(T2), "arg1");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method, arg0, arg1);
-            return Expression.Lambda<Action<object, T1, T2>>(body, instance, arg0, arg1).Compile();
+            return (instance, arg0, arg1) => method.Invoke(instance, new object[] { arg0, arg1 });
         }
 
         /// <summary>
@@ -75,14 +59,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3> BuildAction<T1, T2, T3>(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-            var arg0 = Expression.Parameter(typeof(T1), "arg0");
-            var arg1 = Expression.Parameter(typeof(T2), "arg1");
-            var arg2 = Expression.Parameter(typeof(T3), "arg2");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method, arg0, arg1, arg2);
-            return Expression.Lambda<Action<object, T1, T2, T3>>(body, instance, arg0, arg1, arg2).Compile();
+            return (instance, arg0, arg1, arg2) => method.Invoke(instance, new object[] { arg0, arg1, arg2 });
         }
 
         /// <summary>
@@ -98,15 +75,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3, T4> BuildAction<T1, T2, T3, T4>(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-            var arg0 = Expression.Parameter(typeof(T1), "arg0");
-            var arg1 = Expression.Parameter(typeof(T2), "arg1");
-            var arg2 = Expression.Parameter(typeof(T3), "arg2");
-            var arg3 = Expression.Parameter(typeof(T4), "arg3");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method, arg0, arg1, arg2, arg3);
-            return Expression.Lambda<Action<object, T1, T2, T3, T4>>(body, instance, arg0, arg1, arg2, arg3).Compile();
+            return (instance, arg0, arg1, arg2, arg3) => method.Invoke(instance, new object[] { arg0, arg1, arg2, arg3 });
         }
 
         /// <summary>
@@ -123,16 +92,7 @@ namespace Weakly.Builders
         /// </returns>
         public Action<object, T1, T2, T3, T4, T5> BuildAction<T1, T2, T3, T4, T5>(MethodInfo method)
         {
-            var instance = Expression.Parameter(typeof(object), "instance");
-            var arg0 = Expression.Parameter(typeof(T1), "arg0");
-            var arg1 = Expression.Parameter(typeof(T2), "arg1");
-            var arg2 = Expression.Parameter(typeof(T3), "arg2");
-            var arg3 = Expression.Parameter(typeof(T4), "arg3");
-            var arg4 = Expression.Parameter(typeof(T5), "arg4");
-
-            var typedInstance = Expression.Convert(instance, method.DeclaringType);
-            var body = Expression.Call(typedInstance, method, arg0, arg1, arg2, arg3, arg4);
-            return Expression.Lambda<Action<object, T1, T2, T3, T4, T5>>(body, instance, arg0, arg1, arg2, arg3, arg4).Compile();
+            return (instance, arg0, arg1, arg2, arg3, arg4) => method.Invoke(instance, new object[] { arg0, arg1, arg2, arg3, arg4 });
         }
     }
 }

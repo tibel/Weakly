@@ -53,7 +53,11 @@
     <Compile Include="Builders\Builder.cs" />
     <Compile Include="Builders\CachingDynamicDelegateBuilderDecorator.cs" />
     <Compile Include="Builders\CachingPropertyAccessorBuilderDecorator.cs" />
+    <Compile Include="Builders\ReflectionDynamicDelegateBuilder.cs" />
     <Compile Include="Builders\ExpressionDynamicDelegateBuilder.cs" />
+    <Compile Include="Builders\ReflectionOpenActionBuilder.cs" />
+    <Compile Include="Builders\ReflectionOpenFuncBuilder.cs" />
+    <Compile Include="Builders\ReflectionPropertyAccessorBuilder.cs" />
     <Compile Include="Builders\ExpressionPropertyAccessorBuilder.cs" />
     <Compile Include="Builders\IDynamicDelegateBuilder.cs" />
     <Compile Include="Builders\IPropertyAccessorBuilder.cs" />
