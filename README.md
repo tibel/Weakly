@@ -26,12 +26,12 @@ Weakly is available through NuGet:
 * some Helpers
 
 ### Delegates
-* `WeakAction` to `WeakAction<T1, T2, T3, T4, T5>`
-* `WeakFunc<TResult>` to `WeakFunc<T1, T2, T3, T4, T5, TResult>`
+* `WeakAction`
+* `WeakFunc<TResult>`
 * `DisposableAction` executes an action when disposed
 
 ### Events
-* `WeakEventHandler<TEventArgs>`
+* `WeakEventHandler`
 * `WeakEventSource<TEventArgs>`
 
 ### Expressions
