@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/tibel/Weakly</projectUrl>
     <iconUrl>https://raw.github.com/tibel/Weakly/master/build/weakly_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes>WeakAction, WeakFunc and WeakEventHandler now work without reflection</releaseNotes>
+    <releaseNotes>WeakEventSource now works without reflection</releaseNotes>
     <copyright>Copyright Thomas Ibel 2013-2015</copyright>
     <tags>
       Weakly WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource Async Task
