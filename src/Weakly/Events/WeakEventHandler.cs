@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -22,6 +23,21 @@ namespace Weakly
             where TSubscriber : class
         {
             return new WeakNotifyPropertyChangedHandler<TSubscriber>(source, subscriber, weakHandler);
+        }
+
+        /// <summary>
+        /// Registers a weak handler to <see cref="INotifyCollectionChanged.CollectionChanged"/>.
+        /// </summary>
+        /// <typeparam name="TSubscriber">The type of the event subscriber.</typeparam>
+        /// <param name="source">The event source.</param>
+        /// <param name="subscriber">The event subscriber.</param>
+        /// <param name="weakHandler">The weak handler.</param>
+        /// <returns>A registration object that can be used to deregister from the event.</returns>
+        public static IDisposable RegisterCollectionChangedWeak<TSubscriber>(this INotifyCollectionChanged source,
+            TSubscriber subscriber, Action<TSubscriber, object, NotifyCollectionChangedEventArgs> weakHandler)
+            where TSubscriber : class
+        {
+            return new WeakNotifyCollectionChangedHandler<TSubscriber>(source, subscriber, weakHandler);
         }
 
         /// <summary>
