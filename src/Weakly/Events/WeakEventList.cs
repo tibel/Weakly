@@ -96,11 +96,11 @@ namespace Weakly
         {
             var foundDirt = false;
 
-            for (var j = _list.Count - 1; j >= 0; --j)
+            for (var i = _list.Count - 1; i >= 0; --i)
             {
-                if (_list[j].Target == null)
+                if (_list[i].Target == null)
                 {
-                    _list.RemoveAt(j);
+                    _list.RemoveAt(i);
                     foundDirt = true;
                 }
             }
