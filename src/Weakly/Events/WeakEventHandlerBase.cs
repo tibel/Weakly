@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 namespace Weakly
 {
@@ -8,7 +7,7 @@ namespace Weakly
     /// </summary>
     /// <typeparam name="TSubscriber">The type of the event subscriber.</typeparam>
     /// <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
-    public abstract class WeakEventHandlerBase<TSubscriber, TEventArgs> : IWeakEventHandler
+    public abstract class WeakEventHandlerBase<TSubscriber, TEventArgs> : IWeakEventHandler, IDisposable
         where TSubscriber : class
     {
         private readonly WeakReference<TSubscriber> _subscriber;
@@ -25,8 +24,8 @@ namespace Weakly
                 throw new ArgumentNullException("subscriber");
             if (weakHandler == null)
                 throw new ArgumentNullException("weakHandler");
-            if (weakHandler.GetMethodInfo().IsClosure())
-                throw new ArgumentException("Cannot create weak event handler from closure.", "weakHandler");
+            if (weakHandler.Target != null)
+                throw new ArgumentException("Cannot create weak event handler from an instance method or closure.", "weakHandler");
 
             _subscriber = new WeakReference<TSubscriber>(subscriber);
             _weakHandler = weakHandler;
@@ -93,8 +92,8 @@ namespace Weakly
                 throw new ArgumentNullException("subscriber");
             if (weakHandler == null)
                 throw new ArgumentNullException("weakHandler");
-            if (weakHandler.GetMethodInfo().IsClosure())
-                throw new ArgumentException("Cannot create weak event handler from closure.", "weakHandler");
+            if (weakHandler.Target != null)
+                throw new ArgumentException("Cannot create weak event handler from an instance method or closure.", "weakHandler");
 
             _source = new WeakReference<TSource>(source);
             _subscriber = new WeakReference<TSubscriber>(subscriber);

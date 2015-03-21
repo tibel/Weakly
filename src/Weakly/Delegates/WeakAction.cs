@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Weakly
 {
@@ -19,6 +20,13 @@ namespace Weakly
         /// <param name="weakAction">The method represented by the delegate.</param>
         public WeakAction(TTarget target, Action<TTarget> weakAction)
         {
+            if (target == null)
+                throw new ArgumentNullException("target");
+            if (weakAction == null)
+                throw new ArgumentNullException("weakAction");
+            if (weakAction.Target != null)
+                throw new ArgumentException("The delegate is not a static method or lambda.", "weakAction");
+
             _target = new WeakReference<TTarget>(target);
             _weakAction = weakAction;
         }
