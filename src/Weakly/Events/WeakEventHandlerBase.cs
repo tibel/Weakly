@@ -3,7 +3,7 @@
 namespace Weakly
 {
     /// <summary>
-    /// Base class for weak event handler.
+    /// Base class for weak event handler on static event.
     /// </summary>
     /// <typeparam name="TSubscriber">The type of the event subscriber.</typeparam>
     /// <typeparam name="TEventArgs">The type of the event arguments.</typeparam>

@@ -6,17 +6,17 @@ namespace Weakly
 {
     internal sealed class WeakEventList
     {
-        private readonly object _staticSource = new NamedObject("StaticSource");
+        private readonly object _staticTarget = new NamedObject("StaticTarget");
         private readonly List<WeakEventListener> _list = new List<WeakEventListener>();
         private readonly ConditionalWeakTable<object, object> _cwt = new ConditionalWeakTable<object, object>();
 
         public void AddHandler(Delegate handler)
         {
-            var target = handler.Target ?? _staticSource;
+            var target = handler.Target ?? _staticTarget;
 
             // optimize weak event handler case
             if (target is IWeakEventHandler)
-                target = _staticSource;
+                target = _staticTarget;
 
             // add a record to the main list
             _list.Add(new WeakEventListener(target, handler));
@@ -54,11 +54,11 @@ namespace Weakly
 
         public void RemoveHandler(Delegate handler)
         {
-            var target = handler.Target ?? _staticSource;
+            var target = handler.Target ?? _staticTarget;
 
             // optimize weak event handler case
             if (target is IWeakEventHandler)
-                target = _staticSource;
+                target = _staticTarget;
 
             // remove the record from the main list
             for (var i = _list.Count - 1; i >= 0; --i)
