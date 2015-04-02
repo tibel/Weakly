@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -162,6 +163,36 @@ namespace Weakly
         public static Task<T> ObserveException<T>(this Task<T> task)
         {
             return (Task<T>)((Task)task).ObserveException();
+        }
+
+        /// <summary>
+        /// Propagates any exceptions that occurred on the specified task.
+        /// </summary>
+        /// <param name="task">The Task whose exceptions are to be propagated.</param>
+        public static void PropagateExceptions(this Task task)
+        {
+            if (!task.IsCompleted)
+                throw new InvalidOperationException("The task has not completed.");
+
+            if (task.IsFaulted)
+                ExceptionDispatchInfo.Capture(task.Exception.InnerException).Throw();
+        }
+
+        /// <summary>
+        /// Propagates any exceptions that occurred on the specified task to the specified synchronization context.
+        /// </summary>
+        /// <param name="task">The Task whose exceptions are to be propagated.</param>
+        /// <param name="synchronizationContext">The SynchronizationContext that should get the exception.</param>
+        public static void PropagateExceptionsTo(this Task task, SynchronizationContext synchronizationContext)
+        {
+            if (!task.IsCompleted)
+                throw new InvalidOperationException("The task has not completed.");
+
+            if (task.IsFaulted)
+            {
+                var exceptionInfo = ExceptionDispatchInfo.Capture(task.Exception.InnerException);
+                synchronizationContext.Post(state => ((ExceptionDispatchInfo)state).Throw(), exceptionInfo);
+            }
         }
 
         #endregion
