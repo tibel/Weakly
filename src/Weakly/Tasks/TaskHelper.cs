@@ -89,7 +89,7 @@ namespace Weakly
         {
             // ReSharper disable once UnusedVariable
             task.ContinueWith(t => { var ignored = t.Exception; },
-                CancellationToken.None,
+                default(CancellationToken),
                 TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.Default);
             return task;
@@ -113,7 +113,7 @@ namespace Weakly
         public static Task FailFastOnException(this Task task)
         {
             task.ContinueWith(t => Environment.FailFast("A task faulted.", t.Exception),
-                CancellationToken.None,
+                default(CancellationToken),
                 TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.Default);
             return task;
@@ -149,7 +149,7 @@ namespace Weakly
         public static Task ObserveException(this Task task)
         {
             task.ContinueWith(OnTaskFaulted,
-                CancellationToken.None,
+                default(CancellationToken),
                 TaskContinuationOptions.ExecuteSynchronously | TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.Default);
             return task;
