@@ -132,13 +132,13 @@ namespace Weakly
         /// <summary>
         /// Occurs when a faulted <see cref="Task"/> is observed.
         /// </summary>
-        public static event EventHandler<FaultedTaskEventArgs> TaskFaulted;
+        public static event EventHandler<TaskEventArgs> TaskFaulted;
 
         private static void OnTaskFaulted(Task task)
         {
             var handler = TaskFaulted;
             if (handler != null)
-                handler(null, new FaultedTaskEventArgs(task));
+                handler(null, new TaskEventArgs(task));
         }
 
         /// <summary>
@@ -196,6 +196,25 @@ namespace Weakly
         }
 
         #endregion
+
+        /// <summary>
+        /// Occurs when a <see cref="Task"/> is watched.
+        /// </summary>
+        public static event EventHandler<TaskEventArgs> TaskWatched;
+
+        /// <summary>
+        /// Triggers the <see cref="TaskWatched"/> event for the supplied <paramref name="task"/>.
+        /// </summary>
+        /// <param name="task">The task to watch.</param>
+        public static void Watch(this Task task)
+        {
+            if (task == null)
+                throw new ArgumentNullException("task");
+
+            var handler = TaskWatched;
+            if (handler != null)
+                handler(null, new TaskEventArgs(task));
+        }
 
         /// <summary>
         /// Waits for the task to complete execution, returning the task's final status.

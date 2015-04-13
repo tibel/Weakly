@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 namespace Weakly
 {
     /// <summary>
-    /// Provides data for the event that is raised when a faulted <see cref="Task"/> is observed.
+    /// Provides data for <see cref="TaskHelper"/> events.
     /// </summary>
-    public sealed class FaultedTaskEventArgs : EventArgs
+    public sealed class TaskEventArgs : EventArgs
     {
         private readonly Task _task;
 
-        /// <summary> 
-        /// Initializes a new instance of the <see cref="FaultedTaskEventArgs"/> class with the faulted task.
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskEventArgs"/> class.
         /// </summary>
-        /// <param name="task">The Task that has faulted.</param> 
-        public FaultedTaskEventArgs(Task task)
+        /// <param name="task">The supplied Task.</param>
+        public TaskEventArgs(Task task)
         {
             if (task == null)
                 throw new ArgumentNullException("task");
@@ -23,7 +23,7 @@ namespace Weakly
         }
 
         /// <summary>
-        /// The faulted task. 
+        /// The supplied task.
         /// </summary>
         public Task Task
         {
