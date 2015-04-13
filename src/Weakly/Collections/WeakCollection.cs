@@ -21,12 +21,7 @@ namespace Weakly
                 return;
 
             _gcSentinel.Target = new object();
-
-            for (var i = _inner.Count - 1; i >= 0; i--)
-            {
-                if (!_inner[i].IsAlive)
-                    _inner.RemoveAt(i);
-            }
+            Purge();
         }
 
         #region Constructors
@@ -60,12 +55,22 @@ namespace Weakly
         #endregion
 
         /// <summary>
+        /// Removes all dead entries.
+        /// </summary>
+        /// <returns>true if entries where removed; otherwise false.</returns>
+        public bool Purge()
+        {
+            return _inner.RemoveAll(l => !l.IsAlive) > 0;
+        }
+
+        /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
         public IEnumerator<T> GetEnumerator()
         {
             CleanIfNeeded();
+
             var enumerable = _inner.Select(item => (T) item.Target)
                 .Where(value => value != null);
             return enumerable.GetEnumerator();
@@ -102,7 +107,7 @@ namespace Weakly
         public bool Contains(T item)
         {
             CleanIfNeeded();
-            return _inner.Any(w => ((T)w.Target) == item);
+            return _inner.FindIndex(w => ((T) w.Target) == item) >= 0;
         }
 
         /// <summary>
@@ -112,14 +117,20 @@ namespace Weakly
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
+            CleanIfNeeded();
+
             if (array == null)
                 throw new ArgumentNullException("array");
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentOutOfRangeException("arrayIndex");
-            if ((arrayIndex + Count) > array.Length)
+            if ((arrayIndex + _inner.Count) > array.Length)
                 throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
-            this.ToArray().CopyTo(array, arrayIndex);
+            var items = _inner.Select(item => (T) item.Target)
+                .Where(value => value != null)
+                .ToArray();
+
+            items.CopyTo(array, arrayIndex);
         }
 
         /// <summary>

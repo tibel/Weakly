@@ -94,18 +94,7 @@ namespace Weakly
 
         public bool Purge()
         {
-            var foundDirt = false;
-
-            for (var i = _list.Count - 1; i >= 0; --i)
-            {
-                if (_list[i].Target == null)
-                {
-                    _list.RemoveAt(i);
-                    foundDirt = true;
-                }
-            }
-
-            return foundDirt;
+            return _list.RemoveAll(l => l.Target == null) > 0;
         }
 
         public List<WeakEventListener> GetCopy()

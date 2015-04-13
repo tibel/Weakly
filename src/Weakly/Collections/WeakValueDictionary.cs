@@ -22,15 +22,7 @@ namespace Weakly
                 return;
 
             _gcSentinel.Target = new object();
-
-            var keysToRemove = _inner.Where(pair => !pair.Value.IsAlive)
-                .Select(pair => pair.Key)
-                .ToList();
-
-            foreach (var key in keysToRemove)
-            {
-                _inner.Remove(key);
-            }
+            Purge();
         }
 
         #region Constructors
@@ -103,12 +95,31 @@ namespace Weakly
         #endregion
 
         /// <summary>
+        /// Removes all dead entries.
+        /// </summary>
+        /// <returns>true if entries where removed; otherwise false.</returns>
+        public bool Purge()
+        {
+            var keysToRemove = _inner.Where(pair => !pair.Value.IsAlive)
+                .Select(pair => pair.Key)
+                .ToArray();
+
+            foreach (var key in keysToRemove)
+            {
+                _inner.Remove(key);
+            }
+
+            return keysToRemove.Length > 0;
+        }
+
+        /// <summary>
         /// Returns an enumerator that iterates through the <see cref="WeakValueDictionary&lt;TKey, TValue&gt;"/>.
         /// </summary>
         /// <returns>The enumerator.</returns>
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             CleanIfNeeded();
+
             var enumerable = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, (TValue) pair.Value.Target))
                 .Where(pair => pair.Value != null);
             return enumerable.GetEnumerator();
@@ -143,14 +154,20 @@ namespace Weakly
 
         void ICollection<KeyValuePair<TKey, TValue>>.CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
+            CleanIfNeeded();
+
             if (array == null)
                 throw new ArgumentNullException("array");
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentOutOfRangeException("arrayIndex");
-            if ((arrayIndex + Count) > array.Length)
+            if ((arrayIndex + _inner.Count) > array.Length)
                 throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
-            this.ToArray().CopyTo(array, arrayIndex);
+            var items = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, (TValue) pair.Value.Target))
+                .Where(pair => pair.Value != null)
+                .ToArray();
+
+            items.CopyTo(array, arrayIndex);
         }
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
@@ -238,15 +255,13 @@ namespace Weakly
                 return false;
             }
 
-            var result = (TValue) wr.Target;
-            if (result == null)
+            value = (TValue) wr.Target;
+            if (value == null)
             {
                 _inner.Remove(key);
-                value = null;
                 return false;
             }
 
-            value = result;
             return true;
         }
 
@@ -332,10 +347,13 @@ namespace Weakly
                     throw new ArgumentNullException("array");
                 if (arrayIndex < 0 || arrayIndex >= array.Length)
                     throw new ArgumentOutOfRangeException("arrayIndex");
-                if ((arrayIndex + Count) > array.Length)
+                if ((arrayIndex + _inner.Count) > array.Length)
                     throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
-                this.ToArray().CopyTo(array, arrayIndex);
+                var items = _inner.Select(pair => pair.Value)
+                    .ToArray();
+
+                items.CopyTo(array, arrayIndex);
             }
 
             bool ICollection<TValue>.Remove(TValue item)
