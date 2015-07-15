@@ -48,3 +48,4 @@ Weakly is available through NuGet:
 ### Tasks
 * Common Tasks
 * Exception handling
+* APM pattern helper
