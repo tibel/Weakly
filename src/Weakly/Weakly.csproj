@@ -94,6 +94,7 @@
     <Compile Include="Reflection\ManagedRuntimeType.cs" />
     <Compile Include="Tasks\TaskEventArgs.cs" />
     <Compile Include="Tasks\TaskHelper.cs" />
+    <Compile Include="Tasks\ApmHelper.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
