@@ -18,14 +18,12 @@ namespace Weakly
         /// </summary>
         /// <param name="target">The class instance on which the current delegate invokes the instance method.</param>
         /// <param name="weakFunc">The method represented by the delegate.</param>
-        public WeakFunc(TTarget target, Func<TTarget, TResult> weakFunc)
+        public WeakFunc(TTarget target, [EmptyCapture] Func<TTarget, TResult> weakFunc)
         {
             if (target == null)
                 throw new ArgumentNullException("target");
             if (weakFunc == null)
                 throw new ArgumentNullException("weakFunc");
-            if (weakFunc.Target != null)
-                throw new ArgumentException("The delegate is not a static method or lambda.", "weakFunc");
 
             _target = new WeakReference<TTarget>(target);
             _weakFunc = weakFunc;

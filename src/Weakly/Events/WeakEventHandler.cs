@@ -19,7 +19,7 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable RegisterPropertyChangedWeak<TSubscriber>(this INotifyPropertyChanged source,
-            TSubscriber subscriber, Action<TSubscriber, object, PropertyChangedEventArgs> weakHandler)
+            TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, PropertyChangedEventArgs> weakHandler)
             where TSubscriber : class
         {
             return new WeakNotifyPropertyChangedHandler<TSubscriber>(source, subscriber, weakHandler);
@@ -34,7 +34,7 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable RegisterCollectionChangedWeak<TSubscriber>(this INotifyCollectionChanged source,
-            TSubscriber subscriber, Action<TSubscriber, object, NotifyCollectionChangedEventArgs> weakHandler)
+            TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, NotifyCollectionChangedEventArgs> weakHandler)
             where TSubscriber : class
         {
             return new WeakNotifyCollectionChangedHandler<TSubscriber>(source, subscriber, weakHandler);
@@ -49,7 +49,7 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable RegisterCanExecuteChangedWeak<TSubscriber>(this ICommand source,
-            TSubscriber subscriber, Action<TSubscriber, object, EventArgs> weakHandler)
+            TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, EventArgs> weakHandler)
             where TSubscriber : class
         {
             return new WeakCanExecuteChangedHandler<TSubscriber>(source, subscriber, weakHandler);

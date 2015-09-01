@@ -18,14 +18,12 @@ namespace Weakly
         /// </summary>
         /// <param name="subscriber">The event subscriber.</param>
         /// <param name="weakHandler">The weak handler.</param>
-        protected WeakEventHandlerBase(TSubscriber subscriber, Action<TSubscriber, object, TEventArgs> weakHandler)
+        protected WeakEventHandlerBase(TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
             if (subscriber == null)
                 throw new ArgumentNullException("subscriber");
             if (weakHandler == null)
                 throw new ArgumentNullException("weakHandler");
-            if (weakHandler.Target != null)
-                throw new ArgumentException("Cannot create weak event handler from an instance method or closure.", "weakHandler");
 
             _subscriber = new WeakReference<TSubscriber>(subscriber);
             _weakHandler = weakHandler;
@@ -84,7 +82,7 @@ namespace Weakly
         /// <param name="source">The event source.</param>
         /// <param name="subscriber">The event subscriber.</param>
         /// <param name="weakHandler">The weak handler.</param>
-        protected WeakEventHandlerBase(TSource source, TSubscriber subscriber, Action<TSubscriber, object, TEventArgs> weakHandler)
+        protected WeakEventHandlerBase(TSource source, TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
@@ -92,8 +90,6 @@ namespace Weakly
                 throw new ArgumentNullException("subscriber");
             if (weakHandler == null)
                 throw new ArgumentNullException("weakHandler");
-            if (weakHandler.Target != null)
-                throw new ArgumentException("Cannot create weak event handler from an instance method or closure.", "weakHandler");
 
             _source = new WeakReference<TSource>(source);
             _subscriber = new WeakReference<TSubscriber>(subscriber);

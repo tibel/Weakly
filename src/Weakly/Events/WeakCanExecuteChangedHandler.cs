@@ -8,7 +8,7 @@ namespace Weakly
         where TSubscriber : class
     {
         public WeakCanExecuteChangedHandler(ICommand source, TSubscriber subscriber,
-            Action<TSubscriber, object, EventArgs> weakHandler)
+            [EmptyCapture] Action<TSubscriber, object, EventArgs> weakHandler)
             : base(source, subscriber, weakHandler)
         {
             source.CanExecuteChanged += OnEvent;

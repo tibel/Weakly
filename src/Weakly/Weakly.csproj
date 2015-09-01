@@ -45,6 +45,7 @@
     <None Include="..\Weakly.snk">
       <Link>Weakly.snk</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs">
@@ -74,6 +75,7 @@
     <Compile Include="Builders\IOpenActionBuilder.cs" />
     <Compile Include="Builders\IOpenFuncBuilder.cs" />
     <Compile Include="Delegates\WeakFunc.cs" />
+    <Compile Include="EmptyCaptureAttribute.cs" />
     <Compile Include="Events\IWeakEventHandler.cs" />
     <Compile Include="Delegates\WeakAction.cs" />
     <Compile Include="Events\WeakCanExecuteChangedHandler.cs" />

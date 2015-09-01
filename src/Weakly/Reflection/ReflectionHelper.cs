@@ -21,26 +21,6 @@ namespace Weakly
         }
 
         /// <summary>
-        /// Determines whether the specified method is a lambda.
-        /// </summary>
-        /// <param name="methodInfo">The method to examine.</param>
-        /// <returns>True, if the method is a lambda; otherwise false.</returns>
-        public static bool IsLambda(this MethodInfo methodInfo)
-        {
-            return methodInfo.IsStatic && methodInfo.IsCompilerGenerated();
-        }
-
-        /// <summary>
-        /// Determines whether the specified method is closure.
-        /// </summary>
-        /// <param name="methodInfo">The method to examine.</param>
-        /// <returns>True, if the method is a closure; otherwise false.</returns>
-        public static bool IsClosure(this MethodInfo methodInfo)
-        {
-            return !methodInfo.IsStatic && methodInfo.DeclaringType.GetTypeInfo().IsCompilerGenerated();
-        }
-
-        /// <summary>
         /// Determines whether the specified method is an async method.
         /// </summary>
         /// <param name="methodInfo">The method to examine.</param>
