@@ -43,13 +43,14 @@ namespace Weakly.Analyzers
         private static void AnalyzeParameter(SyntaxNodeAnalysisContext context)
         {
             var parameter = context.Node as ParameterSyntax;
+            if (parameter.Type == null) return;
 
             var parameterType = context.SemanticModel.GetTypeInfo(parameter.Type).Type;
             var isDelegate = parameterType.TypeKind == TypeKind.Delegate;
 
             var hasAttribute = parameter.AttributeLists
                 .SelectMany(al => al.Attributes)
-                .Any(a => context.SemanticModel.GetTypeInfo(a).Type.ToDisplayString() == "Weakly.EmptyContextAttribute");
+                .Any(a => context.SemanticModel.GetTypeInfo(a).Type.ToDisplayString() == "Weakly.EmptyCaptureAttribute");
 
             if (!isDelegate && hasAttribute)
             {
