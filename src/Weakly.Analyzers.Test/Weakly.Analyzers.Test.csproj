@@ -118,6 +118,10 @@
       <Project>{BA24B349-66E6-46FA-8BFE-128324098099}</Project>
       <Name>Weakly.Analyzers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Weakly\Weakly.csproj">
+      <Project>{ac20cf34-be8d-4792-99d6-235910260483}</Project>
+      <Name>Weakly</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
