@@ -8,7 +8,7 @@ namespace Weakly
     /// "new Object()".  The name will show up in the debugger, instead of
     /// merely "{object}"
     /// </summary>
-    public sealed class NamedObject
+    internal sealed class NamedObject
     {
         private string _name;
 
@@ -25,9 +25,9 @@ namespace Weakly
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
             if (_name[0] != '{')

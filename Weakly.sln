@@ -3,38 +3,36 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly", "src\Weakly\Weakly.csproj", "{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly.Analyzers", "src\Weakly.Analyzers\Weakly.Analyzers.csproj", "{BA24B349-66E6-46FA-8BFE-128324098099}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{366666F0-906D-48CE-AF3B-299B75AA10AB}"
-	ProjectSection(SolutionItems) = preProject
-		src\GlobalAssemblyInfo.cs = src\GlobalAssemblyInfo.cs
-		LICENSE = LICENSE
-		README.md = README.md
-		build\Weakly.nuspec = build\Weakly.nuspec
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly.Analyzers.Test", "src\Weakly.Analyzers.Test\Weakly.Analyzers.Test.csproj", "{11E445DB-6F10-4E75-BDCF-DF175F71869B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly.Analyzers.Vsix", "src\Weakly.Analyzers.Vsix\Weakly.Analyzers.Vsix.csproj", "{90FF578B-AA7D-4E3B-88CD-7324901BA499}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weakly", "src\Weakly\Weakly.csproj", "{AC20CF34-BE8D-4792-99D6-235910260483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|ARM = Debug|ARM
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|ARM = Release|ARM
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Release|ARM.ActiveCfg = Release|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Release|x64.ActiveCfg = Release|Any CPU
-		{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA24B349-66E6-46FA-8BFE-128324098099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA24B349-66E6-46FA-8BFE-128324098099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA24B349-66E6-46FA-8BFE-128324098099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA24B349-66E6-46FA-8BFE-128324098099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E445DB-6F10-4E75-BDCF-DF175F71869B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E445DB-6F10-4E75-BDCF-DF175F71869B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E445DB-6F10-4E75-BDCF-DF175F71869B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E445DB-6F10-4E75-BDCF-DF175F71869B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90FF578B-AA7D-4E3B-88CD-7324901BA499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90FF578B-AA7D-4E3B-88CD-7324901BA499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90FF578B-AA7D-4E3B-88CD-7324901BA499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90FF578B-AA7D-4E3B-88CD-7324901BA499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC20CF34-BE8D-4792-99D6-235910260483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC20CF34-BE8D-4792-99D6-235910260483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC20CF34-BE8D-4792-99D6-235910260483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC20CF34-BE8D-4792-99D6-235910260483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

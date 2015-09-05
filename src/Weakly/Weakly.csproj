@@ -1,38 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AA37F0C0-AA8C-46DE-AC8A-DB844C9AC556}</ProjectGuid>
+    <ProjectGuid>{AC20CF34-BE8D-4792-99D6-235910260483}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Weakly</RootNamespace>
     <AssemblyName>Weakly</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Weakly.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Weakly.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Weakly.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Weakly.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -51,54 +52,23 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Builders\Builder.cs" />
-    <Compile Include="Builders\CachingDynamicDelegateBuilderDecorator.cs" />
-    <Compile Include="Builders\CachingPropertyAccessorBuilderDecorator.cs" />
-    <Compile Include="Builders\ReflectionDynamicDelegateBuilder.cs" />
-    <Compile Include="Builders\ExpressionDynamicDelegateBuilder.cs" />
-    <Compile Include="Builders\ReflectionOpenActionBuilder.cs" />
-    <Compile Include="Builders\ReflectionOpenFuncBuilder.cs" />
-    <Compile Include="Builders\ReflectionPropertyAccessorBuilder.cs" />
-    <Compile Include="Builders\ExpressionPropertyAccessorBuilder.cs" />
-    <Compile Include="Builders\IDynamicDelegateBuilder.cs" />
-    <Compile Include="Builders\IPropertyAccessorBuilder.cs" />
-    <Compile Include="Collections\DictionaryHelper.cs" />
-    <Compile Include="Collections\EnumerableHelper.cs" />
-    <Compile Include="Builders\SimpleCache.cs" />
     <Compile Include="Collections\WeakCollection.cs" />
     <Compile Include="Collections\WeakValueDictionary.cs" />
-    <Compile Include="Builders\CachingOpenActionBuilderDecorator.cs" />
-    <Compile Include="Builders\CachingOpenFuncBuilderDecorator.cs" />
-    <Compile Include="Delegates\DisposableAction.cs" />
-    <Compile Include="Builders\ExpressionOpenActionBuilder.cs" />
-    <Compile Include="Builders\ExpressionOpenFuncBuilder.cs" />
-    <Compile Include="Builders\IOpenActionBuilder.cs" />
-    <Compile Include="Builders\IOpenFuncBuilder.cs" />
+    <Compile Include="Delegates\WeakAction.cs" />
     <Compile Include="Delegates\WeakFunc.cs" />
     <Compile Include="EmptyCaptureAttribute.cs" />
     <Compile Include="Events\IWeakEventHandler.cs" />
-    <Compile Include="Delegates\WeakAction.cs" />
     <Compile Include="Events\WeakCanExecuteChangedHandler.cs" />
-    <Compile Include="Events\WeakEventHandlerBase.cs" />
     <Compile Include="Events\WeakEventHandler.cs" />
+    <Compile Include="Events\WeakEventHandlerBase.cs" />
     <Compile Include="Events\WeakEventList.cs" />
     <Compile Include="Events\WeakEventListener.cs" />
     <Compile Include="Events\WeakEventSource.cs" />
     <Compile Include="Events\WeakNotifyCollectionChangedHandler.cs" />
     <Compile Include="Events\WeakNotifyPropertyChangedHandler.cs" />
     <Compile Include="NamedObject.cs" />
-    <Compile Include="Reflection\ManagedRuntime.cs" />
-    <Compile Include="Reflection\ReflectionHelper.cs" />
-    <Compile Include="Expressions\ExpressionHelper.cs" />
-    <Compile Include="IO\MemoryTributary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\ReflectionPath.cs" />
-    <Compile Include="Reflection\ManagedRuntimeType.cs" />
-    <Compile Include="Tasks\TaskEventArgs.cs" />
-    <Compile Include="Tasks\TaskHelper.cs" />
-    <Compile Include="Tasks\ApmHelper.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,7 +8,7 @@ namespace Weakly
         where TSubscriber : class
     {
         public WeakNotifyCollectionChangedHandler(INotifyCollectionChanged source, TSubscriber subscriber,
-            [EmptyCapture] Action<TSubscriber, object, NotifyCollectionChangedEventArgs> weakHandler)
+            Action<TSubscriber, object, NotifyCollectionChangedEventArgs> weakHandler)
             : base(source, subscriber, weakHandler)
         {
             source.CollectionChanged += OnEvent;
