@@ -1,50 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace Weakly.Analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class EmptyCaptureAnalyzer : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "EmptyCapture";
-        private static readonly string Title = "Delegate parameter caputures context";
-        private static readonly string MessageFormat = "Type name '{0}' contains lowercase letters";
-        private static readonly string Description = "Delegate parameters annotated with EmptyCaptureAttribute should not capture context (e.g. a closure or instance method).";
         private const string Category = "Weakly";
+        private const string HelpLinkUri = "https://github.com/tibel/Weakly";
 
-        private static DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
+        private const string AttributeUsageId = "WK1001";
+        private const string AttributeUsageTitle = "Wrong usage of EmptyCaptureAttribute";
+        private const string AttributeUsageMessageFormat = "Parameter '{0}' is not a delegate type";
+        private const string AttributeUsageDescription = "EmptyCaptureAttribute can be applied to delegate parameters only.";
+
+        private const string MethodCallId = "WK2001";
+        private const string MethodCallTitle = "Delegate parameter caputures context";
+        private const string MethodCallMessageFormat = "Method parameter '{0}' captures context";
+        private const string MethodCallDescription = "Delegate parameters annotated with EmptyCaptureAttribute should not capture context (e.g. a closure or instance method).";
+
+        private static DiagnosticDescriptor AttributeUsageRule = new DiagnosticDescriptor(AttributeUsageId, AttributeUsageTitle, AttributeUsageMessageFormat, Category,
+            DiagnosticSeverity.Error, isEnabledByDefault: true, description: AttributeUsageDescription, helpLinkUri: HelpLinkUri);
+
+        private static DiagnosticDescriptor MethodCallRule = new DiagnosticDescriptor(MethodCallId, MethodCallTitle, MethodCallMessageFormat, Category,
+            DiagnosticSeverity.Warning, isEnabledByDefault: true, description: MethodCallDescription, helpLinkUri: HelpLinkUri);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(Rule); }
+            get { return ImmutableArray.Create(AttributeUsageRule, MethodCallRule); }
         }
 
         public override void Initialize(AnalysisContext context)
         {
-            // TODO: Consider registering other actions that act on syntax instead of or in addition to symbols
-            context.RegisterSymbolAction(AnalyzeSymbol, SymbolKind.NamedType);
+            context.RegisterSyntaxNodeAction(AnalyzeParameter, SyntaxKind.Parameter);
+            context.RegisterSyntaxNodeAction(AnalyzeArgument, SyntaxKind.Argument);
         }
 
-        private static void AnalyzeSymbol(SymbolAnalysisContext context)
+        private static void AnalyzeParameter(SyntaxNodeAnalysisContext context)
         {
-            // TODO: Replace the following code with your own analysis, generating Diagnostic objects for any issues you find
-            var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
+            var parameter = context.Node as ParameterSyntax;
 
-            // Find just those named type symbols with names containing lowercase letters.
-            if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
+            var parameterType = context.SemanticModel.GetTypeInfo(parameter.Type).Type;
+            var isDelegate = parameterType.TypeKind == TypeKind.Delegate;
+
+            var hasAttribute = parameter.AttributeLists
+                .SelectMany(al => al.Attributes)
+                .Any(a => context.SemanticModel.GetTypeInfo(a).Type.ToDisplayString() == "Weakly.EmptyContextAttribute");
+
+            if (!isDelegate && hasAttribute)
             {
-                // For all such symbols, produce a diagnostic.
-                var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+                var location = parameter.GetLocation();
+                var parameterName = parameter.Identifier.ValueText;
 
+                var diagnostic = Diagnostic.Create(AttributeUsageRule, location, parameterName);
                 context.ReportDiagnostic(diagnostic);
             }
+        }
+
+        private void AnalyzeArgument(SyntaxNodeAnalysisContext context)
+        {
+            var argument = context.Node as ArgumentSyntax;
+            //TODO: implement
         }
     }
 }

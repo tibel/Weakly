@@ -32,11 +32,14 @@ namespace Weakly.Analyzers.Test
     using System.Text;
     using System.Threading.Tasks;
     using System.Diagnostics;
+    using Weakly;
 
     namespace ConsoleApplication1
     {
         class TypeName
         {   
+            public static void Method1([EmptyCapture] Action action)
+            { }
         }
     }";
             var expected = new DiagnosticResult
