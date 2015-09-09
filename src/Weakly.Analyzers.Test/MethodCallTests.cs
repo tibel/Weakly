@@ -35,6 +35,33 @@ namespace Weakly.Analyzers.Test
             VerifyCSharpDiagnostic(test);
         }
 
+        [TestMethod]
+        public void MethodCall_StaticMethod()
+        {
+            var test = @"
+    using System;
+    using Weakly;
+
+    namespace ConsoleApplication1
+    {
+        class TypeName
+        {   
+            private static void Method1([EmptyCapture] Action<int> action)
+            { }
+
+            private static void Method2(int number)
+            { }
+
+            public static void Main()
+            {
+                 Method1(Method2);
+            }
+        }
+    }";
+
+            VerifyCSharpDiagnostic(test);
+        }
+
 
         [TestMethod]
         public void MethodCall_Closure()
@@ -63,7 +90,43 @@ namespace Weakly.Analyzers.Test
                 Id = "WK2001",
                 Message = string.Format("Method parameter '{0}' captures context", "action"),
                 Severity = DiagnosticSeverity.Warning,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 13, 56) }
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 18, 26) }
+            };
+
+            VerifyCSharpDiagnostic(test, Main);
+        }
+
+        [TestMethod]
+        public void MethodCall_InstanceMethod()
+        {
+            var test = @"
+    using System;
+    using Weakly;
+
+    namespace ConsoleApplication1
+    {
+        class TypeName
+        {
+            private static void Method1([EmptyCapture] Action<int> action)
+            { }
+
+            private void Method2(int number)
+            { }
+
+            public static void Main()
+            {
+                 var instance = new TypeName();
+                 Method1(instance.Method2);
+            }
+        }
+    }";
+
+            var Main = new DiagnosticResult
+            {
+                Id = "WK2001",
+                Message = string.Format("Method parameter '{0}' captures context", "action"),
+                Severity = DiagnosticSeverity.Warning,
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 18, 26) }
             };
 
             VerifyCSharpDiagnostic(test, Main);

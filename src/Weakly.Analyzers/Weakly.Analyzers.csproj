@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ArgumentSyntaxExtensions.cs" />
     <Compile Include="EmptyCaptureAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -36,36 +36,56 @@ namespace Weakly.Analyzers
 
         public override void Initialize(AnalysisContext context)
         {
-            context.RegisterSyntaxNodeAction(AnalyzeParameter, SyntaxKind.Parameter);
-            context.RegisterSyntaxNodeAction(AnalyzeArgument, SyntaxKind.Argument);
+            context.RegisterSymbolAction(AnalyzeMethod, SymbolKind.Method);
+            context.RegisterSyntaxNodeAction(AnalyzeInvocation, SyntaxKind.InvocationExpression);
         }
 
-        private static void AnalyzeParameter(SyntaxNodeAnalysisContext context)
+        private static void AnalyzeMethod(SymbolAnalysisContext context)
         {
-            var parameter = context.Node as ParameterSyntax;
-            if (parameter.Type == null) return;
+            var method = context.Symbol as IMethodSymbol;
+            var contractSymbol = context.Compilation.GetTypeByMetadataName("Weakly.EmptyCaptureAttribute");
 
-            var parameterType = context.SemanticModel.GetTypeInfo(parameter.Type).Type;
-            var isDelegate = parameterType.TypeKind == TypeKind.Delegate;
-
-            var hasAttribute = parameter.AttributeLists
-                .SelectMany(al => al.Attributes)
-                .Any(a => context.SemanticModel.GetTypeInfo(a).Type.ToDisplayString() == "Weakly.EmptyCaptureAttribute");
-
-            if (!isDelegate && hasAttribute)
+            foreach (var parmeter in method.Parameters)
             {
-                var location = parameter.GetLocation();
-                var parameterName = parameter.Identifier.ValueText;
+                var contractAttribute = parmeter.GetAttributes().FirstOrDefault(a => a.AttributeClass.Equals(contractSymbol));
 
-                var diagnostic = Diagnostic.Create(AttributeUsageRule, location, parameterName);
-                context.ReportDiagnostic(diagnostic);
+                if (contractAttribute != null && parmeter.Type.TypeKind != TypeKind.Delegate)
+                {
+                    var location = Location.Create(contractAttribute.ApplicationSyntaxReference.SyntaxTree, contractAttribute.ApplicationSyntaxReference.Span);
+
+                    var diagnostic = Diagnostic.Create(AttributeUsageRule, location, parmeter.Name);
+                    context.ReportDiagnostic(diagnostic);
+                }
             }
         }
-
-        private void AnalyzeArgument(SyntaxNodeAnalysisContext context)
+        
+        private static void AnalyzeInvocation(SyntaxNodeAnalysisContext context)
         {
-            var argument = context.Node as ArgumentSyntax;
-            //TODO: implement
+            var invocationExpression = context.Node as InvocationExpressionSyntax;
+
+            var method = context.SemanticModel.GetSymbolInfo(invocationExpression).Symbol as IMethodSymbol;
+
+            var contractSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName("Weakly.EmptyCaptureAttribute");
+
+            var argumentList = invocationExpression.ArgumentList;
+            if ((argumentList?.Arguments.Count ?? 0) > 0)
+            {
+                var x = argumentList.Arguments[0].Expression;
+                //argumentList.Arguments[0]
+
+                //context.SemanticModel.AnalyzeDataFlow()
+            }
+
+
+            foreach (var parmeter in method.Parameters)
+            {
+                var contractAttribute = parmeter.GetAttributes().FirstOrDefault(a => a.AttributeClass.Equals(contractSymbol));
+
+                if (contractAttribute != null && parmeter.Type.TypeKind == TypeKind.Delegate)
+                {
+                    //TODO: analyze argument
+                }
+            }
         }
     }
 }

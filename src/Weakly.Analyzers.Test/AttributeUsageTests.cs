@@ -62,14 +62,14 @@ namespace Weakly.Analyzers.Test
                 Id = "WK1001",
                 Message = string.Format("Parameter '{0}' is not a delegate type", "number"),
                 Severity = DiagnosticSeverity.Error,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 9, 40) }
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 9, 41) }
             };
             var method2 = new DiagnosticResult
             {
                 Id = "WK1001",
                 Message = string.Format("Parameter '{0}' is not a delegate type", "name"),
                 Severity = DiagnosticSeverity.Error,
-                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 12, 33) }
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 12, 34) }
             };
 
             VerifyCSharpDiagnostic(test, method1, method2);
