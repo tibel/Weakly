@@ -2,6 +2,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
@@ -38,6 +40,8 @@ namespace Weakly.Analyzers
         {
             context.RegisterSymbolAction(AnalyzeMethod, SymbolKind.Method);
             context.RegisterSyntaxNodeAction(AnalyzeInvocation, SyntaxKind.InvocationExpression);
+
+            //context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.ParenthesizedLambdaExpression, SyntaxKind.SimpleLambdaExpression, SyntaxKind.AnonymousMethodExpression);
         }
 
         private static void AnalyzeMethod(SymbolAnalysisContext context)
@@ -73,6 +77,8 @@ namespace Weakly.Analyzers
                 var x = argumentList.Arguments[0].Expression;
                 //argumentList.Arguments[0]
 
+                //argumentList.Arguments[0].DetermineParameter(context.SemanticModel)
+
                 //context.SemanticModel.AnalyzeDataFlow()
             }
 
@@ -84,6 +90,59 @@ namespace Weakly.Analyzers
                 if (contractAttribute != null && parmeter.Type.TypeKind == TypeKind.Delegate)
                 {
                     //TODO: analyze argument
+                }
+            }
+        }
+
+        private static void AnalyzeNode(SyntaxNodeAnalysisContext context)
+        {
+            var node = context.Node;
+            var semanticModel = context.SemanticModel;
+            var cancellationToken = context.CancellationToken;
+            Action<Diagnostic> reportDiagnostic = context.ReportDiagnostic;
+
+            var anonExpr = node as AnonymousMethodExpressionSyntax;
+            if (anonExpr?.Block?.ChildNodes() != null && anonExpr.Block.ChildNodes().Any())
+            {
+                ClosureCaptureDataFlowAnalysis(semanticModel.AnalyzeDataFlow(anonExpr.Block.ChildNodes().First(), anonExpr.Block.ChildNodes().Last()), reportDiagnostic, anonExpr.DelegateKeyword.GetLocation());
+                return;
+            }
+
+            var lambdaExpr = node as SimpleLambdaExpressionSyntax;
+            if (lambdaExpr != null)
+            {
+                ClosureCaptureDataFlowAnalysis(semanticModel.AnalyzeDataFlow(lambdaExpr), reportDiagnostic, lambdaExpr.ArrowToken.GetLocation());
+                return;
+            }
+
+            var parenLambdaExpr = node as ParenthesizedLambdaExpressionSyntax;
+            if (parenLambdaExpr != null)
+            {
+                ClosureCaptureDataFlowAnalysis(semanticModel.AnalyzeDataFlow(parenLambdaExpr), reportDiagnostic, parenLambdaExpr.ArrowToken.GetLocation());
+                return;
+            }
+        }
+
+        private static void ClosureCaptureDataFlowAnalysis(DataFlowAnalysis flow, Action<Diagnostic> reportDiagnostic, Location location)
+        {
+            if (flow != null && flow.DataFlowsIn != null)
+            {
+                var captures = new List<string>();
+                foreach (var dfaIn in flow.DataFlowsIn)
+                {
+                    if (dfaIn.Name != null && dfaIn.Locations != null)
+                    {
+                        captures.Add(dfaIn.Name);
+                        foreach (var l in dfaIn.Locations)
+                        {
+                            reportDiagnostic(Diagnostic.Create(ClosureCaptureRule, l, EmptyMessageArgs));
+                        }
+                    }
+                }
+
+                if (captures.Count > 0)
+                {
+                    reportDiagnostic(Diagnostic.Create(ClosureDriverRule, location, new object[] { string.Join(",", captures) }));
                 }
             }
         }

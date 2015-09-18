@@ -55,6 +55,8 @@ namespace Weakly.Analyzers.Test
             public static void Main()
             {
                  Method1(Method2);
+
+                 Method1(new Action<int>(Method2));
             }
         }
     }";
@@ -117,19 +119,28 @@ namespace Weakly.Analyzers.Test
             {
                  var instance = new TypeName();
                  Method1(instance.Method2);
+
+                 Method1(new Action<int>(instance.Method2));
             }
         }
     }";
 
-            var Main = new DiagnosticResult
+            var DirectUse = new DiagnosticResult
             {
                 Id = "WK2001",
                 Message = string.Format("Method parameter '{0}' captures context", "action"),
                 Severity = DiagnosticSeverity.Warning,
                 Locations = new[] { new DiagnosticResultLocation("Test0.cs", 18, 26) }
             };
+            var IndirectUse = new DiagnosticResult
+            {
+                Id = "WK2001",
+                Message = string.Format("Method parameter '{0}' captures context", "action"),
+                Severity = DiagnosticSeverity.Warning,
+                Locations = new[] { new DiagnosticResultLocation("Test0.cs", 20, 26) }
+            };
 
-            VerifyCSharpDiagnostic(test, Main);
+            VerifyCSharpDiagnostic(test, DirectUse, IndirectUse);
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
