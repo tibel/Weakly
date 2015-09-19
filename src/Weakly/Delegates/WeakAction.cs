@@ -20,9 +20,9 @@ namespace Weakly
         public WeakAction(TTarget target, [EmptyCapture] Action<TTarget> weakAction)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (weakAction == null)
-                throw new ArgumentNullException("weakAction");
+                throw new ArgumentNullException(nameof(weakAction));
 
             _target = new WeakReference<TTarget>(target);
             _weakAction = weakAction;

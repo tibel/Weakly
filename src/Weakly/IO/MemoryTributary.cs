@@ -138,7 +138,7 @@ namespace Weakly
 
             if (lcount < 0)
             {
-                throw new ArgumentOutOfRangeException("count", "Number of bytes to copy cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(count), "Number of bytes to copy cannot be negative.");
             }
 
             var remaining = (_length - Position);
@@ -147,11 +147,11 @@ namespace Weakly
 
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer", "Buffer cannot be null.");
+                throw new ArgumentNullException(nameof(buffer), "Buffer cannot be null.");
             }
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", "Destination offset cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(offset), "Destination offset cannot be negative.");
             }
 
             var read = 0;

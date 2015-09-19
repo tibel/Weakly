@@ -209,7 +209,7 @@ namespace Weakly
         public static void Watch(this Task task)
         {
             if (task == null)
-                throw new ArgumentNullException("task");
+                throw new ArgumentNullException(nameof(task));
 
             var handler = TaskWatched;
             if (handler != null)

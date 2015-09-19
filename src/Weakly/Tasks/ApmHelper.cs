@@ -19,7 +19,7 @@ namespace Weakly
         public static IAsyncResult ToBegin<TResult>(this Task<TResult> task, AsyncCallback callback, object state)
         {
             if (task == null)
-                throw new ArgumentNullException("task");
+                throw new ArgumentNullException(nameof(task));
 
             if (task.AsyncState == state)
             {
@@ -75,7 +75,7 @@ namespace Weakly
         public static IAsyncResult ToBegin(this Task task, AsyncCallback callback, object state)
         {
             if (task == null)
-                throw new ArgumentNullException("task");
+                throw new ArgumentNullException(nameof(task));
 
             if (task.AsyncState == state)
             {

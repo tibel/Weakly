@@ -21,9 +21,9 @@ namespace Weakly
         protected WeakEventHandlerBase(TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
             if (subscriber == null)
-                throw new ArgumentNullException("subscriber");
+                throw new ArgumentNullException(nameof(subscriber));
             if (weakHandler == null)
-                throw new ArgumentNullException("weakHandler");
+                throw new ArgumentNullException(nameof(weakHandler));
 
             _subscriber = new WeakReference<TSubscriber>(subscriber);
             _weakHandler = weakHandler;
@@ -85,11 +85,11 @@ namespace Weakly
         protected WeakEventHandlerBase(TSource source, TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
             if (subscriber == null)
-                throw new ArgumentNullException("subscriber");
+                throw new ArgumentNullException(nameof(subscriber));
             if (weakHandler == null)
-                throw new ArgumentNullException("weakHandler");
+                throw new ArgumentNullException(nameof(weakHandler));
 
             _source = new WeakReference<TSource>(source);
             _subscriber = new WeakReference<TSubscriber>(subscriber);

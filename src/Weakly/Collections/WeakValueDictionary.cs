@@ -157,9 +157,9 @@ namespace Weakly
             CleanIfNeeded();
 
             if (array == null)
-                throw new ArgumentNullException("array");
+                throw new ArgumentNullException(nameof(array));
             if (arrayIndex < 0 || arrayIndex >= array.Length)
-                throw new ArgumentOutOfRangeException("arrayIndex");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
             if ((arrayIndex + _inner.Count) > array.Length)
                 throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
@@ -344,9 +344,9 @@ namespace Weakly
             public void CopyTo(TValue[] array, int arrayIndex)
             {
                 if (array == null)
-                    throw new ArgumentNullException("array");
+                    throw new ArgumentNullException(nameof(array));
                 if (arrayIndex < 0 || arrayIndex >= array.Length)
-                    throw new ArgumentOutOfRangeException("arrayIndex");
+                    throw new ArgumentOutOfRangeException(nameof(arrayIndex));
                 if ((arrayIndex + _inner.Count) > array.Length)
                     throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 

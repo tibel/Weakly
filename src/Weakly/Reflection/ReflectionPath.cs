@@ -20,7 +20,7 @@ namespace Weakly
         public ReflectionPath(string path)
         {
             if (path == null)
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
 
             _items = path.Split('.');
             _reflectedTypes = new Type[_items.Length];
@@ -35,7 +35,7 @@ namespace Weakly
         public object GetValue(object source)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
 
             var current = source;
             for (var i = 0; i < _items.Length; i++)

@@ -21,9 +21,9 @@ namespace Weakly
         public WeakFunc(TTarget target, [EmptyCapture] Func<TTarget, TResult> weakFunc)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (weakFunc == null)
-                throw new ArgumentNullException("weakFunc");
+                throw new ArgumentNullException(nameof(weakFunc));
 
             _target = new WeakReference<TTarget>(target);
             _weakFunc = weakFunc;
