@@ -3,7 +3,7 @@
   <metadata>
     <id>Weakly</id>
     <title>Weakly</title>
-    <version>2.6.0</version>
+    <version>2.7.0</version>
     <authors>Thomas Ibel</authors>
     <description>Weakly is a collection of some useful weak-reference types available as portable class library for net45+win8+wp8+wpa81.</description>
     <language>en-US</language>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/tibel/Weakly</projectUrl>
     <iconUrl>https://raw.github.com/tibel/Weakly/master/build/weakly_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <releaseNotes>First Roslyn compatible release</releaseNotes>
+    <releaseNotes>remove ExpressionHelper, ManagedRuntime and ReflectionHelper.IsReferenceEquatable()</releaseNotes>
     <copyright>Copyright Thomas Ibel 2013-2015</copyright>
     <tags>
       Weakly WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource Async Task
