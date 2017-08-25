@@ -1,4 +1,3 @@
-﻿using System.Reflection;
+﻿using System;
 
-[assembly: AssemblyTitle("Weakly")]
-[assembly: AssemblyDescription("Weakly is a collection of some useful weak-reference types.")]
+[assembly: CLSCompliant(true)]
