@@ -18,12 +18,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\..\bin\Debug\netstandard1.3\Weakly.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\netstandard1.0\Weakly.xml</DocumentationFile>
     <OutputPath>..\..\bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\bin\Release\netstandard1.3\Weakly.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\netstandard1.0\Weakly.xml</DocumentationFile>
     <OutputPath>..\..\bin\Release\</OutputPath>
   </PropertyGroup>
 
