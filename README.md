@@ -1,7 +1,7 @@
 ![Logo](./build/weakly_icon.png)
 # Weakly
 
-Weakly is a collection of some useful weak-reference types available as portable class library for **net45+win8+wp8+wpa81** and available through nuget.
+Weakly is a collection of some useful weak-reference types.
 
 
 ## Install
