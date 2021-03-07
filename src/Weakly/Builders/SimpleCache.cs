@@ -4,12 +4,7 @@ namespace Weakly.Builders
 {
     internal sealed class SimpleCache<TKey, TValue>
     {
-        private readonly IDictionary<TKey, TValue> _storage;
-
-        public SimpleCache()
-        {
-            _storage = new Dictionary<TKey, TValue>();
-        }
+        private readonly Dictionary<TKey, TValue> _storage = new Dictionary<TKey, TValue>();
 
         public TValue GetValueOrDefault(TKey key)
         {

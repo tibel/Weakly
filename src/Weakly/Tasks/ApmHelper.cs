@@ -18,12 +18,12 @@ namespace Weakly
         /// <returns>The asynchronous operation, to be returned by the Begin method of the APM pattern.</returns>
         public static IAsyncResult ToBegin<TResult>(this Task<TResult> task, AsyncCallback callback, object state)
         {
-            if (task == null)
+            if (task is null)
                 throw new ArgumentNullException(nameof(task));
 
             if (task.AsyncState == state)
             {
-                if (callback != null)
+                if (callback is object)
                 {
                     task.ContinueWith(
                         (t, cb) => ((AsyncCallback)cb)(t),
@@ -53,7 +53,7 @@ namespace Weakly
                         tcs.TrySetResult(t.Result);
                     }
 
-                    if (callback != null)
+                    if (callback is object)
                     {
                         callback(tcs.Task);
                     }
@@ -74,12 +74,12 @@ namespace Weakly
         /// <returns>The asynchronous operation, to be returned by the Begin method of the APM pattern.</returns>
         public static IAsyncResult ToBegin(this Task task, AsyncCallback callback, object state)
         {
-            if (task == null)
+            if (task is null)
                 throw new ArgumentNullException(nameof(task));
 
             if (task.AsyncState == state)
             {
-                if (callback != null)
+                if (callback is object)
                 {
                     task.ContinueWith(
                         (t, cb) => ((AsyncCallback)cb)(t),
@@ -109,7 +109,7 @@ namespace Weakly
                         tcs.TrySetResult(null);
                     }
 
-                    if (callback != null)
+                    if (callback is object)
                     {
                         callback(tcs.Task);
                     }

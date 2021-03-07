@@ -20,9 +20,9 @@ namespace Weakly
         /// <param name="weakFunc">The method represented by the delegate.</param>
         public WeakFunc(TTarget target, [EmptyCapture] Func<TTarget, TResult> weakFunc)
         {
-            if (target == null)
+            if (target is null)
                 throw new ArgumentNullException(nameof(target));
-            if (weakFunc == null)
+            if (weakFunc is null)
                 throw new ArgumentNullException(nameof(weakFunc));
 
             _target = new WeakReference<TTarget>(target);

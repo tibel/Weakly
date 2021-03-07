@@ -137,7 +137,7 @@ namespace Weakly
         private static void OnTaskFaulted(Task task)
         {
             var handler = TaskFaulted;
-            if (handler != null)
+            if (handler is object)
                 handler(null, new TaskEventArgs(task));
         }
 
@@ -208,11 +208,11 @@ namespace Weakly
         /// <param name="task">The task to watch.</param>
         public static void Watch(this Task task)
         {
-            if (task == null)
+            if (task is null)
                 throw new ArgumentNullException(nameof(task));
 
             var handler = TaskWatched;
-            if (handler != null)
+            if (handler is object)
                 handler(null, new TaskEventArgs(task));
         }
 

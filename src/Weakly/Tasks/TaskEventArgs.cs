@@ -16,7 +16,7 @@ namespace Weakly
         /// <param name="task">The supplied Task.</param>
         public TaskEventArgs(Task task)
         {
-            if (task == null)
+            if (task is null)
                 throw new ArgumentNullException(nameof(task));
 
             _task = task;

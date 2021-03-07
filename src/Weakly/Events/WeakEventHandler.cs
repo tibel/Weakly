@@ -20,7 +20,7 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         /// <returns>A registration object that can be used to deregister from the event.</returns>
         public static IDisposable RegisterPropertyChangingWeak<TSubscriber>(this INotifyPropertyChanging source,
-            TSubscriber subscriber, Action<TSubscriber, object, PropertyChangingEventArgs> weakHandler)
+            TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, PropertyChangingEventArgs> weakHandler)
             where TSubscriber : class
         {
             return new WeakNotifyPropertyChangingHandler<TSubscriber>(source, subscriber, weakHandler);

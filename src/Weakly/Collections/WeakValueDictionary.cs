@@ -121,7 +121,7 @@ namespace Weakly
             CleanIfNeeded();
 
             var enumerable = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, (TValue) pair.Value.Target))
-                .Where(pair => pair.Value != null);
+                .Where(pair => pair.Value is object);
             return enumerable.GetEnumerator();
         }
 
@@ -156,7 +156,7 @@ namespace Weakly
         {
             CleanIfNeeded();
 
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
@@ -164,7 +164,7 @@ namespace Weakly
                 throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
             var items = _inner.Select(pair => new KeyValuePair<TKey, TValue>(pair.Key, (TValue) pair.Value.Target))
-                .Where(pair => pair.Value != null)
+                .Where(pair => pair.Value is object)
                 .ToArray();
 
             items.CopyTo(array, arrayIndex);
@@ -256,7 +256,7 @@ namespace Weakly
             }
 
             value = (TValue) wr.Target;
-            if (value == null)
+            if (value is null)
             {
                 _inner.Remove(key);
                 return false;
@@ -343,7 +343,7 @@ namespace Weakly
 
             public void CopyTo(TValue[] array, int arrayIndex)
             {
-                if (array == null)
+                if (array is null)
                     throw new ArgumentNullException(nameof(array));
                 if (arrayIndex < 0 || arrayIndex >= array.Length)
                     throw new ArgumentOutOfRangeException(nameof(arrayIndex));

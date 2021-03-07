@@ -30,7 +30,7 @@ namespace Weakly.Builders
         public Func<object, object[], object> BuildDynamic(MethodInfo method)
         {
             var action = _cache.GetValueOrDefault(method);
-            if (action != null) return action;
+            if (action is object) return action;
             action = _builder.BuildDynamic(method);
             _cache.AddOrUpdate(method, action);
             return action;

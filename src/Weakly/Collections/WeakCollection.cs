@@ -72,7 +72,7 @@ namespace Weakly
             CleanIfNeeded();
 
             var enumerable = _inner.Select(item => (T) item.Target)
-                .Where(value => value != null);
+                .Where(value => value is object);
             return enumerable.GetEnumerator();
         }
 
@@ -119,7 +119,7 @@ namespace Weakly
         {
             CleanIfNeeded();
 
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
             if (arrayIndex < 0 || arrayIndex >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
@@ -127,7 +127,7 @@ namespace Weakly
                 throw new ArgumentException("The number of elements in the source collection is greater than the available space from arrayIndex to the end of the destination array.");
 
             var items = _inner.Select(item => (T) item.Target)
-                .Where(value => value != null)
+                .Where(value => value is object)
                 .ToArray();
 
             items.CopyTo(array, arrayIndex);

@@ -19,7 +19,7 @@ namespace Weakly
         /// <param name="path">The reflection path.</param>
         public ReflectionPath(string path)
         {
-            if (path == null)
+            if (path is null)
                 throw new ArgumentNullException(nameof(path));
 
             _items = path.Split('.');
@@ -34,13 +34,13 @@ namespace Weakly
         /// <returns>The value.</returns>
         public object GetValue(object source)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
             var current = source;
             for (var i = 0; i < _items.Length; i++)
             {
-                if (current == null)
+                if (current is null)
                     throw new NullReferenceException(
                         string.Format(
                             "Could not get the value of the property path '{0}' because '{1}' is null on object '{2}'.",
@@ -52,10 +52,10 @@ namespace Weakly
 
                 var getValue = _getters[i];
                 var currentType = current.GetType();
-                if (getValue == null || _reflectedTypes[i] != currentType)
+                if (getValue is null || _reflectedTypes[i] != currentType)
                 {
                     var pi = currentType.GetRuntimeProperty(_items[i]);
-                    if (pi == null)
+                    if (pi is null)
                         throw new InvalidOperationException(
                             string.Format(
                                 "Could not find property '{0}' on type '{1}'.",

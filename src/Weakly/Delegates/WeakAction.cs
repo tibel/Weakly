@@ -19,9 +19,9 @@ namespace Weakly
         /// <param name="weakAction">The method represented by the delegate.</param>
         public WeakAction(TTarget target, [EmptyCapture] Action<TTarget> weakAction)
         {
-            if (target == null)
+            if (target is null)
                 throw new ArgumentNullException(nameof(target));
-            if (weakAction == null)
+            if (weakAction is null)
                 throw new ArgumentNullException(nameof(weakAction));
 
             _target = new WeakReference<TTarget>(target);

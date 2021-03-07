@@ -31,7 +31,7 @@ namespace Weakly.Builders
         public Func<object, object> BuildGetter(PropertyInfo property)
         {
             var action = _getterCache.GetValueOrDefault(property);
-            if (action != null) return action;
+            if (action is object) return action;
             action = _builder.BuildGetter(property);
             _getterCache.AddOrUpdate(property, action);
             return action;
@@ -47,7 +47,7 @@ namespace Weakly.Builders
         public Action<object, object> BuildSetter(PropertyInfo property)
         {
             var action = _setterCache.GetValueOrDefault(property);
-            if (action != null) return action;
+            if (action is object) return action;
             action = _builder.BuildSetter(property);
             _setterCache.AddOrUpdate(property, action);
             return action;

@@ -145,7 +145,7 @@ namespace Weakly
             if (lcount > remaining)
                 lcount = remaining;
 
-            if (buffer == null)
+            if (buffer is null)
             {
                 throw new ArgumentNullException(nameof(buffer), "Buffer cannot be null.");
             }
