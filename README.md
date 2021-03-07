@@ -1,4 +1,4 @@
-![Logo](./build/weakly_icon.png)
+![Logo](./weakly_icon.png)
 # Weakly
 
 Weakly is a collection of some useful weak-reference types.

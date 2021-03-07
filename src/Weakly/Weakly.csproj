@@ -1,38 +1,43 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard1.0;netstandard2.0</TargetFrameworks>
     <Description>Weakly is a collection of some useful weak-reference types.</Description>
     <Company>https://github.com/tibel/</Company>
-    <Version>2.8.1</Version>
+    <Version>2.9.0</Version>
     <Authors>Thomas Ibel</Authors>
-    <PackageLicenseUrl>https://raw.github.com/tibel/Weakly/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/tibel/Weakly</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/tibel/Weakly/master/build/weakly_icon.png</PackageIconUrl>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Weakly.snk</AssemblyOriginatorKeyFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright © Thomas Ibel 2013-2015</Copyright>
     <PackageTags>Weakly WeakReference WeakAction WeakFunc WeakDelegate WeakCollection WeakValueDictionary WeakEventHandler WeakEventSource Async Task</PackageTags>
-    <PackageReleaseNotes>Switched to .NET Standard 1.0</PackageReleaseNotes>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>..\..\bin\Debug\netstandard1.0\Weakly.xml</DocumentationFile>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>..\..\bin\Release\netstandard1.0\Weakly.xml</DocumentationFile>
-    <OutputPath>..\..\bin\Release\</OutputPath>
+    <PackageReleaseNotes>Added .NET Standard 2.0</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>weakly_icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/tibel/Weakly.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\weakly_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="..\Weakly.snk" Link="Weakly.snk" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SourceLink.Embed.AllSourceFiles" Version="2.8.3" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
