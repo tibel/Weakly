@@ -20,9 +20,9 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         protected WeakEventHandlerBase(TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
-            if (subscriber == null)
+            if (subscriber is null)
                 throw new ArgumentNullException(nameof(subscriber));
-            if (weakHandler == null)
+            if (weakHandler is null)
                 throw new ArgumentNullException(nameof(weakHandler));
 
             _subscriber = new WeakReference<TSubscriber>(subscriber);
@@ -42,8 +42,7 @@ namespace Weakly
         /// <remarks>Register this method on the source event.</remarks>
         protected void OnEvent(object sender, TEventArgs args)
         {
-            TSubscriber subscriber;
-            if (_subscriber.TryGetTarget(out subscriber))
+            if (_subscriber.TryGetTarget(out var subscriber))
             {
                 _weakHandler(subscriber, sender, args);
             }
@@ -72,7 +71,7 @@ namespace Weakly
         where TSource : class
         where TSubscriber : class
     {
-        private readonly WeakReference<TSource> _source; 
+        private readonly WeakReference<TSource> _source;
         private readonly WeakReference<TSubscriber> _subscriber;
         private readonly Action<TSubscriber, object, TEventArgs> _weakHandler;
 
@@ -84,11 +83,11 @@ namespace Weakly
         /// <param name="weakHandler">The weak handler.</param>
         protected WeakEventHandlerBase(TSource source, TSubscriber subscriber, [EmptyCapture] Action<TSubscriber, object, TEventArgs> weakHandler)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
-            if (subscriber == null)
+            if (subscriber is null)
                 throw new ArgumentNullException(nameof(subscriber));
-            if (weakHandler == null)
+            if (weakHandler is null)
                 throw new ArgumentNullException(nameof(weakHandler));
 
             _source = new WeakReference<TSource>(source);
@@ -98,8 +97,7 @@ namespace Weakly
 
         private void RemoveEventHandler()
         {
-            TSource source;
-            if (_source.TryGetTarget(out source))
+            if (_source.TryGetTarget(out var source))
             {
                 RemoveEventHandler(source);
             }
@@ -119,8 +117,7 @@ namespace Weakly
         /// <remarks>Register this method on the source event.</remarks>
         protected void OnEvent(object sender, TEventArgs args)
         {
-            TSubscriber subscriber;
-            if (_subscriber.TryGetTarget(out subscriber))
+            if (_subscriber.TryGetTarget(out var subscriber))
             {
                 _weakHandler(subscriber, sender, args);
             }

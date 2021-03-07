@@ -6,8 +6,8 @@ namespace Weakly
 {
     internal sealed class WeakEventList
     {
-        private readonly object _staticTarget = new NamedObject("StaticTarget");
-        private readonly List<WeakEventListener> _list = new List<WeakEventListener>();
+        private readonly object _staticTarget = new object();
+        private readonly List<WeakEventListEntry> _list = new List<WeakEventListEntry>();
         private readonly ConditionalWeakTable<object, object> _cwt = new ConditionalWeakTable<object, object>();
 
         public void AddHandler(Delegate handler)
@@ -19,13 +19,12 @@ namespace Weakly
                 target = _staticTarget;
 
             // add a record to the main list
-            _list.Add(new WeakEventListener(target, handler));
+            _list.Add(new WeakEventListEntry(target, handler));
 
             // add the handler to the CWT - this keeps the handler alive throughout
             // the lifetime of the target, without prolonging the lifetime of
             // the target
-            object value;
-            if (!_cwt.TryGetValue(target, out value))
+            if (!_cwt.TryGetValue(target, out object value))
             {
                 // 99% case - the target only listens once
                 _cwt.Add(target, handler);
@@ -34,13 +33,14 @@ namespace Weakly
             {
                 // 1% case - the target listens multiple times
                 // we store the delegates in a list
-                var list = value as List<Delegate>;
-                if (list == null)
+                if (!(value is List<Delegate> list))
                 {
                     // lazily allocate the list, and add the old handler
                     var oldHandler = value as Delegate;
-                    list = new List<Delegate>();
-                    list.Add(oldHandler);
+                    list = new List<Delegate>
+                    {
+                        oldHandler
+                    };
 
                     // install the list as the CWT value
                     _cwt.Remove(target);
@@ -71,11 +71,9 @@ namespace Weakly
             }
 
             // remove the handler from the CWT
-            object value;
-            if (_cwt.TryGetValue(target, out value))
+            if (_cwt.TryGetValue(target, out object value))
             {
-                var list = value as List<Delegate>;
-                if (list == null)
+                if (!(value is List<Delegate> list))
                 {
                     // 99% case - the target is removing its single handler
                     _cwt.Remove(target);
@@ -94,12 +92,59 @@ namespace Weakly
 
         public bool Purge()
         {
-            return _list.RemoveAll(l => l.Target == null) > 0;
+            return _list.RemoveAll(l => l.IsDead) > 0;
         }
 
-        public List<WeakEventListener> GetCopy()
+        public IReadOnlyList<TDelegate> GetHandlers<TDelegate>()
+            where TDelegate : Delegate
         {
-            return new List<WeakEventListener>(_list);
+            // optimize for no handlers case
+            if (_list.Count == 0)
+                return ArrayHelper.Empty<TDelegate>();
+
+            var handlers = new List<TDelegate>(_list.Count);
+
+            for (var i = 0; i < _list.Count; i++)
+            {
+                var entry = _list[i];
+
+                if (!entry.IsDead && entry.Handler is TDelegate handler)
+                    handlers.Add(handler);
+            }
+
+            if (_list.Count != handlers.Count)
+            {
+                _list.RemoveAll(l => l.IsDead);
+            }
+
+            return handlers;
+        }
+
+        private readonly struct WeakEventListEntry
+        {
+            private readonly WeakReference _target;
+            private readonly WeakReference _handler;
+
+            public WeakEventListEntry(object target, Delegate handler)
+            {
+                _target = new WeakReference(target);
+                _handler = new WeakReference(handler);
+            }
+
+            public bool Matches(object target, Delegate handler)
+            {
+                return ReferenceEquals(target, _target.Target) && Equals(handler, _handler.Target);
+            }
+
+            public bool IsDead
+            {
+                get { return !_target.IsAlive; }
+            }
+
+            public object Handler
+            {
+                get { return _handler.Target; }
+            }
         }
     }
 }
